@@ -1,0 +1,16 @@
+{
+  "name": "NPUcore+",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现三级内存溢出回收策略",
+    "基于状态机的物理页面管理",
+    "支持内存压缩与磁盘交换机制",
+    "实现写时复制与统一缺页处理",
+    "构建完整的虚拟文件系统抽象"
+  ]
+}

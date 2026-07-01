@@ -1,0 +1,16 @@
+{
+  "name": "ChaOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "支持QEMU与VisionFive2双平台",
+    "实现高半核地址空间与SV39分页",
+    "采用TCB统一模型管理进程与线程",
+    "构建VFS层并集成ext4文件系统",
+    "实现五十余个Linux兼容系统调用"
+  ]
+}

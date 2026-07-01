@@ -1,0 +1,16 @@
+{
+  "name": "Nighthawk OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于Rust异步无栈协程的调度架构",
+    "模块化VMA与零开销缺页异常处理",
+    "实现丰富的Linux兼容特殊文件系统",
+    "跨架构支持RISC-V与LoongArch"
+  ]
+}

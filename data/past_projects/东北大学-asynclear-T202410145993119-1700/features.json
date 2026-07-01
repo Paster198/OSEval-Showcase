@@ -1,0 +1,15 @@
+{
+  "name": "asynclear",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "采用异步模型实现非阻塞内核任务调度",
+    "利用类型系统保障内核内存与并发安全",
+    "实现页缓存机制支持文件后备内存映射",
+    "封装专用类型安全校验用户态指针访问"
+  ]
+}

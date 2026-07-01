@@ -1,0 +1,17 @@
+{
+  "name": "SC7",
+  "kernel_type": "monolithic",
+  "ecosystem": "XV6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "实现RISC-V与龙芯双架构支持",
+    "实现伙伴系统与Slab内存分配器",
+    "包含完整VFS层与ext4文件系统",
+    "支持POSIX线程及Futex同步原语",
+    "实现写时复制与共享内存机制"
+  ]
+}

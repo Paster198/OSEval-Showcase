@@ -1,0 +1,17 @@
+{
+  "name": "NexusOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "Asterinas",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于异步运行时的全异步内核设计",
+    "基于类型系统的零成本能力模型",
+    "纯Rust实现的静态分发VFS层",
+    "支持RISC-V与龙芯等多架构"
+  ]
+}

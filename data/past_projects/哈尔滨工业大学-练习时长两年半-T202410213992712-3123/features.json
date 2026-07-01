@@ -1,0 +1,15 @@
+{
+  "name": "MinotaurOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "全异步内核设计与统一事件总线机制",
+    "支持写时复制与多类型内存区域抽象",
+    "集成多种文件系统与异步页缓存机制",
+    "实现百余个类Linux兼容系统调用"
+  ]
+}

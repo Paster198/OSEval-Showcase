@@ -1,0 +1,16 @@
+{
+  "name": "ruaruaos",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "自研极简固件实现机器模式切换",
+    "适配第四代扩展文件系统解析超级块",
+    "实现基于缺页异常的按需分页机制",
+    "实现七十余个类Unix标准系统调用",
+    "支持标准信号机制与系统共享内存"
+  ]
+}

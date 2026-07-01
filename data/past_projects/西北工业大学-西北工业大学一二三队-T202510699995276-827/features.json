@@ -1,0 +1,16 @@
+{
+  "name": "NPUcore_for_oscomp2025",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持RISC-V与LoongArch双架构",
+    "实现ZRAM压缩与Swap交换机制",
+    "具备多级OOM处理与内存回收机制",
+    "同时支持FAT32与EXT4文件系统"
+  ]
+}

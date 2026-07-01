@@ -1,0 +1,15 @@
+{
+  "name": "unknown",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现Ext4文件系统基础读写功能",
+    "兼容数十个Linux标准系统调用",
+    "支持运行Busybox用户态工具集",
+    "实现基础信号处理与多线程管理"
+  ]
+}

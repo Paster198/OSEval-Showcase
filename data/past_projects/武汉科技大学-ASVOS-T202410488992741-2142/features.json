@@ -1,0 +1,15 @@
+{
+  "name": "ASVOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "移植lwext4实现完整文件系统",
+    "实现虚拟文件系统与挂载机制",
+    "采用位图与分级堆内存分配器",
+    "适配模拟器与VF2开发板双平台"
+  ]
+}

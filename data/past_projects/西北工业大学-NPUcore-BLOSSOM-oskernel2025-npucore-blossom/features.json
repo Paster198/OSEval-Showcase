@@ -1,0 +1,17 @@
+{
+  "name": "NPUcore-BLOSSOM",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持RISC-V与龙芯双指令集架构",
+    "实现内存不足处理与压缩内存机制",
+    "兼容EXT4与FAT32双文件系统",
+    "实现写时复制与磁盘交换分区机制",
+    "提供完整信号机制与线程同步支持"
+  ]
+}

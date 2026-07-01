@@ -1,0 +1,17 @@
+{
+  "name": "AddddOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "实现双指令集架构的底层支持",
+    "引入伙伴系统优化物理内存分配",
+    "集成外部库实现EXT4文件系统",
+    "实现八十余个系统调用兼容应用",
+    "构建统一的虚拟文件系统抽象层"
+  ]
+}

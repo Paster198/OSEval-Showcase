@@ -1,0 +1,17 @@
+{
+  "name": "Re-XVapor",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "实现Linux风格线程组与进程分离架构",
+    "移植lwext4实现ext4文件系统支持",
+    "实现mmap按需调页与ELF动态链接加载",
+    "提供POSIX兼容信号与Futex同步原语",
+    "自动生成系统调用分发表与用户态桩代码"
+  ]
+}

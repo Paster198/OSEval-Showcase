@@ -1,0 +1,284 @@
+[
+  {
+    "role": "system",
+    "content": "你是一个分析 OS 内核比赛项目的智能体。\n\n## 你的任务\n分析与评估给定的 OS 内核项目。遵循用户给出的引导完成各个阶段的任务。\n\n## 工具使用指南\n- `bash`：常规的bash工具，每次运行结束后会话不保留。\n- `process`相关：会保留会话的`bash`，最多启动 3 个。\n\n- `bash`或`process`的使用原则：\n    - 运行交互式工具（如QEMU）时使用process，否则优先使用bash。\n    - 使用`start_process`启动一个终端会话，之后使用时用得到的process_id指定使用的终端。如不需要再次使用时，使用`shutdown_process`关闭。\n    - 使用`clear_output`取出一个终端会话里输出缓冲区里剩余的输出。\n\n## 回复生成准则\n- 回复正文中**直接且仅生成**用户要求的正文，不要加入任何聊天内容、解释或者其它与用户要求的正文无关的内容。\n- 除了特定语法和格式以外，正文使用中文回复。\n- 不要使用任何emoji。\n- 生成的正文风格应当专业、严谨且结构清晰。\n- 你使用的所有数字应基于明确的事实。\n- 你使用的相对数字（如完整度）应该明确指出你使用或者自行定义的基准。\n\n\n## 当前环境中的构建与模拟工具\n\n- QEMU(QEMU环境，交互式工具)：可用：RISC-V env, LoongArch env, x86 env, aarch64 env\n\n- C_toolchain(C构建工具链)：可用：GCC, GNU Make, GNU ld, GNU as, objdump, objcopy, GDB, CMake, Ninja, Clang\n\n- Rust_toolchain(Rust构建工具链)：可用：rustc, cargo, rustup, rust-src, llvm-tools, cargo-binutils, clippy, rustfmt\n\n- RISC-V_cross_toolchain(RISC-V裸机交叉编译工具链)：可用：RISC-V GCC, RISC-V ld, RISC-V as, RISC-V objdump, RISC-V objcopy, RISC-V readelf\n\n- RISC-V_linux_gnu_toolchain(RISC-V Linux GNU 交叉编译工具链)：可用：RISC-V Linux GNU GCC, RISC-V Linux GNU ld, RISC-V Linux GNU as, RISC-V Linux GNU objdump, RISC-V Linux GNU objcopy, RISC-V Linux GNU readelf\n\n- RISC-V_musl_toolchain(RISC-V musl 交叉编译工具链)：缺失。\n\n- LoongArch_cross_toolchain(LoongArch交叉编译工具链)：可用：LoongArch GCC, LoongArch ld, LoongArch as, LoongArch objdump, LoongArch objcopy, LoongArch readelf\n\n- AArch64_cross_toolchain(AArch64交叉编译工具链)：可用：AArch64 GCC, AArch64 ld, AArch64 as, AArch64 objdump, AArch64 objcopy, AArch64 readelf\n\n- Device_tree(Device Tree 工具)：可用：dtc\n\n- SBI_firmware(RISC-V SBI 固件)：可用：OpenSBI/RustSBI QEMU firmware\n\n- Filesystem_image_tools(文件系统镜像制作工具)：可用：mkfs.ext4, mkfs.vfat, mcopy, dd, losetup\n\n- U-Boot_tools(U-Boot 镜像工具)：可用：mkimage\n\n- Bindgen(Rust bindgen 工具)：可用：bindgen, libclang\n\n- Host_build_utilities(主机构建辅助工具)：可用：Python, Git, curl, wget, tar, gzip, xz\n\n- Spike(RISC-V ISA 参考模拟器)：可用：Spike\n\n\n这些工具可以通过`bash`或者`process_run`调用。\n\n你可以尝试搜索没列出来但需要的工具，不要自行安装任何内容工具。如果现有工具无法支持你完成构建，则：\n- 尝试能利用已有工具的兼容方案；\n- 无兼容方案则跳过这一步，并且在技术报告中声明。\n\n\n\n## 当前阶段任务\n探索并熟悉当前仓库。\n\n## 任务\n\n对该OS内核项目仓库进行探索，熟悉：\n1. 该仓库的文件组织结构；\n2. 该OS内核项目实现了哪些子系统；\n3. 粗略判断哪些目录、代码文件属于哪个子系统。\n4. 粗略检查编译构建该项目需要使用哪些工具。\n\n该阶段仅作浅调查，不要：\n- 全量读取完整仓库。\n- 深入分析某个结构或者系统的具体实现。\n\n## 你的输出\n\n轻格式Markdown。包含：\n- 该项目的结构。\n- 你对该项目的初步调查结果。"
+  },
+  {
+    "role": "user",
+    "content": "请开始分析。"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_6115f9aed0e74db284d27b6e",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find . -maxdepth 1 -type f -o -type d | head -50\"}"
+        }
+      },
+      {
+        "id": "call_da0baad22bd34412a8e5ed7d",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find . -maxdepth 2 -type d | sort\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": ".\n./.clang-format\n./.clang-tidy\n./.config\n./.devcontainer.json\n./.gdbinit\n./.git\n./.gitignore\n./.gitlab\n./allbuild.sh\n./chbuild\n./chcore-busybox\n./check-list.txt\n./chpm\n./CMakeLists.txt\n./config.cmake\n./config.mk\n./docs\n./iozone\n./iperf\n./kernel\n./libc-bench\n./libc-test\n./libtirpc-build\n./LICENSE\n./lmbench\n./ltp\n./lua\n./Makefile\n./netperf\n./README.md\n./read_procmgr_elf_tool\n./rt-tests\n./scripts\n./testcases\n./time-test\n./unixbench\n./user",
+    "tool_call_id": "call_6115f9aed0e74db284d27b6e"
+  },
+  {
+    "role": "tool",
+    "content": ".\n./.git\n./.git/branches\n./.git/hooks\n./.git/info\n./.git/logs\n./.git/objects\n./.git/refs\n./.gitlab\n./.gitlab/issue_templates\n./.gitlab/merge_request_templates\n./chcore-busybox\n./chcore-busybox/applets\n./chcore-busybox/applets_sh\n./chcore-busybox/arch\n./chcore-busybox/archival\n./chcore-busybox/configs\n./chcore-busybox/console-tools\n./chcore-busybox/coreutils\n./chcore-busybox/debianutils\n./chcore-busybox/e2fsprogs\n./chcore-busybox/editors\n./chcore-busybox/examples\n./chcore-busybox/findutils\n./chcore-busybox/include\n./chcore-busybox/init\n./chcore-busybox/klibc-utils\n./chcore-busybox/libbb\n./chcore-busybox/libpwdgrp\n./chcore-busybox/loginutils\n./chcore-busybox/mailutils\n./chcore-busybox/miscutils\n./chcore-busybox/modutils\n./chcore-busybox/networking\n./chcore-busybox/printutils\n./chcore-busybox/procps\n./chcore-busybox/qemu_multiarch_testing\n./chcore-busybox/runit\n./chcore-busybox/scripts\n./chcore-busybox/selinux\n./chcore-busybox/shell\n./chcore-busybox/sysklogd\n./chcore-busybox/testsuite\n./chcore-busybox/util-linux\n./docs\n./docs/assets\n./iozone\n./iperf\n./iperf/config\n./iperf/contrib\n./iperf/docs\n./iperf/examples\n./iperf/src\n./kernel\n./kernel/arch\n./kernel/include\n./kernel/ipc\n./kernel/irq\n./kernel/lib\n./kernel/mm\n./kernel/object\n./kernel/sched\n./kernel/syscall\n./kernel/user-include\n./libc-bench\n./libc-test\n./libc-test/src\n./libtirpc-build\n./libtirpc-build/include\n./libtirpc-build/lib\n./lmbench\n./lmbench/SCCS\n./lmbench/doc\n./lmbench/libtirpc-build\n./lmbench/results\n./lmbench/scripts\n./lmbench/src\n./ltp\n./ltp/.github\n./ltp/autom4te.cache\n./ltp/ci\n./ltp/conf8ERPsv\n./ltp/doc\n./ltp/docparse\n./ltp/include\n./ltp/lib\n./ltp/libs\n./ltp/m4\n./ltp/pan\n./ltp/runtest\n./ltp/scenario_groups\n./ltp/scripts\n./ltp/testcases\n./ltp/testscripts\n./ltp/utils\n./lua\n./lua/manual\n./lua/testes\n./netperf\n./netperf/doc\n./netperf/m4\n./netperf/src\n./rt-tests\n./rt-tests/scripts\n./rt-tests/src\n./scripts\n./scripts/build\n./scripts/ci\n./scripts/format\n./scripts/gdb\n./scripts/license\n./scripts/qemu\n./testcases\n./testcases/dev\n./time-test\n./unixbench\n./unixbench/pgms\n./unixbench/src\n./user\n./user/apps\n./user/chcore-libs\n./user/system-services",
+    "tool_call_id": "call_da0baad22bd34412a8e5ed7d"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_305c0247a0f649d9b8cc1d42",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat README.md | head -80\"}"
+        }
+      },
+      {
+        "id": "call_c195fcea2b5b4102aa82fb28",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find ./kernel -maxdepth 3 -type d | sort\"}"
+        }
+      },
+      {
+        "id": "call_4ca81e0bf73b449699a96ca7",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find ./user -maxdepth 3 -type d | sort\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "# ChCore\n**CHCore**是一款以上海交通大学《操作系统：原理与实现》课程的教学型操作系统为原型，由上海交通大学软件学院本科生**彭达**、**王梓萌**和**吴银朋**共同优化和开发的**基于RISC-V的微内核操作系统**。\n\nChCore的架构如下图所示：\n<div align=\"middle\">\n<img src=./docs/assets/chcore.png width=70%>\n</div>\n\n**为什么选择ChCore？**\n\n由于微内核架构的高度模块化和解耦性，微内核操作系统在**安全性、可靠性、灵活性、可拓展性**等方面都有着宏内核难以比拟的优势。在工业界，微内核操作系统也在机器人、物联网、移动设备、智能制造等领域内大放异彩。甚至一些宏内核，比如Linux，也有逐步地将一些系统功能和服务下放至用户态的趋势。近段时间，华为在国产操作系统HarmonyOS Next的基础上正式推出了鸿蒙内核，这也是全球首个面向通用场景的微内核，从而正式开启**微内核操作系统的商业元年**。因此，我们选择采用了较为新颖的微内核架构的ChCore作为项目原型，在持续的开发和优化中，**深入理解操作系统的前沿知识，领略操作系统的设计之美**。\n\n## 困难和挑战\n\n由于微内核与我们熟知的宏内核有着明显的**架构差异**，在开发上有着不少的困难和挑战。\n\n### 挑战一：微内核和宏内核的接口差异\nChCore内核体积很小，本身提供的系统调用非常简洁，并不支持POSIX接口，其提供的ABI接口和POSIX接口具有明显的**接口差异**，而随意增加内核的系统调用又会违反最小化原则。所以 ChCore 如何支持POSIX接口就成了一个最大的问题。\n\n**解决方法1：二进制重写**\n\n为了能够适配主流的POSIX接口，我们通过自定义的加载器（`loader`）在加载可执行文件时，对可执行文件的特殊指令进行二进制重写（`binary rewrite`），将控制流跳转到内部的 `syscall dispatch` ，再分发至ChCore内部的系统调用，从而实现了对POSIX的系统调用接口的支持，具体内容可见文档[二进制重写](./docs/binary-rewrite.md)。\n\n**解决方法2：定制Musl-libc和编译工具链**\n\n对**Musl-libc**进行了**面向ChCore微内核的适配**，使其在对上层提供的接口不变的情况下，底层使用ChCore提供的系统调用和libchcore实现，再使用适配后的Musl编译得到的编译器**musl-gcc**对用户态系统服务，用户应用等进行编译，使其能够在**不修改使用的libc接口的情况下直接在ChCore中运行**。具体内容可见文档[Libc和工具链](docs/Libc_and_Toolchain.md)。\n\n### 挑战二：系统架构高度模块化\n内核只提供基本的线程调度、内存管理等服务，进程管理、共享内存、文件系统等系统服务均下放至用户态，这导致许多系统调用需要内核`Kernel`和系统服务器`System-Server`协同配合来共同完成。\n\n**解决方法：编写chcore-libc**\n\n我们对于系统调用的主要实现模式是，普通进程在`chcore-libc`中完成client端的准备工作后，通过 **IPC** 的方式把控制流转移到系统服务器端。系统服务器为每个进程都创建了一个**服务线程**，具体的操作有服务线程利用系统服务器的元数据与内核协作完成。fork，signal，execve等系统调用都是这样的模式，详情可以文档[进程间通信](./docs/ipc.md)。\n\n### 挑战三：系统元数据分布存储\n由于最小化原则，许多原本存放在内核态的元数据可能零散的分布在**系统服务器端**，或者**进程端的堆栈**上。例如，传统宏内核中`fd-table`是放在内核态的，而在 ChCore 中，`fd-table`存放在进程的用户态，并不放在内核态，而fd相关的注册信息又存放在文件系统服务器端。这无疑为开发增加了难度。\n\n**解决方法1：增加一致性机制**\n\n用户进程在进行 `IPC` 时，需要用到数据结构 `ipc_struct_t`，该数据结构保存在用户态，同时内部还保存着与 IPC 相关的 cap，而具体的 cap 则保存在内核中。由于 fork，execve等系统调用可能会导致用户态和内核态数据不一致，所以我们增加了一致性机制，当用户态的 cap 为零时可以通过  `ipc_register_client` 重新建立连接。我们在 fork 创建出子进程后，会将其用户态 IPC 相关的 cap 清空置零，然后在真正发起 IPC 时会进行一致性处理。\n\n**解决方法2：增加鉴权机制**\n\n因为`fd-table`放在用户态，所以在文件系统服务器端必须对进程和fd进行鉴权，以防止非法访问。但鉴权机制也需要我们做额外的处理。以fork为例，创建子进程时，主要的元数据在内核和进程管理服务器端，而在用户态的元数据由于保存在堆上被一并拷贝。比如`fd-table`，虽然子进程拥有了和父进程一样的`fd-table`，但是子进程并没有在文件系统服务器进程端完成注册，所以这些fd是无法直接拿来使用的。所以我们需要在子进程创建完毕后用fd在文件系统服务器重新完成注册。详情可见文档[clone的实现](docs/chcore-clone.md)\n\n## 文档列表\n这里主要罗列了项目组成员的主要工作的文档介绍。\n\n### 架构设计\n- 微内核部分\n  - [内核启动](./docs/boot.md)：ChCore的启动流程和 SBI 应用。\n  - [Capability机制](./docs/capability.md)：ChCore的资源管理机制。\n  - [进程间通信](./docs/ipc.md): ChCore的微内核IPC设计。\n  - [内存模块实现](./docs/memory.md): ChCore内存模块的实现。\n  - [调度模块实现](./docs/schedule.md): ChCore调度模块的实现。\n\n- 用户态系统服务部分\n  - [文件系统](./docs/file-system.md)：以内存为主的文件系统。\n  - [SD卡驱动](./docs/sdcard-driver.md)：SD卡驱动。\n\n- 用户态应用支持部分\n  - [二进制重写](./docs/binary-rewrite.md)：加载后的二进制重写。\n  - [系统调用Hook](./docs/syscall-hook.md)：ChCore提供的系统调用Hook。\n\n### 应用支持\n- 系统调用支持\n  - [Clone](docs/chcore-clone.md)： ChCore 内核与 procmgr 协作完成复制进程的操作。\n  - [Execve](docs/chcore-execve.md)：在 chcore_new_process 基础上，利用共享内存传递需继承的数据结构。\n  - [Signal](docs/chcore-signal.md)： timer 与 chcore_signal_shim 协同完成signal。\n  - [Pipe](docs/pipe.md)： 基于共享内存存储和文件系统抽象的 Pipe实现，支持Posix定义接口，并为 ChCore 原生设计规范保留全功能接口。\n  - [SharedMemory](docs/shared-memory.md)：新增用户态系统服务——Shm-Server，负责统一管理所有的共享内存。\n- ChCore 定制应用\n  - [ChCore-busybox](docs/chcore-busybox.md)：与ChCore内部 ChCore-shell协同设计定制化的应用。\n\n## 快速启动\n\n### 环境准备\n* docker\n* git\n* python3(repo is a python3 script)",
+    "tool_call_id": "call_305c0247a0f649d9b8cc1d42"
+  },
+  {
+    "role": "tool",
+    "content": "./kernel\n./kernel/arch\n./kernel/arch/riscv64\n./kernel/arch/riscv64/boot\n./kernel/arch/riscv64/debug\n./kernel/arch/riscv64/drivers\n./kernel/arch/riscv64/irq\n./kernel/arch/riscv64/machine\n./kernel/arch/riscv64/mm\n./kernel/arch/riscv64/plat\n./kernel/arch/riscv64/sched\n./kernel/arch/riscv64/sync\n./kernel/include\n./kernel/include/arch\n./kernel/include/arch/riscv64\n./kernel/include/common\n./kernel/include/io\n./kernel/include/ipc\n./kernel/include/irq\n./kernel/include/lib\n./kernel/include/mm\n./kernel/include/object\n./kernel/include/sched\n./kernel/include/syscall\n./kernel/ipc\n./kernel/irq\n./kernel/lib\n./kernel/mm\n./kernel/object\n./kernel/sched\n./kernel/syscall\n./kernel/user-include\n./kernel/user-include/uapi\n./kernel/user-include/uapi/opentrustee",
+    "tool_call_id": "call_c195fcea2b5b4102aa82fb28"
+  },
+  {
+    "role": "tool",
+    "content": "./user\n./user/apps\n./user/apps/samples\n./user/apps/samples/cxx\n./user/apps/samples/dynamic_link\n./user/apps/samples/ramdisk_rebuild\n./user/apps/samples/simple_http_server\n./user/chcore-libs\n./user/chcore-libs/sys-libs\n./user/chcore-libs/sys-libs/dev_messenger\n./user/chcore-libs/sys-libs/libohtee\n./user/chcore-libs/sys-libs/libpipe\n./user/system-services\n./user/system-services/chcore-libc\n./user/system-services/chcore-libc/libchcore\n./user/system-services/chcore-libc/musl-libc\n./user/system-services/system-servers\n./user/system-services/system-servers/chcore_shell\n./user/system-services/system-servers/drivers\n./user/system-services/system-servers/ext4\n./user/system-services/system-servers/fat32\n./user/system-services/system-servers/fs_base\n./user/system-services/system-servers/fsm\n./user/system-services/system-servers/lwip\n./user/system-services/system-servers/procmgr\n./user/system-services/system-servers/shmmgr\n./user/system-services/system-servers/tmpfs",
+    "tool_call_id": "call_4ca81e0bf73b449699a96ca7"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_0d5cf67e49cd45f1832cb097",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat CMakeLists.txt | head -60\"}"
+        }
+      },
+      {
+        "id": "call_465189489e894ce2a49b4675",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat Makefile | head -60\"}"
+        }
+      },
+      {
+        "id": "call_8f4f0c74f5cf41df8bfde70f",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat config.cmake\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "# Copyright (c) 2023 Institute of Parallel And Distributed Systems (IPADS), Shanghai Jiao Tong University (SJTU)\n# Licensed under the Mulan PSL v2.\n# You can use this software according to the terms and conditions of the Mulan PSL v2.\n# You may obtain a copy of Mulan PSL v2 at:\n#     http://license.coscl.org.cn/MulanPSL2\n# THIS SOFTWARE IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR\n# IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR\n# PURPOSE.\n# See the Mulan PSL v2 for more details.\n\ncmake_minimum_required(VERSION 3.14)\nproject(ChCore)\n\nset(_cmake_script_dir ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build/cmake)\nset(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${_cmake_script_dir}/Modules)\nset(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR}/user)\n\ninclude(SubProject)\ninclude(CommonTools)\n\nchcore_dump_chcore_vars()\nchcore_collect_pkg_path(${CMAKE_CURRENT_SOURCE_DIR}/user)\n\nchcore_get_nproc(_nproc)\n\nif(CHCORE_VERBOSE_BUILD)\n    set(CMAKE_VERBOSE_MAKEFILE ON)\nendif()\n\nset(_libc_install_dir ${CMAKE_CURRENT_BINARY_DIR}/chcore-libc)\nlist(APPEND CMAKE_PREFIX_PATH ${_libc_install_dir})\n\nstring(REPLACE \";\" \":\" _colon_prefix_path \"${CMAKE_PREFIX_PATH}\")\nset(_common_args\n    -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}\n    -DCMAKE_PREFIX_PATH=${_colon_prefix_path}\n    -DCHCORE_PROJECT_DIR=${CMAKE_CURRENT_SOURCE_DIR}\n    -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}\n    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON)\n\n# Construct cache args list for subprojects (kernel, user)\nmacro(chcore_config _config_name _config_type _default _description)\n    if(NOT DEFINED ${_config_name})\n        message(\n            FATAL_ERROR\n                \"Do not run CMake command directly, use `./chbuild` instead\")\n    endif()\n    list(APPEND _cache_args\n         -D${_config_name}:${_config_type}=${${_config_name}})\nendmacro()\ninclude(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake)\n\n# --- LibC ---\n\nset(_libc_source_dir ${CMAKE_CURRENT_SOURCE_DIR}/user/chcore-libc)\nset(_libc_build_dir ${CMAKE_CURRENT_BINARY_DIR}/user/chcore-libc)\n\n# Main targets for Libc\nchcore_add_subproject(\n    libc",
+    "tool_call_id": "call_0d5cf67e49cd45f1832cb097"
+  },
+  {
+    "role": "tool",
+    "content": "# Copyright (c) 2023 Institute of Parallel And Distributed Systems (IPADS), Shanghai Jiao Tong University (SJTU)\n# Licensed under the Mulan PSL v2.\n# You can use this software according to the terms and conditions of the Mulan PSL v2.\n# You may obtain a copy of Mulan PSL v2 at:\n#     http://license.coscl.org.cn/MulanPSL2\n# THIS SOFTWARE IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR\n# IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR\n# PURPOSE.\n# See the Mulan PSL v2 for more details.\n\n# export PATH := $(pwd)/cmake-3.16.2-Linux-x86_64/bin:$(PATH)\n\n\n.PHONY: all\n\n# all: \n# \tsetup_env download_and_extract\n# \tif [ -d \"build\" ]; then \\\n# \t\t./chbuild build; \\\n# \telse \\\n# \t\t./chbuild defconfig riscv64_testenv; \\\n# \t\t./chbuild build; \\\n# \tfi\n# \t./allbuild.sh; \\\n# \tcp build/kernel.img ./kernel-qemu\nall :\n\tcp build/kernel.img ./kernel-qemu\n\nsetup_env:\n\t# Update system and install clang-tidy\n\t\n\tif [ ! -f \"/usr/bin/read_procmgr_elf_tool\" ]; then \\\n\t\tcp ./read_procmgr_elf_tool /usr/bin/; \\\n\tfi\n\n\tapt-get update && apt-get install -y clang-tidy\n\ndownload_and_extract:\n\t# Check if the tarball already exists\n\tif [ ! -d \"riscv64--glibc--bleeding-edge-2020.02-1\" ]; then \\\n\t\techo \"Downloading riscv64--glibc--bleeding-edge-2020.02-1.tar.bz2...\"; \\\n\t\tcurl -O https://toolchains.bootlin.com/downloads/releases/toolchains/riscv64/tarballs/riscv64--glibc--bleeding-edge-2020.02-1.tar.bz2; \\\n\t\techo \"Unarchiving riscv64--glibc--bleeding-edge-2020.02-1.tar.bz2...\"; \\\n\t\ttar -xjf riscv64--glibc--bleeding-edge-2020.02-1.tar.bz2; \\\n\tfi\n\n\tif [ ! -d \"cmake-3.16.2-Linux-x86_64\" ]; then \\\n\t\techo \"Downloading cmake-3.16.2-Linux-x86_64.tar.gz...\"; \\\n\t\tcurl -OL https://cmake.org/files/v3.16/cmake-3.16.2-Linux-x86_64.tar.gz; \\\n\t\techo \"Unarchiving cmake-3.16.2-Linux-x86_64.tar.gz...\"; \\\n\t\ttar -xzf cmake-3.16.2-Linux-x86_64.tar.gz; \\\n\tfi\n\n.PHONY: clean\n\nclean:\n\t./chbuild distclean\n\t./chbuild clean\n\trm kernel-qemu \n\trm cmake-3.16.2-Linux-x86_64.tar.gz",
+    "tool_call_id": "call_465189489e894ce2a49b4675"
+  },
+  {
+    "role": "tool",
+    "content": "# Copyright (c) 2023 Institute of Parallel And Distributed Systems (IPADS), Shanghai Jiao Tong University (SJTU)\n# Licensed under the Mulan PSL v2.\n# You can use this software according to the terms and conditions of the Mulan PSL v2.\n# You may obtain a copy of Mulan PSL v2 at:\n#     http://license.coscl.org.cn/MulanPSL2\n# THIS SOFTWARE IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR\n# IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR\n# PURPOSE.\n# See the Mulan PSL v2 for more details.\n\nchcore_config(CHCORE_CROSS_COMPILE STRING \"\" \"Prefix for cross compiling toolchain\")\nchcore_config(CHCORE_PLAT STRING \"\" \"Target hardware platform\")\nchcore_config(CHCORE_SUBPLAT STRING \"\" \"Target hardware platform subtype\")\nchcore_config(CHCORE_ASLR BOOL OFF \"Enable ASLR support in ChCore?\")\nchcore_config(CHCORE_CHPM_INSTALL_PREFIX PATH \".chpm/install\" \"Install prefix of ChPM (for using packages installed by ChPM)\")\nchcore_config(CHCORE_CHPM_INSTALL_TO_RAMDISK BOOL OFF \"Copy installed ChPM packages to ramdisk?\")\nchcore_config(CHCORE_CPP_INSTALL_PREFIX PATH \".cpp\" \"Install prefix of cpp suport (for using libstdc++ package)\")\nchcore_config(CHCORE_VERBOSE_BUILD BOOL OFF \"Generate verbose build log?\")\nchcore_config(CHCORE_QEMU_SDCARD_IMG PATH \"\" \"Path to SD card image file for QEMU (raspi3)\")\nchcore_config(CHCORE_USER_DEBUG BOOL OFF \"Build debug version of user-level libs and apps?\")\nchcore_config(CHCORE_QEMU BOOL OFF \"Run in QEMU?\")\nchcore_config(CHCORE_MINI BOOL OFF \"Build chcore as small as possible?\")\nchcore_config(CHCORE_RUN_TESTCASE BOOL ON \"Run oscomp testcase?\")\nchcore_config(CHCORE_SIGNAL BOOL ON \"Open kernel signal mechanism?\")\n\nchcore_config_include(kernel/config.cmake)\nchcore_config_include(user/apps/config.cmake)\nchcore_config_include(user/chcore-libs/config.cmake)\nchcore_config_include(user/system-services/config.cmake)",
+    "tool_call_id": "call_8f4f0c74f5cf41df8bfde70f"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_be5f03c12efc4f38a41ec445",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat kernel/config.cmake\"}"
+        }
+      },
+      {
+        "id": "call_ececcc15fb1c4da8ad1e50e1",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find ./kernel -name \\\"CMakeLists.txt\\\" | head -20\"}"
+        }
+      },
+      {
+        "id": "call_9b6786cbfb4d48bab4f022a3",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"ls -la kernel/arch/riscv64/\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "# Copyright (c) 2023 Institute of Parallel And Distributed Systems (IPADS), Shanghai Jiao Tong University (SJTU)\n# Licensed under the Mulan PSL v2.\n# You can use this software according to the terms and conditions of the Mulan PSL v2.\n# You may obtain a copy of Mulan PSL v2 at:\n#     http://license.coscl.org.cn/MulanPSL2\n# THIS SOFTWARE IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR\n# IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR\n# PURPOSE.\n# See the Mulan PSL v2 for more details.\n\nchcore_config(CHCORE_KERNEL_DEBUG BOOL OFF \"Build debug version of the kernel?\")\n# chcore_config(CHCORE_KERNEL_TEST BOOL OFF \"Enable kernel tests?\")\nchcore_config(CHCORE_KERNEL_RT BOOL ON \"Enable realtime support in kernel?\")\nchcore_config(CHCORE_KERNEL_SCHED_PBFIFO BOOL OFF \"Use priority-based FIFO?\")\nchcore_config(CHCORE_KERNEL_ENABLE_QEMU_VIRTIO_NET BOOL ON \"Enable virtio-net nic on x86_64 QEMU?\")",
+    "tool_call_id": "call_be5f03c12efc4f38a41ec445"
+  },
+  {
+    "role": "tool",
+    "content": "./kernel/arch/riscv64/boot/CMakeLists.txt\n./kernel/arch/riscv64/CMakeLists.txt\n./kernel/arch/riscv64/debug/CMakeLists.txt\n./kernel/arch/riscv64/drivers/CMakeLists.txt\n./kernel/arch/riscv64/irq/CMakeLists.txt\n./kernel/arch/riscv64/machine/CMakeLists.txt\n./kernel/arch/riscv64/mm/CMakeLists.txt\n./kernel/arch/riscv64/plat/qemu_virt/CMakeLists.txt\n./kernel/arch/riscv64/plat/visionfive2/CMakeLists.txt\n./kernel/arch/riscv64/sched/CMakeLists.txt\n./kernel/arch/riscv64/sync/CMakeLists.txt\n./kernel/CMakeLists.txt\n./kernel/ipc/CMakeLists.txt\n./kernel/irq/CMakeLists.txt\n./kernel/lib/CMakeLists.txt\n./kernel/mm/CMakeLists.txt\n./kernel/object/CMakeLists.txt\n./kernel/sched/CMakeLists.txt\n./kernel/syscall/CMakeLists.txt",
+    "tool_call_id": "call_ececcc15fb1c4da8ad1e50e1"
+  },
+  {
+    "role": "tool",
+    "content": "total 8\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 .\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 ..\n-rwxrwxrwx 1 horbson horbson  812 Jul  1 00:08 CMakeLists.txt\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 boot\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 debug\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 drivers\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 irq\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 machine\n-rwxrwxrwx 1 horbson horbson 2892 Jul  1 00:08 main.c\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 mm\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 plat\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 sched\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 sync",
+    "tool_call_id": "call_9b6786cbfb4d48bab4f022a3"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_dad5b1e0c12747d4ae318395",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat chbuild | head -100\"}"
+        }
+      },
+      {
+        "id": "call_210e31e94ab04454bc666689",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"ls -la user/system-services/system-servers/\"}"
+        }
+      },
+      {
+        "id": "call_0b679ca09f60442c8766fe8d",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"ls -la user/chcore-libs/\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "#!/bin/bash\n# Copyright (c) 2023 Institute of Parallel And Distributed Systems (IPADS), Shanghai Jiao Tong University (SJTU)\n# Licensed under the Mulan PSL v2.\n# You can use this software according to the terms and conditions of the Mulan PSL v2.\n# You may obtain a copy of Mulan PSL v2 at:\n#     http://license.coscl.org.cn/MulanPSL2\n# THIS SOFTWARE IS PROVIDED ON AN \"AS IS\" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR\n# IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR\n# PURPOSE.\n# See the Mulan PSL v2 for more details.\n\nset -e\nexport PATH=$(pwd)/cmake-3.16.2-Linux-x86_64/bin:$PATH\n\nself=$0\n\ndefconfig_command=\"$self defconfig\"\nclean_command=\"$self clean\"\n\ncmake_build_dir=\"build\"\ncmake_cache_file=\"build/CMakeCache.txt\"\n\ncmake_script_dir=\"scripts/build/cmake\"\ncmake_init_cache_default=\"$cmake_script_dir/LoadConfigDefault.cmake\"\ncmake_init_cache_ask=\"$cmake_script_dir/LoadConfigAsk.cmake\"\ncmake_init_cache_abort=\"$cmake_script_dir/LoadConfigAbort.cmake\"\ncmake_init_cache_dump=\"$cmake_script_dir/DumpConfig.cmake\"\n\nconfig_file=\".config\"\ndefconfig_dir=\"scripts/build/defconfigs\"\n\nrepo_tool_dir=\".repo\"\nmanifest_upstream=\"git@ipads.se.sjtu.edu.cn:staros/staros-manifests.git\"\nrepo_url=\"https://mirrors.tuna.tsinghua.edu.cn/git/git-repo\"\nci_manifest_name=\"ci.xml\"\ndefault_manifest_name=\"default.xml\"\ndocker_cgroup='/chcore_gitlab_runner/'\n\nRED='\\033[0;31m'\nBLUE='\\033[0;34m'\nGREEN='\\033[0;32m'\nORANGE='\\033[0;33m'\nBOLD='\\033[1m'\nNONE='\\033[0m'\n\n_echo_info() {\n    echo -e \"${BOLD}$@${NONE}\"\n}\n\n_echo_succ() {\n    echo -e \"${GREEN}${BOLD}$@${NONE}\"\n}\n\n_echo_warn() {\n    echo -e \"${ORANGE}${BOLD}$@${NONE}\"\n}\n\n_echo_err() {\n    echo -e \"${RED}${BOLD}$@${NONE}\"\n}\n\ndefconfig() {\n    if [ -d $cmake_build_dir ]; then\n        _echo_err \"There exists a build directory, please run \\`$clean_command\\` first\"\n        exit 1\n    fi\n\n    if [ -z \"$1\" ]; then\n        plat=\"raspi3\"\n    else\n        plat=\"$1\"\n    fi\n\n    _echo_info \"Generating default config file for \\`$plat\\` platform...\"\n    cp $defconfig_dir/${plat}.config $config_file\n    _config_default\n    _sync_config_with_cache\n    _echo_succ \"Default config written to \\`$config_file\\` file.\"\n}\n\n_generate_manifest() {\n    name=$1\n    shift\n    echo \"$@\"\n    ./scripts/build/generate_manifest.py --name $name --dest $repo_tool_dir/manifests $@\n}\n\n_ci_init() {\n    repo init -u $manifest_upstream --depth=1 --repo-url $repo_url\n    _generate_manifest $ci_manifest_name $@\n}\n\nci_sync() {\n    if [ ! -d $repo_tool_dir ]; then\n        _ci_init $@\n    fi\n    repo sync -c --no-clone-bundle --no-tags -j$(nproc --all) -m $ci_manifest_name  --fetch-submodules\n}\n\n_init() {",
+    "tool_call_id": "call_dad5b1e0c12747d4ae318395"
+  },
+  {
+    "role": "tool",
+    "content": "total 8\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 .\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 ..\n-rwxrwxrwx 1 horbson horbson 1205 Jul  1 00:09 CMakeLists.txt\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 chcore_shell\n-rwxrwxrwx 1 horbson horbson 1019 Jul  1 00:09 config.cmake\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 drivers\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 ext4\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 fat32\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 fs_base\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 fsm\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 lwip\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 procmgr\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 shmmgr\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:09 tmpfs",
+    "tool_call_id": "call_210e31e94ab04454bc666689"
+  },
+  {
+    "role": "tool",
+    "content": "total 16\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 .\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 ..\n-rwxrwxrwx 1 horbson horbson 3865 Jul  1 00:08 .clang-format\n-rwxrwxrwx 1 horbson horbson  115 Jul  1 00:08 .clang-tidy\n-rwxrwxrwx 1 horbson horbson   16 Jul  1 00:08 .gitignore\n-rwxrwxrwx 1 horbson horbson  756 Jul  1 00:08 CMakeLists.txt\n-rwxrwxrwx 1 horbson horbson  649 Jul  1 00:08 Config.cmake.in\n-rwxrwxrwx 1 horbson horbson  725 Jul  1 00:08 config.cmake\ndrwxrwxrwx 1 horbson horbson  512 Jul  1 00:08 sys-libs",
+    "tool_call_id": "call_0b679ca09f60442c8766fe8d"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_5d69979a9b3a4f0eb09c5beb",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find ./kernel -name \\\"*.c\\\" -o -name \\\"*.h\\\" -o -name \\\"*.S\\\" | wc -l\"}"
+        }
+      },
+      {
+        "id": "call_22827ceb30a940c3b49c0967",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find ./user -name \\\"*.c\\\" -o -name \\\"*.h\\\" -o -name \\\"*.S\\\" | wc -l\"}"
+        }
+      },
+      {
+        "id": "call_7a384713c4854e04b5c66b0d",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"ls scripts/build/defconfigs/\"}"
+        }
+      },
+      {
+        "id": "call_f2eca4ec3b58400f8c02b084",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat scripts/build/defconfigs/riscv64_testenv.config 2>/dev/null || ls scripts/build/defconfigs/\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "345",
+    "tool_call_id": "call_5d69979a9b3a4f0eb09c5beb"
+  },
+  {
+    "role": "tool",
+    "content": "2523",
+    "tool_call_id": "call_22827ceb30a940c3b49c0967"
+  },
+  {
+    "role": "tool",
+    "content": "build_test_riscv64.config\nci_riscv64.config\nriscv64.config\nriscv64_testenv.config\nriscv64_visionfive2.config",
+    "tool_call_id": "call_7a384713c4854e04b5c66b0d"
+  },
+  {
+    "role": "tool",
+    "content": "CHCORE_CROSS_COMPILE:STRING=${CMAKE_CURRENT_SOURCE_DIR}/riscv64--glibc--bleeding-edge-2020.02-1/bin/riscv64-buildroot-linux-gnu-\nCHCORE_PLAT:STRING=visionfive2\nCHCORE_QEMU:BOOL=ON\nCHCORE_QEMU_SDCARD_IMG:PATH=sdcard.img\nCHCORE_RUN_TESTCASE:BOOL=ON\nCHCORE_SIGNAL:BOOL=ON",
+    "tool_call_id": "call_f2eca4ec3b58400f8c02b084"
+  },
+  {
+    "role": "assistant",
+    "content": "基于以上探索，以下是对该 OS 内核项目的初步调查报告。\n\n---\n\n## 项目概述\n\n**ChCore** 是一款基于 **RISC-V 架构的微内核操作系统**，由上海交通大学软件学院学生团队开发，原型来自上海交通大学《操作系统：原理与实现》课程的教学型操作系统。项目采用木兰宽松许可证（Mulan PSL v2）。\n\n---\n\n## 仓库文件组织结构\n\n```\n.\n├── kernel/                    # 微内核核心代码\n├── user/                      # 用户态代码（系统服务、库、应用）\n├── chcore-busybox/            # 定制版 BusyBox（适配 ChCore）\n├── scripts/                   # 构建脚本、QEMU 启动脚本、CI 脚本等\n├── docs/                      # 项目文档（架构设计、实现说明）\n├── testcases/                 # 测试用例\n├── chbuild                    # 主构建入口脚本（封装 CMake）\n├── CMakeLists.txt             # 顶层 CMake 构建文件\n├── config.cmake               # 全局配置项定义\n├── Makefile                   # 顶层 Makefile（简化构建流程）\n├── allbuild.sh                # 全量构建脚本\n│\n├── [第三方基准测试/工具目录]\n│   ├── iozone/                # IO 性能测试\n│   ├── iperf/                 # 网络性能测试\n│   ├── lmbench/               # 系统性能基准测试\n│   ├── ltp/                   # Linux Test Project\n│   ├── lua/                   # Lua 解释器\n│   ├── netperf/               # 网络性能测试\n│   ├── rt-tests/              # 实时性测试\n│   ├── unixbench/             # Unix 基准测试\n│   ├── libc-bench/            # libc 基准测试\n│   ├── libc-test/             # libc 兼容性测试\n│   └── time-test/             # 时间相关测试\n│\n└── libtirpc-build/            # TI-RPC 库构建产物\n```\n\n---\n\n## 子系统划分\n\n### 1. 微内核（kernel/）\n\n内核代码约 **345 个源文件**（.c/.h/.S），仅支持 **RISC-V 64 位**架构。\n\n| 目录 | 所属子系统 | 说明 |\n|------|-----------|------|\n| `kernel/arch/riscv64/boot/` | 启动 | 内核引导启动代码 |\n| `kernel/arch/riscv64/mm/` | 内存管理（架构相关） | RISC-V 页表、TLB 等 |\n| `kernel/arch/riscv64/sched/` | 调度（架构相关） | 上下文切换等 |\n| `kernel/arch/riscv64/irq/` | 中断（架构相关） | RISC-V 中断处理 |\n| `kernel/arch/riscv64/drivers/` | 驱动 | 平台相关驱动 |\n| `kernel/arch/riscv64/machine/` | 机器抽象 | 硬件抽象层 |\n| `kernel/arch/riscv64/plat/` | 平台适配 | 支持 qemu_virt 和 visionfive2 两个平台 |\n| `kernel/arch/riscv64/sync/` | 同步原语 | 架构相关同步机制 |\n| `kernel/mm/` | 内存管理（通用） | 物理/虚拟内存管理 |\n| `kernel/sched/` | 进程调度（通用） | 调度策略实现 |\n| `kernel/ipc/` | 进程间通信 | 微内核 IPC 机制 |\n| `kernel/irq/` | 中断管理（通用） | 中断分发与处理 |\n| `kernel/object/` | 对象/Capability | Capability 资源管理 |\n| `kernel/syscall/` | 系统调用 | 系统调用入口与分发 |\n| `kernel/lib/` | 内核工具库 | 内核内部使用的通用工具函数 |\n| `kernel/include/` | 内核头文件 | 各子系统公共头文件 |\n| `kernel/user-include/` | 用户态共享头文件 | 内核与用户态共享的 UAPI 定义 |\n\n### 2. 用户态系统服务（user/system-services/system-servers/）\n\n| 目录 | 所属子系统 | 说明 |\n|------|-----------|------|\n| `procmgr/` | 进程管理 | 进程管理器（fork、execve、signal 等） |\n| `tmpfs/` | 文件系统 | 内存文件系统 |\n| `ext4/` | 文件系统 | ext4 文件系统支持 |\n| `fat32/` | 文件系统 | FAT32 文件系统支持 |\n| `fs_base/` | 文件系统基础 | 文件系统公共基础代码 |\n| `fsm/` | 文件系统管理 | 文件系统管理器 |\n| `shmmgr/` | 共享内存管理 | 共享内存管理器 |\n| `lwip/` | 网络协议栈 | 基于 lwIP 的网络服务 |\n| `drivers/` | 用户态驱动 | 用户态设备驱动 |\n| `chcore_shell/` | Shell | ChCore 定制 Shell |\n\n### 3. 用户态库（user/chcore-libs/ 和 user/system-services/chcore-libc/）\n\n| 目录 | 所属子系统 | 说明 |\n|------|-----------|------|\n| `chcore-libc/libchcore/` | ChCore 系统调用库 | 封装 ChCore 原生系统调用 |\n| `chcore-libc/musl-libc/` | C 标准库 | 适配 ChCore 的 musl libc |\n| `sys-libs/libpipe/` | Pipe 库 | 管道实现 |\n| `sys-libs/dev_messenger/` | 设备消息 | 设备消息传递库 |\n| `sys-libs/libohtee/` | 安全/TEE | OpenTrustee 相关库 |\n\n### 4. 用户态应用（user/apps/）\n\n包含示例应用：C++ 支持示例、动态链接示例、ramdisk 重建、简单 HTTP 服务器等。\n\n### 5. 定制 BusyBox（chcore-busybox/）\n\n针对 ChCore 定制的 BusyBox，包含大量标准 Unix 工具（coreutils、networking、shell 等），用于提供 POSIX 兼容的用户态命令环境。\n\n---\n\n## 构建工具需求\n\n| 工具 | 用途 | 备注 |\n|------|------|------|\n| **CMake** (>= 3.14) | 主构建系统 | 通过 `chbuild` 脚本封装 |\n| **RISC-V 交叉编译工具链** | 编译内核和用户态代码 | 使用 `riscv64-buildroot-linux-gnu-` (glibc) |\n| **GNU Make** | CMake 后端构建执行 | - |\n| **QEMU** (riscv64) | 模拟运行 | 配置中 `CHCORE_QEMU=ON` |\n| **OpenSBI/RustSBI** | RISC-V SBI 固件 | QEMU 启动所需 |\n| **Python3** | 构建辅助脚本 | repo 工具等 |\n| **Git** | 版本管理 | - |\n| **dtc** | 设备树编译 | RISC-V 平台可能需要 |\n\n构建流程：`chbuild defconfig <平台>` -> `chbuild build` -> 生成 `build/kernel.img`。\n\n支持的目标平台：\n- `riscv64`（QEMU virt）\n- `riscv64_visionfive2`（VisionFive2 开发板）\n- `riscv64_testenv`（测试环境配置）\n\n---\n\n## 初步判断\n\n1. **架构**：纯微内核架构，内核仅提供线程调度、内存管理、IPC、Capability 等最小功能集；文件系统、进程管理、网络协议栈、共享内存管理均以用户态系统服务器形式实现。\n2. **目标平台**：仅支持 RISC-V 64 位，面向 QEMU 虚拟平台和 VisionFive2 硬件。\n3. **POSIX 兼容性**：通过二进制重写和定制 musl libc 两条路径实现 POSIX 接口适配，是项目的核心技术亮点。\n4. **代码规模**：内核约 345 个源文件，用户态约 2523 个源文件（含定制 BusyBox 和 libc），整体规模适中。\n5. **测试覆盖**：集成了多种第三方基准测试和兼容性测试套件（LTP、lmbench、unixbench、libc-test 等），表明项目注重功能验证和性能评估。"
+  }
+]

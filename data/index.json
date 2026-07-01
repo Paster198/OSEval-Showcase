@@ -1,0 +1,1643 @@
+[
+  {
+    "id": "上海交通大学-ChCore-T202410248992613-106",
+    "features": {
+      "name": "ChCore",
+      "kernel_type": "microkernel",
+      "ecosystem": "无",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "基于能力模型实现严格的资源管理",
+        "采用迁移式通信减少上下文切换开销",
+        "支持多种可插拔调度策略与实时调度",
+        "双路径实现高兼容性的标准接口适配"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "ChCore",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410248992613-106"
+    },
+    "brief": "ChCore 是一个面向 RISC-V 64 位架构的高性能微内核操作系统，主要定位于操作系统教学、微内核架构研究及 OS 竞赛平台。其核心特点在于采用严格的 Capability 安全模型进行系统资源管理，构建了包含 Buddy 与 Slab 的双层物理内存分配器、支持实时特性的可插拔调度框架，以及涵盖进程管理、多文件系统和 lwIP 网络栈的丰富用户态系统服务。项目的核心亮点包括创新的迁移式 IPC 机制，通过 Shadow 线程设计大幅降低了跨进程通信的上下文切换开销；同时，项目通过深度适配 musl libc 实现了较高的 POSIX 兼容性，并原生支持 OpenTrustee 可信执行环境扩展与地址空间布局随机化，在安全性、模块化与生态兼容性之间取得了优异的平衡。"
+  },
+  {
+    "id": "东北大学-asynclear-T202410145993119-1700",
+    "features": {
+      "name": "asynclear",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "采用异步模型实现非阻塞内核任务调度",
+        "利用类型系统保障内核内存与并发安全",
+        "实现页缓存机制支持文件后备内存映射",
+        "封装专用类型安全校验用户态指针访问"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "asynclear",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410145993119-1700"
+    },
+    "brief": "asynclear 是一个基于 Rust 语言编写的面向 RISC-V 64 架构的异步操作系统内核，主要定位于操作系统教学、前沿内核研究与竞赛实践。其核心特点在于创新性地将 Rust 的 async/await 异步编程模型引入内核开发，通过自定义的异步执行器实现非阻塞的系统调用与 I/O 调度。项目实现了 Sv39 虚拟内存管理、VFS 与 FAT32 文件系统、进程控制及信号机制等完整的操作系统核心子系统。其技术亮点包括：利用 Rust 所有权与类型系统构建安全的用户空间访问机制和 RAII 物理页帧管理；采用无锁队列与轻量级异步任务模型优化内核并发性能；并提供基于 span 的内核性能追踪支持。整体代码结构严谨，在异步内核设计与系统级 Rust 实践方面展现出极高的工程质量与参考价值。"
+  },
+  {
+    "id": "中南大学-icy_hat-T202410533992579-506",
+    "features": {
+      "name": "HatOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "位置无关内核代码与高虚拟地址映射设计",
+        "支持写时复制与缺页懒分配的虚拟内存管理",
+        "支持ext4和FAT32双文件系统架构",
+        "支持动态链接的ELF可执行文件加载机制",
+        "完整信号处理机制与固定地址信号跳板设计"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "icy_hat",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410533992579-506"
+    },
+    "brief": "HatOS 是一个基于 xv6-riscv 深度改造的 RISC-V 宏内核操作系统，专为操作系统内核比赛设计。其核心特点在于构建了较为完整的现代操作系统机制，包括支持 COW、mmap 懒分配与共享内存的 SV39 虚拟内存管理，兼容 ext4 与 FAT32 的双文件系统架构，以及涵盖约 70 个 Linux ABI 的系统调用接口。此外，内核实现了多核并发调度、完整的信号处理机制与 musl libc 动态链接支持。项目的核心亮点在于创新的位置无关内核设计，通过高虚拟地址偏移与运行时指针修复简化了启动流程；同时，其独特的页表懒映射机制有效优化了内存分配开销，配合固定的信号跳板页面设计，在提升系统性能的同时增强了用户态执行的安全性。"
+  },
+  {
+    "id": "中国科学技术大学-LLPSKI-T202410358992532-878",
+    "features": {
+      "name": "StarsOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现被动映射机制以支持按需调页",
+        "构建完整的FAT32文件系统与VFS层",
+        "借鉴Linux的initcall自动注册机制",
+        "支持写时复制与两层文件描述符设计"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "LLPSKI",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410358992532-878"
+    },
+    "brief": "StarsOS 是一个面向操作系统内核比赛的中等规模 RISC-V 64 位类 Unix 操作系统内核。该项目基于 C 语言与汇编语言开发，支持 SMP 多核启动，整体架构遵循经典 Unix 设计。其核心特点包括实现了高完整度的 FAT32 文件系统与 VFS 抽象层，具备基于 Sv39 三级页表的虚拟内存管理，并提供了约 85 个 Linux 兼容系统调用，涵盖进程、内存、文件与信号等核心子系统。项目的技术亮点在于引入了被动映射机制以高效实现按需调页，采用两层文件描述符设计优化进程派生性能，借鉴 Linux 的 initcall 机制实现内核模块自动注册，并设计了时间复杂度为 O(1) 的定时睡眠事件队列。整体代码结构清晰，在文件系统与内存管理方面展现出较高的工程完成度与设计创新性。"
+  },
+  {
+    "id": "中山大学-KernalCraft-T202510558995240-2536",
+    "features": {
+      "name": "Explosion OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "从零自研实现完整的EXT4文件系统",
+        "基于特质与条件编译的多架构硬件抽象",
+        "实现写时复制与内存映射等高级内存管理",
+        "自研轻量级网络协议栈支持基础网络通信",
+        "支持浮点上下文延迟保存与辅助向量传递"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "KernalCraft",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510558995240-2536"
+    },
+    "brief": "Explosion OS 是一个基于 Rust 语言编写的宏内核操作系统项目，主要面向操作系统竞赛与底层系统教学场景。该项目在 rCore-Tutorial 的基础上进行了大幅扩展，技术定位于构建一个功能广度高、具备多架构支持潜力的现代操作系统内核。其核心特点包括实现了约 75 个 Linux 兼容系统调用，涵盖进程与线程调度、SV39 虚拟内存管理、虚拟文件系统以及基础网络协议栈，并采用基于 trait 的硬件抽象层设计以隔离 RISC-V 与 LoongArch64 的架构差异。项目的核心亮点在于从零自研了近 7000 行的 EXT4 文件系统，支持 extent 树与完整的块分配机制；同时实现了写时复制 Fork、mmap 内存映射、延迟浮点上下文保存等高级特性，并成功集成 BusyBox 以支持 Shell 脚本执行，展现了扎实的系统底层设计与工程实现能力。"
+  },
+  {
+    "id": "中山大学-静春山-T202510558995330-264",
+    "features": {
+      "name": "SpringOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "支持RISC-V与LoongArch双架构",
+        "适配星光二代与龙芯真机开发板",
+        "集成轻量库实现完整EXT4文件系统",
+        "实现龙芯架构非对齐访问软件模拟",
+        "具备完整的类Linux信号处理机制"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "静春山",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510558995330-264"
+    },
+    "brief": "SpringOS 是一个基于xv6-riscv深度扩展的操作系统内核项目，主要面向操作系统教学、底层架构研究与竞赛场景。该项目采用C语言编写，总代码量约4.8万行，构建了包含进程生命周期管理、Buddy物理内存分配、虚拟内存映射、VFS抽象层及完整EXT4文件系统在内的核心子系统，并提供80余个Linux兼容系统调用与完整的64信号处理机制。其核心亮点在于卓越的多架构与跨平台适配能力，不仅同时支持RISC-V和LoongArch双指令集架构，更成功在VisionFive2与龙芯2K1000LA真实硬件开发板上稳定运行。此外，项目在LoongArch平台上创新性地实现了地址非对齐访问的软件模拟，展现出极高的工程完整度、代码质量与架构扩展性。"
+  },
+  {
+    "id": "兰州大学-希腊奶-T202410730993030-3271",
+    "features": {
+      "name": "OSKernel2024-idk",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "异步协程调度替代传统抢占式调度",
+        "自定义PTE COW标志实现写时复制",
+        "tp寄存器存储HART指针O(1)访问",
+        "stvec临时劫持实现安全用户探测",
+        "基数树页缓存结合LRU块缓存加速IO"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "希腊奶",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410730993030-3271"
+    },
+    "brief": "OSKernel2024-idk 是一个基于 Rust 语言、面向 RISC-V 64 架构的类 Unix 教学操作系统内核。项目参考了 rCore-Tutorial v3 框架，借鉴 Titanix 和 OurOS 的设计思路，采用 SV39 分页机制，运行于 S 态并通过 SBI 固件管理硬件。内核利用 Rust 的无栈异步协程模型实现协作式任务调度，以 async/await 和全局轮转队列驱动用户线程执行。内存管理以 RAII 帧分配器、伙伴系统堆分配器和自定义缺页处理器链为基础，支持写时复制（COW）的进程 fork 和懒映射机制，并利用 RISC-V 页表预留位定义 COW 标志。VFS 抽象层下完整实现了 FAT32 文件系统、管道和 inode 缓存，底层结合 VirtIO 块驱动与 LRU 块缓存提升 I/O 性能。工程上，通过 tp 寄存器实现 HART 局部存储、临时劫持 stvec 进行用户空间安全检查，并自研基数树索引页缓存等组件，在内存安全与系统结构方面表现出较好的教学参考价值。"
+  },
+  {
+    "id": "北京理工大学-BITOS-T202410007992469-1760",
+    "features": {
+      "name": "BITOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现伙伴系统物理内存管理与SV39分页",
+        "采用跳板机制与ASID优化地址空间切换",
+        "构建支持FAT32与DevFS的VFS层",
+        "实现基于LRU策略的块设备缓冲缓存"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "BITOS",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410007992469-1760"
+    },
+    "brief": "BITOS 是一个面向操作系统竞赛的 RISC-V 64位操作系统内核，采用 Rust 语言编写并以 RustSBI 为引导固件。其核心特点在于构建了完整的现代操作系统基础框架，包括基于伙伴系统与 SV39 三级页表的内存管理、支持 FAT32 与 DevFS 的 VFS 虚拟文件系统、多进程生命周期管理以及基于跳板机制的高效上下文切换。项目亮点在于深度融合了 Rust 的所有权机制以保障内核内存安全，引入了 ASID 支持以优化 TLB 刷新开销，并设计了基于基数树的高效页缓存与 LRU 块缓存策略以提升 I/O 性能。整体代码规模约一万五千行，模块化设计清晰，展现了扎实的系统底层架构设计与工程实践能力。"
+  },
+  {
+    "id": "北京科技大学-chaos-oskernel2024-chaos",
+    "features": {
+      "name": "ChaOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "支持QEMU与VisionFive2双平台",
+        "实现高半核地址空间与SV39分页",
+        "采用TCB统一模型管理进程与线程",
+        "构建VFS层并集成ext4文件系统",
+        "实现五十余个Linux兼容系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "chaos",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/oskernel2024-chaos"
+    },
+    "brief": "ChaOS 是一个基于 Rust 语言编写的 RISC-V 64 位操作系统内核，专为 OSKernel 2024 竞赛设计，支持 QEMU 虚拟机与 StarFive VisionFive2 真实硬件双平台运行。其技术定位在于构建一个兼顾架构清晰性与竞赛实用性的现代操作系统。项目的核心特点包括：采用高半核地址空间映射与 SV39 分页机制保障内存隔离；设计进程与线程统一的 TCB 管理模型以简化调度与资源分配逻辑；并构建了包含 VFS 抽象层及 ext4 文件系统支持的存储子系统。其核心亮点在于通过编译时特性实现双平台的无缝切换，集成设备树动态解析以增强硬件适应性，同时提供了涵盖 50 余项 Linux 标准系统调用的丰富接口，展现了从教学框架向竞赛级内核演进的扎实工程能力。"
+  },
+  {
+    "id": "北京科技大学-SubsToKernel-T202510008995695-2720",
+    "features": {
+      "name": "SubsToKernel",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "支持双架构与LoongArch快填",
+        "实现COW与延迟分配等内存优化",
+        "集成银行家算法实现死锁避免",
+        "支持动态链接与完整辅助向量",
+        "实现四种操作的完整Futex机制"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "SubsToKernel",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510008995695-2720"
+    },
+    "brief": "SubsToKernel 是一个基于 rCore-Tutorial-v3 深度扩展的竞赛级操作系统内核，采用 Rust 语言编写，原生支持 RISC-V 64 与 LoongArch 64 双架构。该项目旨在构建具备高 Linux 兼容性的现代操作系统，实现了逾 100 个核心系统调用。其核心特点包括：完备的进程与线程管理、基于 lwext4 的虚拟文件系统、基于 smoltcp 的网络协议栈，以及集成 Futex 与银行家算法的同步机制。项目技术亮点突出，不仅实现了 LoongArch 架构下高效的硬件 TLB 重填与直接映射窗口配置，还创新性地引入了写时复制、延迟分配与共享组相结合的三层内存优化策略。此外，内核对 musl libc 动态链接及复杂信号处理机制的全面支持，使其在系统调用覆盖面与底层硬件适配上展现出极高的工程完成度与技术深度。"
+  },
+  {
+    "id": "北京航空航天大学-Phoenix队-T202410006992780-1159",
+    "features": {
+      "name": "SleepOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现Sv-39虚拟内存与写时复制机制",
+        "支持被动调页与按需物理内存分配",
+        "采用进程与线程分离的并发调度模型",
+        "实现完整的FAT32文件系统与缓冲缓存"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "Phoenix队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410006992780-1159"
+    },
+    "brief": "Sos（SleepOS/Phoenix）是一个面向操作系统内核竞赛的RISC-V 64位教学风格内核。该项目基于xv6架构设计，采用C语言与汇编语言开发，目标运行平台为QEMU virt虚拟机。其核心特点在于构建了进程与线程分离的资源调度模型，实现了Sv-39三级虚拟内存管理、完整的FAT32文件系统驱动，以及覆盖进程、文件、内存管理等类别的30个核心系统调用。项目的技术亮点包括：引入被动调页与写时复制机制以显著优化物理内存的分配与使用效率；通过函数指针构建了支持常规文件、控制台与管道的多态I/O抽象层；并设计了带超时管理的定时睡眠事件机制，有效提升了线程并发等待的执行效率。整体而言，该内核在内存管理与进程调度等核心子系统上具备较高的工程完整度与技术深度。"
+  },
+  {
+    "id": "华东师范大学-ECNU九队-T202410269992492-843",
+    "features": {
+      "name": "TOYOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "支持FAT32与ext4双文件系统",
+        "实现ELF动态链接与mmap支持",
+        "基于Trampoline的高效特权级切换",
+        "采用Extent树优化ext4大文件访问",
+        "提供55个Linux标准兼容系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "ECNU九队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410269992492-843"
+    },
+    "brief": "TOYOS 是一个基于 RISC-V 架构的教学与竞赛级操作系统内核。该项目采用 C 语言开发，运行于 S-mode 并依赖 OpenSBI 固件，整体功能完整度约 88%。其核心特点包括清晰的模块化设计、完整的进程生命周期管理、支持 mmap 的 SV39 虚拟内存管理，以及涵盖 55 个 Linux 标准子集的系统调用。在存储方面，TOYOS 通过统一的 VFS 抽象层同时支持 FAT32 与 ext4 双文件系统，并实现了 UART、VirtIO 等完整外设驱动。项目的核心亮点在于引入了教学操作系统中较为少见的 ELF 动态链接支持，并在 ext4 实现中采用了复杂的 Extent 树结构以优化大文件读写性能。此外，基于 Trampoline 机制的高效特权级切换与严谨的并发锁机制设计，使其在保持代码结构简洁的同时，具备了优秀的底层架构可扩展性。"
+  },
+  {
+    "id": "华中科技大学-cabbageOS-T202410487992456-422",
+    "features": {
+      "name": "cabbageOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "支持多核启动与跨CPU内存窃取",
+        "实现完整的Buddy系统与COW机制",
+        "采用PCB与TCB分离的多线程模型",
+        "实现Sv39三级页表与按需分页机制",
+        "集成FAT32与ext4双文件系统支持"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "cabbageOS",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410487992456-422"
+    },
+    "brief": "cabbageOS 是一个面向 RISC-V 架构的类 Unix 多核操作系统内核，主要定位于操作系统竞赛与教学实践，支持 QEMU 模拟器与 VisionFive2 硬件平台。其核心特点在于采用 C 语言与汇编构建主体，并集成 Rust 编写的底层设备驱动。系统实现了高度完整的内核子系统，包括基于 Buddy 算法的多核物理内存池与 Sv39 虚拟内存管理，支持按需分页与写时复制；采用 PCB 与 TCB 分离的设计，支持多进程多线程模型及 clone 系统调用；同时构建了包含 FAT32、ext4 和 procfs 的 VFS 虚拟文件系统抽象层。该项目的亮点在于出色的多核内存分配协同设计、高达 95% 的系统调用覆盖率以及约 85% 的整体功能完整度，展现了极高的工程成熟度与架构合理性。"
+  },
+  {
+    "id": "华中科技大学-RustTrustHuster-T202410487992457-1800",
+    "features": {
+      "name": "TrustOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现百余个POSIX系统调用与写时复制",
+        "基于lwext4实现完整ext4文件系统",
+        "支持用户栈信号帧构建与系统调用重启",
+        "实现跨进程Futex与共享内存机制",
+        "提供辅助向量支持以兼容动态链接程序"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "RustTrustHuster",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410487992457-1800"
+    },
+    "brief": "TrustOS 是一个基于 Rust 语言开发的 RISC-V 64位宏内核操作系统，主要面向操作系统教学与高水平学科竞赛，致力于提供高度兼容 POSIX 标准的系统环境。其核心特点在于实现了 105 个系统调用，构建了包含 SV39 分页、写时复制、按需懒分配及 System V 共享内存的完整内存管理子系统，并集成了基于 lwext4 的 ext4 文件系统与 VFS 抽象层。在进程与同步管理方面，项目支持完整的 clone 线程模型与 Futex 机制，同时实现了符合 Linux 规范的用户栈信号帧与 SA_SIGINFO 信号处理。其技术亮点在于充分利用 Rust 的所有权模型保障内核内存安全，通过辅助向量完美支持用户态动态链接，并具备 QEMU 与 VisionFive2 多板级适配能力，展现了极高的工程模块化水平与系统底层开发质量。"
+  },
+  {
+    "id": "华中科技大学-厚积薄发队-T202410487992577-3161",
+    "features": {
+      "name": "xv6",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现每进程独立内核页表增强安全隔离",
+        "系统调用编号兼容主流操作系统标准接口",
+        "移植轻量级库实现完整的扩展文件系统",
+        "采用混合编程集成独立编写的存储驱动"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "厚积薄发队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410487992577-3161"
+    },
+    "brief": "xv6-RISC-V扩展内核是一个基于 RISC-V 架构、面向 QEMU 虚拟机与 StarFive VisionFive 开发板的现代操作系统内核。该项目在 MIT xv6 的基础上进行了深度扩展，代码规模逾 5.3 万行，采用 C 与 Rust 混合开发模式。其核心特点在于突破了原始教学系统的局限，引入了 ext4 文件系统、多线程克隆、POSIX 信号机制、futex 同步原语以及基于 VMA 的 mmap 内存映射等现代操作系统关键特性。项目的核心亮点包括：一是实现了每进程独立内核页表，有效增强了内核地址空间的隔离性与安全性；二是系统调用接口全面兼容 Linux RISC-V ABI，具备直接运行 Linux 静态链接用户态程序的潜力；三是成功移植 lwext4 库，赋予内核 extent 和日志等高级文件系统支持，显著提升了系统的工程完整度与实际应用价值。"
+  },
+  {
+    "id": "华中科技大学-啊对的对的嗷不对不对-T202510487995136-2371",
+    "features": {
+      "name": "AddddOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "实现双指令集架构的底层支持",
+        "引入伙伴系统优化物理内存分配",
+        "集成外部库实现EXT4文件系统",
+        "实现八十余个系统调用兼容应用",
+        "构建统一的虚拟文件系统抽象层"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "啊对的对的嗷不对不对",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510487995136-2371"
+    },
+    "brief": "AddddOS 是一个基于 MIT xv6 进行大规模扩展的操作系统内核，技术定位为支持 RISC-V 64 与 LoongArch 64 双架构的竞赛级系统。其核心特点在于对基础架构的全面重构与增强：内存管理引入基于线段树的伙伴系统分配器；文件系统构建了 VFS 抽象层并深度集成 lwext4 以支持 EXT4 格式；进程与同步机制扩展了信号处理、Futex、本地 Socket 通信及线程支持。项目的最大亮点是实现了 RISC-V 与 LoongArch 的双架构深度适配，独立完成了 LoongArch 下的 PCI 总线枚举、四级页表硬件遍历及 EXTIOI 中断控制器移植。此外，内核实现了 80 余个 Linux 标准系统调用，具备运行 BusyBox 等复杂用户态程序的能力，在功能广度与跨架构兼容性上展现出显著的工程价值。"
+  },
+  {
+    "id": "华中科技大学-塔特林设计局-T202510487995221-883",
+    "features": {
+      "name": "TatlinOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "双架构统一抽象与高代码复用率",
+        "实现懒分配与写时复制的现代内存管理",
+        "引入页缓存机制优化物理页帧分配性能",
+        "兼容百余Linux系统调用与POSIX信号"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "塔特林设计局",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510487995221-883"
+    },
+    "brief": "TatlinOS 是一个基于 Rust 语言编写的宏内核操作系统，主要面向操作系统教学与 OSKernel 竞赛，支持 RISC-V 64 与 LoongArch 64 双架构运行。该项目实现了 100 余个 Linux 兼容系统调用，具备完整的进程与线程管理、ext4 文件系统支持以及 POSIX 信号机制。其核心特点在于现代化的内存管理子系统，全面支持按需分页、写时复制以及 System V 共享内存。TatlinOS 的技术亮点包括：在物理页分配器中引入带水位线控制的页缓存机制以显著提升分配性能；设计 GroupManager 高效管理 mmap 共享页以节省物理内存；通过高度抽象的架构隔离层实现双架构下核心逻辑的深度复用；并将 Futex 机制与定时器系统深度集成以实现可靠的超时唤醒。整体而言，该项目代码结构清晰，展现了出色的工程实现能力与现代内核设计理念。"
+  },
+  {
+    "id": "华南理工大学-双鸭山-T202410561992919-1376",
+    "features": {
+      "name": "DuckOs",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "缺页异常采用Trait多态分发设计",
+        "引入VmaRange中间层灵活管理内存区间",
+        "从零手动实现完整的FAT32文件系统",
+        "采用SyncUnsafeCell优化细粒度并发",
+        "基于RAII守卫自动管理SUM位与中断"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "双鸭山",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410561992919-1376"
+    },
+    "brief": "DuckOs 是一个面向 RISC-V 64 位平台的教学与竞赛级操作系统内核，采用 Rust 语言编写并运行于 QEMU 虚拟环境。该项目以 Linux 架构为蓝本，构建了包含 SV39 虚拟内存管理、进程与线程统一模型、VFS 抽象层及系统调用接口在内的完整内核框架，核心特点在于清晰的子系统分层设计与高度模块化的代码结构。项目亮点包括：通过 PageFaultHandler trait 实现缺页异常的多态分发，提升了内存管理的扩展性；引入 VmaRange 中间层实现灵活的虚拟内存区间操作；利用 SyncUnsafeCell 与 RAII 守卫优化细粒度并发控制；此外，团队从零手写实现了包含 BPB 解析与时钟置换算法的 FAT32 文件系统，展现了对底层存储原理的深刻理解。整体而言，DuckOs 代码规范、文档详实，是一个兼具教学参考价值与竞赛实战能力的优秀内核作品。"
+  },
+  {
+    "id": "南京理工大学-月光加冕贝拉拉-T202410288992519-2849",
+    "features": {
+      "name": "Bella-V",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现FAT32文件系统与多实例挂载支持",
+        "兼容Linux调用号并实现四十六个系统调用",
+        "支持每进程独立内核页表与mmap内存映射",
+        "提供SBI与UART双模式控制台及多核启动"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "月光加冕贝拉拉",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410288992519-2849"
+    },
+    "brief": "Bella-V 是一个基于 MIT xv6-riscv 教学框架深度扩展的 RISC-V 64位操作系统内核，主要面向 QEMU 虚拟机与 VisionFive 2 开发板。该项目采用 C 语言与底层汇编开发，技术定位在于构建一个兼具教学清晰度与实用特性的现代操作系统。其核心特点包括完整的 Sv39 三级页表虚拟内存管理、支持长文件名与多实例挂载的 FAT32 文件系统、基于轮转算法的进程调度，以及 46 个 Linux 兼容系统调用接口。项目的核心亮点在于实现了每进程独立内核页表以增强内存隔离性，引入了 mmap 文件映射与系统调用追踪机制，并针对 VisionFive 2 硬件平台完成了 UART 等底层驱动的深度适配，展现了扎实的底层系统工程实践与跨平台硬件适配能力。"
+  },
+  {
+    "id": "南京航空航天大学-undefinedType-T202410287992755-2176",
+    "features": {
+      "name": "undefinedType",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C++",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "采用面向对象的内核架构设计",
+        "支持动态链接用户程序的加载",
+        "集成ext4与FAT32双文件系统",
+        "实现完整的SV39虚拟内存管理"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "undefinedType",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410287992755-2176"
+    },
+    "brief": "undefinedType 是一个面向RISC-V 64位架构的教学与竞赛级轻量级操作系统内核。该项目以C++17为主要开发语言，充分发挥面向对象特性构建底层架构，实现了SV39虚拟内存管理、基于VFS的ext4与FAT32双文件系统、VirtIO块设备驱动以及兼容Linux ABI的系统调用接口。其核心亮点在于具备完整的ELF解析与加载能力，原生支持动态链接用户程序的运行；同时设计了类型安全且可分类控制的自定义内核日志系统。在约9600行自研代码的规模下，内核涵盖了进程轮转调度、物理与虚拟内存管理、异常中断处理及管道通信等关键机制，能够成功引导并运行busybox等真实用户态程序，展现了出色的系统抽象设计能力与扎实的工程实践水平。"
+  },
+  {
+    "id": "南京航空航天大学-undefinedType-T202410287992755-3487",
+    "features": {
+      "name": "EcallFinal1 Operating System",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C++",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "使用C++面向对象特性构建内核代码",
+        "实现SV39按需分页与VMR内存管理",
+        "完整实现FAT32文件系统与VFS层",
+        "统一物理与Slab分配器实现内存路由"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "undefinedType",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410287992755-3487"
+    },
+    "brief": "EcallFinal1 Operating System (EFOS) 是一个面向2024年全国大学生操作系统内核赛的RISC-V 64位教学与竞赛内核。该项目基于C++17开发，核心代码约5500行，技术定位为结构清晰、功能完备的最小可用操作系统框架。其核心特点包括：实现了基于SV39的虚拟内存管理与按需分页，支持时间片轮转调度的进程生命周期管理，完整的FAT32文件系统与VirtIO块设备驱动，以及约30个Linux兼容系统调用。项目亮点在于充分利用C++面向对象特性，设计了流式内核输出系统与统一的物理内存及Slab分配路由机制，并通过侵入式双向链表高效管理虚拟内存区域与文件对象，在有限代码规模内展现了良好的模块化设计思想与工程实践能力。"
+  },
+  {
+    "id": "南开大学-如有名字队-nonix",
+    "features": {
+      "name": "Nonix OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于polyhal实现双架构硬件抽象",
+        "实现内存懒加载与mmap共享组机制",
+        "通过lwext4实现Ext4文件系统适配",
+        "提供73个Linux兼容系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "如有名字队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/nonix"
+    },
+    "brief": "Nonix OS 是一个面向 OSKernel2025 比赛的 Rust 操作系统内核，定位于支持 RISC-V 64 与 LoongArch 64 双架构的类 Unix 系统。其核心特点在于通过 polyhal 硬件抽象层实现了跨架构的底层适配，并构建了涵盖虚拟内存管理、ext4 文件系统、进程控制及 73 个 Linux 兼容系统调用的完整内核子系统。项目的主要亮点包括：引入创新的 mmap 共享组机制，高效解决了进程 fork 后的内存映射物理帧共享问题；实现了基于懒加载与写时复制（COW）的精细化内存管理；以及通过动态虚拟文件注册表原生支持 /proc 伪文件系统。该项目工程集成度高，能够流畅运行 busybox shell 与常规用户态程序，展现了扎实的系统级架构设计与跨平台工程实践能力。"
+  },
+  {
+    "id": "南开大学-萌新-T202410055992606-2876",
+    "features": {
+      "name": "ZeroOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "基于Rust异步模型实现系统调用",
+        "支持QEMU与VisionFive2双平台运行",
+        "用户态BTreeMap模拟FAT32文件链接",
+        "实现百余个Linux兼容系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "萌新",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410055992606-2876"
+    },
+    "brief": "ZeroOS 是一个面向 OSKernel2024 比赛的 RISC-V 64 位 Linux 兼容宏内核操作系统。该项目采用纯 Rust 编写，基于 ArceOS 与 Starry 模块化框架构建，核心定位是在 RISC-V 平台上高效运行标准 Linux 用户态程序与测试套件。其核心特点包括实现了 101 个 Linux 系统调用，完整涵盖进程、内存、文件与网络子系统，并支持 ext4、FAT 等多种文件系统以及基于 smoltcp 的网络协议栈。ZeroOS 的主要亮点在于创新性地引入异步系统调用模型，利用 Rust 的 async/await 机制显著优化阻塞操作性能；同时具备出色的跨平台能力，不仅支持 QEMU 虚拟环境，还深度适配 VisionFive2 实体开发板，自主实现了 PLIC 中断控制器与 SD 卡驱动。此外，项目通过用户态映射巧妙解决了 FAT32 不支持符号链接的工程难题，展现了扎实的底层系统开发与工程实践能力。"
+  },
+  {
+    "id": "合肥工业大学-LHW-T202410359993044-3510",
+    "features": {
+      "name": "SystemNQB",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现兼容Linux的系统调用接口",
+        "引入FAT32文件系统替代原生设计",
+        "集成SBI HSM实现多核动态启动",
+        "构建时自动生成系统调用分发表"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "LHW",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410359993044-3510"
+    },
+    "brief": "SystemNQB 是一个基于 MIT xv6 教学操作系统深度改造的 RISC-V 64 位内核，主要面向操作系统内核比赛，旨在提供高度兼容 Linux ABI 的运行环境。其核心技术特点包括采用 Sv39 三级页表与 SBI HSM 多核动态启动机制，并将原生文件系统全面重构为 FAT32 格式以适配标准外部镜像。项目实现了三十余个 Linux 兼容系统调用，支持完整的 ELF64 加载与进程生命周期管理。其突出亮点在于通过构建时脚本自动生成系统调用分发表以提升工程效率，同时重新设计了 inode 结构与 FAT 链管理机制，实现了 FAT32 目录项的无缝适配。此外，内核集成了完整的 VirtIO 块设备与 UART 驱动，展现出扎实的底层硬件交互与系统重构能力。"
+  },
+  {
+    "id": "合肥工业大学-冰清玉洁YWD-T202410359992654-116",
+    "features": {
+      "name": "冰清玉洁YWD",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "设计每进程独立的内核页表",
+        "引入物理页引用计数支持写时复制",
+        "实现FAT32文件系统与挂载机制",
+        "实现按需页面加载与延迟分配",
+        "扩展五十二个Linux兼容系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "冰清玉洁YWD",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410359992654-116"
+    },
+    "brief": "冰清玉洁YWD 是一个基于 xv6-riscv 深度改造的 RISC-V 64位操作系统内核，由合肥工业大学团队开发，主要面向操作系统教学与竞赛场景。该项目使用 C 语言编写，支持 QEMU virt 虚拟机与 Kendryte K210 双硬件平台。其核心特点在于对原版架构进行了大幅扩展，采用 FAT32 文件系统替代原生简易文件系统，并实现了 52 个向 Linux ABI 靠拢的系统调用，显著提升了系统的实用性。项目的核心亮点包括创新的每进程独立内核页表设计、引入物理页引用计数机制以支持写时复制，以及实现了按需页面加载、内存映射和多文件系统挂载功能。尽管在工程化细节上仍有完善空间，但该项目充分展现了团队对操作系统底层机制的深刻理解与积极的架构探索。"
+  },
+  {
+    "id": "合肥工业大学-小混子队-oskernel2024-xiaohunzi",
+    "features": {
+      "name": "unknown",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现Ext4文件系统基础读写功能",
+        "兼容数十个Linux标准系统调用",
+        "支持运行Busybox用户态工具集",
+        "实现基础信号处理与多线程管理"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "小混子队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/oskernel2024-xiaohunzi"
+    },
+    "brief": "小混子队操作系统内核是一个基于xv6深度改造的RISC-V 64位操作系统，技术定位为面向Linux系统调用兼容与busybox用户态工具集支持的竞赛级内核。其核心特点在于实现了约70个Linux兼容系统调用，将原生简单文件系统重构为ext4文件系统，并具备基础的进程与线程管理、Sv39虚拟内存管理以及VirtIO块设备驱动。该项目的亮点在于能够成功引导并运行busybox的数十种基础命令与文本处理工具，实现了包含信号处理机制、完整ELF加载与辅助向量支持的exec机制，以及基于LRU策略的块设备缓存。整体而言，该项目在有限的开发周期内完成了从教学内核向具备一定Linux兼容性的实用型内核的跨越，展现了较强的系统工程实践与多子系统整合能力。"
+  },
+  {
+    "id": "合肥工业大学-比赛时在干什么有没有空帮我修个bug-T202410359992600-273",
+    "features": {
+      "name": "BugOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "集成lwext4实现现代文件系统支持",
+        "实现六十余个Linux兼容系统调用",
+        "支持QEMU与K210等多硬件平台",
+        "实现POSIX标准信号处理机制",
+        "支持Sv39三级页表与内存段管理"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "比赛时在干什么有没有空帮我修个bug",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410359992600-273"
+    },
+    "brief": "BugOS 是一个基于xv6-riscv深度扩展的教学级RISC-V 64位操作系统内核。该项目采用C语言与汇编语言开发，核心定位是为操作系统教学、嵌入式开发及系统研究提供架构清晰、易于维护的原型基础。其核心特点包括实现了60余个Linux兼容系统调用，集成了完整的lwext4现代文件系统，并具备Sv39三级虚拟内存管理、POSIX信号处理、多核调度及VirtIO设备驱动等完备的子系统。BugOS的突出亮点在于出色的多平台硬件适配能力，同时支持QEMU虚拟机、K210及VisionFive开发板；此外，其在系统调用接口上高度兼容Linux RISC-V ABI，为运行标准Linux用户态程序奠定了基础。整体代码规模约1.6万行，在功能丰富度与代码可读性之间取得了良好平衡。"
+  },
+  {
+    "id": "吉利学院-菜鸡不会riscv-T202412802992528-327",
+    "features": {
+      "name": "noob is not RISV-V",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "采用协程实现线程上下文切换与调度",
+        "实现FAT32文件系统与VFS抽象层",
+        "进程与线程分离设计并支持独立栈页表",
+        "结合Buddy与Slab的物理内存管理",
+        "自定义SBI固件实现引导与定时器转发"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "菜鸡不会riscv",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202412802992528-327"
+    },
+    "brief": "noob is not RISV-V 是一个面向 RISC-V 64 位架构的竞赛级操作系统内核项目。该项目采用 C 语言与汇编混合开发，运行于 QEMU 虚拟化平台，构建了包含自定义 SBI 固件、Sv39 虚拟内存管理、Buddy 与 Slab 物理内存分配器以及 VirtIO 块设备驱动的完整底层架构。其核心特点在于实现了进程与线程分离的并发模型，并创新性地引入协程机制来管理内核线程的上下文切换与调度循环。此外，项目实现了基于 VFS 抽象层的 FAT32 文件系统，支持长文件名解析与目录挂载，并具备完善的用户态陷阱处理、系统调用分发及用户栈延迟分配等缺页异常处理机制。整体设计在兼顾操作系统核心概念完整性的同时，展现了在调度器设计与文件系统抽象上的独特探索。"
+  },
+  {
+    "id": "吉林大学-reXvapor-T202510183995907-273",
+    "features": {
+      "name": "Re-XVapor",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "实现Linux风格线程组与进程分离架构",
+        "移植lwext4实现ext4文件系统支持",
+        "实现mmap按需调页与ELF动态链接加载",
+        "提供POSIX兼容信号与Futex同步原语",
+        "自动生成系统调用分发表与用户态桩代码"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "reXvapor",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510183995907-273"
+    },
+    "brief": "Re-XVapor 是一个基于 MIT xv6-riscv 深度改造的类 Unix 宏内核项目，主要面向操作系统竞赛场景，旨在支持运行由 glibc 或 musl 链接的真实用户态程序。该项目采用纯 C 语言编写，目标平台为 RISC-V 并初步支持 LoongArch，总代码规模约 5.1 万行。其核心特点在于实现了 81 个 Linux 兼容系统调用，构建了进程与线程分离的调度架构，引入了 VFS 抽象层与完整的 ext4 文件系统支持，并实现了基于按需调页的 mmap 机制、POSIX 信号处理以及 futex 同步原语。此外，其 ELF 加载器同时支持静态与动态链接程序。项目的核心亮点在于成功将基础教学内核扩展为具备实用价值的操作系统，线程组模型与 VFS 架构设计合理，系统调用分发等模块采用脚本自动生成，展现了较高的工程集成能力与跨平台设计意识。"
+  },
+  {
+    "id": "同济大学-sudo_pacman_Syu-T202510247995532-2817",
+    "features": {
+      "name": "Eonix",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "x86_64",
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于Rust异步语法实现内核任务调度",
+        "支持x86_64及RISC-V等三种架构",
+        "采用RCU与无锁结构优化关键路径性能",
+        "自定义宏实现跨架构的处理器局部变量",
+        "实现完整Linux克隆语义与系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "sudo_pacman_Syu",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510247995532-2817"
+    },
+    "brief": "Eonix 是一个使用 Rust 编写的多架构宏内核操作系统，支持 x86_64、RISC-V 64 和 LoongArch64 三种主流指令集架构。其技术定位为一个面向教学与研究的现代化、高安全性操作系统内核。项目的核心特点在于深度利用 Rust 语言特性，创新性地采用 async/await 语法实现有栈与无栈混合的异步任务调度，并构建了类型安全的硬件抽象层。此外，内核实现了包含 Buddy 与 Slab 分配器及写时复制的完整内存管理、兼容 Linux clone 语义的进程模型以及支持多种文件系统的虚拟文件系统层。其最大亮点在于将异步运行时与 RCU 无锁数据结构巧妙结合，大幅提升了内核并发性能，同时通过自定义过程宏实现了跨架构的 Per-CPU 变量支持。该项目代码规模近四万行，整体功能完整度约 82%，充分展现了 Rust 在底层系统编程领域的强大能力与设计美学。"
+  },
+  {
+    "id": "哈尔滨工业大学-功夫外卖队-T202410213992588-1208",
+    "features": {
+      "name": "S0S",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "独立实现支持长文件名的FAT32文件系统",
+        "实现包含三十二个信号的完整POSIX信号机制",
+        "将硬件异常转化为POSIX信号传递给用户程序",
+        "实现类Unix的全局文件表与引用计数自动回收",
+        "支持多核启动与基于静态分配的多核任务调度"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "功夫外卖队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410213992588-1208"
+    },
+    "brief": "S0S 是一个基于 RISC-V 64位架构、使用纯 Rust 语言在 no_std 环境下实现的类 Unix 教学操作系统内核。该项目由哈尔滨工业大学团队基于 rCore-Tutorial-V3 深度扩展开发，主要运行于 QEMU 虚拟机与 K210 开发板。其核心特点包括多核同步启动、SV39 三级页表虚拟内存管理、基础进程生命周期管理以及涵盖 33 个接口的系统调用层。项目的核心亮点在于脱离原版教学文件系统，独立实现了一个支持长文件名的完整 FAT32 文件系统 no_std 库，并引入了类 Unix 的全局 inode 与打开文件表机制。此外，内核创新性地将底层硬件异常统一转化为 POSIX 信号传递给用户态，结合完整的信号掩码与处理动作，显著增强了系统的交互能力与用户程序的容错性，是一个结构清晰、功能完备的优秀操作系统教学实践项目。"
+  },
+  {
+    "id": "哈尔滨工业大学-旺仔-T202410213992561-2280",
+    "features": {
+      "name": "AronaOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "基于Rust异步协程实现协作式调度",
+        "构建统一VFS层支持FAT32与ext4",
+        "实现基于引用计数的页表级写时复制",
+        "实现清晰的进程与线程分离管理模型"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "旺仔",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410213992561-2280"
+    },
+    "brief": "AronaOS 是一个基于 rCore-Tutorial-v3 深度改造的 RISC-V 64位教学与竞赛操作系统内核。其技术定位在于探索现代异步编程模型在操作系统底层的应用。项目的核心亮点是创新性地采用异步无栈协程调度模型，将用户态线程封装为 Rust Future，利用 async/await 语法实现协作式调度，使阻塞型系统调用能自然让出 CPU。此外，AronaOS 构建了统一的虚拟文件系统抽象层，不仅实现 FAT32 驱动，还独立开发了具备跨平台复用潜力的 ext4 模块，并引入目录延迟加载机制优化性能。在核心机制上，内核支持 SV39 分页、写时复制、五十余个 POSIX 系统调用及基本信号处理。尽管多核调度等特性仍有完善空间，AronaOS 凭借独特的异步架构与扎实的文件系统实现，展现了出色的工程价值与设计创新性。"
+  },
+  {
+    "id": "哈尔滨工业大学-练习时长两年半-T202410213992712-3123",
+    "features": {
+      "name": "MinotaurOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "全异步内核设计与统一事件总线机制",
+        "支持写时复制与多类型内存区域抽象",
+        "集成多种文件系统与异步页缓存机制",
+        "实现百余个类Linux兼容系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "练习时长两年半",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410213992712-3123"
+    },
+    "brief": "MinotaurOS 是一个基于 Rust 语言与 RISC-V 架构构建的现代异步操作系统内核。该项目定位为兼具教学价值与研究潜力的类 Unix 系统，代码规模约 1.8 万行，核心功能完整度约 87%。其核心特点在于采用全异步设计，通过 async/await 统一并发模型，实现了 120 余个 Linux 兼容系统调用、多核进程管理、TCP/IP 网络栈以及包含 ext4 和 tmpfs 的多层虚拟文件系统。项目的突出亮点包括创新的事件总线机制，将信号中断与异步等待优雅结合；高度抽象的内存区域模型，全面支持写时复制与共享内存；并结合 ASID 动态管理、ELF 快照缓存及自定义过程宏，实现了显著的性能与开发效率优化。MinotaurOS 架构清晰严谨，充分展现了 Rust 在构建高安全系统级软件方面的优势。"
+  },
+  {
+    "id": "哈尔滨工业大学（深圳）-AstranciA-T202518123995667-1436",
+    "features": {
+      "name": "AstrancE",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64",
+        "aarch64",
+        "x86_64"
+      ],
+      "highlights": [
+        "基于linkme实现可插拔陷阱处理",
+        "支持线性与按需分配多后端内存映射",
+        "完整支持静态与动态链接ELF加载",
+        "同时实现SysV与POSIX双共享内存",
+        "基于闭包生成器实现procfs动态生成"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "AstranciA",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202518123995667-1436"
+    },
+    "brief": "AstrancE 是一个基于 ArceOS 框架深度定制、采用 Rust 语言编写的宏内核操作系统，主要面向 RISC-V 和 LoongArch64 架构，同时兼容 x86_64 与 AArch64。该项目旨在提供高兼容性的类 Linux 运行环境，实现了约 71 个标准系统调用，核心涵盖虚拟内存管理、进程生命周期控制、多文件系统支持及 POSIX 信号处理等关键子系统。其技术亮点包括：引入基于 linkme 机制的可插拔陷阱处理框架，实现硬件抽象层与上层模块的彻底解耦；支持动态链接 ELF 程序的完整加载流程；设计了多后端内存映射与 System V 及 POSIX 双套共享内存机制；并实现了 procfs 动态内容的按需生成。项目代码规模约 7.6 万行，整体功能完整度评估为 75% 至 80%，在架构设计的模块化、内存安全以及多架构深度适配方面展现出较高的工程水平。"
+  },
+  {
+    "id": "哈尔滨工业大学（深圳）-Chronix-T202518123995568-675",
+    "features": {
+      "name": "Chronix",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于Rust异步模型实现内核调度",
+        "支持双指令集架构的硬件抽象层",
+        "实现负载追踪与多核任务负载均衡",
+        "包含十三级缓存的自研内存分配器",
+        "覆盖约两百个系统调用的高兼容性"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "Chronix",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202518123995568-675"
+    },
+    "brief": "Chronix 是一个基于 Rust async/await 异步执行模型的多架构宏内核操作系统。其技术定位在于将用户任务封装为 Rust Future，通过统一的异步执行器进行调度，使系统调用与陷阱处理均以异步函数实现，天然支持高并发并简化内核控制流。核心特点包括高度兼容 Linux ABI（实现约 200 个系统调用）、完善的双架构硬件抽象层（支持 RISC-V 64 与 LoongArch 64），以及涵盖内存、文件系统与网络栈的完整子系统。其突出亮点在于创新的异步内核设计、自研 13 级 SLAB 内存分配器、参考 Linux CFS 实现的 PELT 负载均衡调度算法，以及超 4.1 万行的代码规模。凭借卓越的工程质量，Chronix 在操作系统内核比赛中满分通过决赛测例，展现了极高的完整度与技术创新性。"
+  },
+  {
+    "id": "哈尔滨工业大学（深圳）-Del0n1x-T202518123995600-2523",
+    "features": {
+      "name": "Del0n1x",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "采用无栈协程实现内核异步任务调度",
+        "实现跨指令集架构的硬件抽象层设计",
+        "基于位图与缓存优化文件描述符分配",
+        "集成页缓存与脏块追踪优化文件系统",
+        "实现分级释放策略的内存溢出处理"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "Del0n1x",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202518123995600-2523"
+    },
+    "brief": "Del0n1x OS 是一个使用 Rust 语言编写的跨架构 Linux 兼容多核操作系统内核，同时支持 RISC-V 64 与 LoongArch 64 指令集。该项目致力于构建功能完备的系统基座，实现了包含写时复制与懒分配的虚拟内存管理、基于 VFS 与 ext4 的文件系统、smoltcp 网络协议栈，以及涵盖 150 余个接口的 POSIX 兼容系统调用。其核心技术亮点在于创新性地引入无栈协程机制实现内核异步任务调度，有效降低了上下文切换开销；同时设计了高内聚的硬件抽象层，通过条件编译实现跨架构的零成本抽象。此外，项目在文件描述符分配上采用位图与缓存双重优化，结合页缓存与脏块追踪机制显著提升了 I/O 性能，并具备实用的 OOM 自动页缓存回收机制，展现了出色的系统编程能力与架构设计水平。"
+  },
+  {
+    "id": "哈尔滨工业大学（深圳）-rustflyer-T202518123995755-2974",
+    "features": {
+      "name": "Nighthawk OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于Rust异步无栈协程的调度架构",
+        "模块化VMA与零开销缺页异常处理",
+        "实现丰富的Linux兼容特殊文件系统",
+        "跨架构支持RISC-V与LoongArch"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "rustflyer",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202518123995755-2974"
+    },
+    "brief": "Nighthawk OS 是一个基于 Rust 语言编写的类 Linux 操作系统内核，主要面向 RISC-V 与 LoongArch 架构。该项目的技术定位在于探索现代系统编程语言在操作系统底层的深度应用。其核心特点是全面采用 Rust 的 async/await 无栈协程机制作为任务调度基础，消除了传统内核中复杂的上下文切换开销，并利用编译期检查保障并发安全。在功能实现上，Nighthawk OS 具备较高的工程完整度，实现了约 192 个系统调用，涵盖进程管理、Sv39 虚拟内存、VFS 及网络栈等核心子系统。其突出亮点包括：设计了基于函数指针的零开销模块化 VMA 页错误处理机制；实现了 epoll、inotify、timerfd 等丰富的 Linux 特殊文件系统以支持复杂用户态程序；以及通过统一的宏抽象实现了跨架构的代码复用。总体而言，该项目在架构创新与 POSIX 兼容性方面展现了出色的技术水平。"
+  },
+  {
+    "id": "哈尔滨理工大学-NPUcore-whoami-T202410214992509-3687",
+    "features": {
+      "name": "NPUcore",
+      "kernel_type": "monolithic",
+      "ecosystem": "rcore-tutorial",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现多层级OOM处理与内存页多状态管理",
+        "完整实现FAT32文件系统与树形VFS层",
+        "支持写时复制与完整的POSIX信号机制",
+        "支持QEMU与K210等多硬件平台"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "NPUcore",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410214992509-3687"
+    },
+    "brief": "NPUcore 是一个基于 Rust 语言编写的 RISC-V 64 位教学操作系统，旨在提供高度兼容 Linux 接口的底层运行环境。该项目在 rcore-tutorial 框架基础上进行了深度扩展，支持 QEMU、K210 和 Fu740 等多硬件平台，实现了约 90 个 Linux 兼容系统调用，涵盖进程管理、FAT32 文件系统、POSIX 信号及 Futex 同步等核心子系统。其核心技术亮点在于创新的多层级 OOM 处理机制与内存页多状态管理，通过无缝协作写时复制、ZRAM 内存压缩与磁盘交换，构建了高效的内存层次结构。此外，项目完整实现了支持长文件名与页缓存的 FAT32 文件系统，并设计了具备延迟加载与路径缓存特性的树形 VFS 目录树。整体架构抽象良好，是一个兼具教学价值与工程实践深度的优秀操作系统内核项目。"
+  },
+  {
+    "id": "天津大学-Moncake-T202510056995244-24",
+    "features": {
+      "name": "MonkeyOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "ByteOS",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于Rust异步模型实现协作式调度",
+        "支持musl与glibc双C库动态链接",
+        "通过polyhal实现跨架构硬件抽象",
+        "引入任务模板缓存加速ELF加载"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "Moncake",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510056995244-24"
+    },
+    "brief": "MonkeyOS 是一个基于 Rust 语言编写的宏内核操作系统，支持 RISC-V 64 与 LoongArch 64 双架构，主要面向 OSKernel2025 竞赛。该项目通过 polyhal 硬件抽象层实现跨架构兼容，并创新性地利用 Rust 的异步编程模型构建了协作式任务调度器，在保障内存安全的同时提升了内核代码的简洁度。其核心特点包括完善的进程与 COW 内存管理、支持 ext4 等多种文件系统的 VFS 抽象，以及涵盖网络、信号和 System V IPC 的百余项 Linux 兼容系统调用。项目的核心亮点在于实现了 musl 与 glibc 双 C 库的动态链接 ELF 加载，引入了任务模板缓存机制以加速程序启动，并在 LoongArch 架构下完整实现了 PCI 总线枚举与 VirtIO 设备驱动，展现出较强的系统底层工程能力与架构设计水平。"
+  },
+  {
+    "id": "天津大学-RuaruaOs-T202410056992657-49",
+    "features": {
+      "name": "ruaruaos",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "自研极简固件实现机器模式切换",
+        "适配第四代扩展文件系统解析超级块",
+        "实现基于缺页异常的按需分页机制",
+        "实现七十余个类Unix标准系统调用",
+        "支持标准信号机制与系统共享内存"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "RuaruaOs",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410056992657-49"
+    },
+    "brief": "ruaruaos 是一个面向 RISC-V 64 位架构的竞赛级操作系统内核，基于 xv6-riscv 进行深度改造与功能扩展。其技术定位在于探索教学级内核向真实 Linux 系统接口演进的可行性。核心特点包括实现了 70 余个 Linux 兼容系统调用，涵盖进程控制、I/O 多路复用与 POSIX 信号处理；引入了用户态按需分页机制与多线程管理框架；并初步适配了 ext4 文件系统的读取功能与 VirtIO 块设备驱动。该项目的核心亮点在于摒弃了标准固件，自研了极简的 M-mode SBI 固件以接管底层硬件中断，同时在系统调用接口广度与真实文件系统兼容方面做出了积极尝试，充分展现了开发者对操作系统核心子系统交互的广泛理解与工程实践能力。"
+  },
+  {
+    "id": "天津理工大学-九莲宝灯一向听-T202510060995409-3585",
+    "features": {
+      "name": "WenyiOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "x86_64",
+        "aarch64",
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于ArceOS生态构建宏内核",
+        "统一支持四种主流CPU架构",
+        "实现百余个Linux兼容系统调用",
+        "完善的信号处理与IPC共享内存",
+        "命名空间机制实现进程级资源隔离"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "九莲宝灯一向听",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510060995409-3585"
+    },
+    "brief": "WenyiOS（又名 Starry）是一个基于 Rust 语言与 ArceOS 生态构建的多架构宏内核操作系统，专为操作系统内核比赛设计。项目采用清晰的三层架构设计，实现了逾百个 Linux 兼容系统调用，全面覆盖进程管理、虚拟内存、文件系统、网络及信号处理等核心子系统。其核心特点在于高度模块化与跨平台能力，原生支持 x86_64、aarch64、riscv64 与 loongarch64 四种指令集架构。项目亮点包括：利用命名空间机制实现精细的进程级资源隔离；通过类型安全的用户空间指针封装与固定地址信号 trampoline 映射，显著提升内核安全性与信号分发效率；此外，还完整实现了带垃圾回收的共享内存 IPC 及完善的 Futex 同步机制。WenyiOS 在约一万行自有代码的规模下达到了较高的功能完整度，展现了基于组件化框架构建现代宏内核的高效路径。"
+  },
+  {
+    "id": "扬州大学-蕾姆赛高队-T202411117993110-198",
+    "features": {
+      "name": "REMOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "移植开源库实现完整ext4文件系统",
+        "采用伙伴算法与多核内存池管理物理内存",
+        "引入每进程独立内核页表优化内存访问",
+        "扩展五十个系统调用以兼容主流应用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "蕾姆赛高队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202411117993110-198"
+    },
+    "brief": "REMOS 是一个基于 xv6-riscv 深度改造的 RISC-V 64 位宏内核操作系统，面向 QEMU 与 VisionFive 平台。项目使用 C 语言编写，实现了约 50 个系统调用，涵盖进程、内存、文件与时间管理等核心功能。其核心特点是对底层子系统进行了大幅重构：内存管理采用 Buddy 算法，引入每 CPU 独立内存池与跨池窃取机制以优化多核性能；虚拟内存引入 per-process 内核页表，显著提升内核访问用户内存的效率。项目的最大亮点是成功移植并集成 lwext4 库，使系统具备了支持日志恢复、Extent 管理与目录索引等高级特性的完整 ext4 文件系统。总体而言，REMOS 在文件系统与内存分配的工程集成上表现优异，是一个功能完备且具备架构优化深度的竞赛级内核。"
+  },
+  {
+    "id": "暨南大学-双层吉士比板烧好吃-T202410559992716-268",
+    "features": {
+      "name": "RuaruaOs",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "自制M-mode SBI固件实现特权级切换",
+        "完整实现FAT32文件系统及长文件名支持",
+        "实现用户态与内核态时钟分离统计机制",
+        "提供包含三十余个系统调用的完整接口"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "双层吉士比板烧好吃",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410559992716-268"
+    },
+    "brief": "RuaruaOs 是一个基于 xv6-riscv 深度改造的 RISC-V 64 位教学与竞赛操作系统内核。该项目在保留 xv6 经典架构的基础上，实现了涵盖进程管理、SV39 虚拟内存、轮转调度、管道 IPC 及 VirtIO 设备驱动等核心子系统，并提供约 30 个标准系统调用。其核心技术亮点在于完全自主实现了一个精简的 M-mode SBI 固件，独立完成特权级切换、PMP 配置与中断委托，展现了对 RISC-V 底层架构的深刻理解。此外，项目将原生文件系统全面重构为 FAT32 文件系统，完整支持 BPB 解析、簇链管理、长文件名及目录缓存。配合功能完备的 Shell 与丰富的用户态工具，该内核在 QEMU 环境下的自动化测试通过率高达 93.75%，具备出色的工程完整度与系统稳定性。"
+  },
+  {
+    "id": "杭州电子科技大学-NoAxiom-T202510336995214-148",
+    "features": {
+      "name": "NoAxiom-OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于Rust无栈协程的异步调度架构",
+        "跨平台支持RISC-V与龙芯双架构",
+        "实现五种文件系统与完整VFS抽象",
+        "深度集成异步驱动与网络协议栈",
+        "细粒度并发控制与任务状态分类"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "NoAxiom",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510336995214-148"
+    },
+    "brief": "NoAxiom-OS 是一个基于 Rust 语言构建、支持 RISC-V64 与 LoongArch64 双架构的宏内核操作系统。其技术定位在于探索异步编程范式在操作系统内核中的深度应用。该项目的核心特点是采用基于无栈协程的异步调度架构，将用户任务封装为异步 Future，并结合多级优先级调度器，实现了自然高效的异步 IO 与零成本抽象。其技术亮点包括精心设计的细粒度并发模型、跨架构的硬件抽象层，以及高完整度的子系统实现，涵盖五种文件系统、完整的进程与信号管理机制和基于 smoltcp 的网络协议栈。凭借创新的异步驱动与调度设计，NoAxiom-OS 在 IO 密集型场景下展现出卓越性能，曾在操作系统内核比赛中荣获性能测试总分第二及网络性能第一的优异成绩，充分验证了其在架构创新与工程实践上的突出价值。"
+  },
+  {
+    "id": "杭州电子科技大学-Pantheon-T202410336992584-3678",
+    "features": {
+      "name": "Pantheon OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "采用基于Rust的无栈协程调度架构",
+        "用户进程与内核任务统一建模为协程",
+        "实现EXT4文件系统与页缓存机制",
+        "支持Sv39分页与写时复制机制",
+        "高度模块化设计包含十九个内核库"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "Pantheon",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410336992584-3678"
+    },
+    "brief": "Pantheon 是一个面向 RISC-V 64位架构的宏内核操作系统，主要运行于 QEMU virt 与 StarFive VisionFive2 平台。该项目的技术定位是探索现代系统编程语言在操作系统底层的应用，完全采用 Rust 语言编写。其最显著的核心特点是创新性地引入了基于 Rust async/await 的无栈协程架构，将用户进程与内核任务统一建模为异步 Future，通过自研的轻量级执行器进行协作式调度，利用编译器生成的状态机替代了传统的汇编级上下文切换。项目的亮点包括：高度统一的异步 I/O 模型使得文件、网络与管道操作天然支持多路复用；模块化的架构设计将内核拆分为19个职责明确的独立库；此外，系统实现了80余个系统调用，具备较好的 POSIX 兼容性，并完整支持 Sv39 分页、COW 内存管理、ext4 文件系统以及多核启动，展现了出色的工程完整性与设计前瞻性。"
+  },
+  {
+    "id": "杭州电子科技大学-StarryX-T202510336995486-3037",
+    "features": {
+      "name": "StarryX",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64",
+        "aarch64",
+        "x86_64"
+      ],
+      "highlights": [
+        "采用Rust语言保障内存与并发安全",
+        "清晰的三层分离与可复用模块设计",
+        "实现完整的System V IPC与信号机制",
+        "支持RISC-V与LoongArch等多架构",
+        "集成LRU页缓存与VMA按需加载机制"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "StarryX",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510336995486-3037"
+    },
+    "brief": "StarryX 是一个基于 ArceOS 框架并使用 Rust 语言编写的宏内核操作系统，主要面向全国大学生操作系统内核赛。该项目采用 no_std 裸机环境，支持 RISC-V 与 LoongArch 等多架构运行。其核心特点在于实现了涵盖进程与线程管理、虚拟内存、虚拟文件系统、POSIX 信号、System V IPC 以及网络等完整的操作系统子系统，兼容近 200 个 Linux 系统调用。项目的核心亮点包括清晰的 API、核心与模块三层架构设计，以及高度可复用的组件化设计。同时，项目充分利用 Rust 的类型系统保障了内存与并发安全，自主实现了基于 LRU 淘汰策略的页缓存机制与按需加载的 VMA 管理，整体功能完整度达 83% 以上，展现了优秀的系统底层设计能力与工程实践水平。"
+  },
+  {
+    "id": "杭州电子科技大学-兵三进一-T202410336992592-2997",
+    "features": {
+      "name": "Being[3]++",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "基于async-task实现异步优先调度架构",
+        "内存管理支持写时复制与按需懒分配",
+        "实现深度集成Waker的异步睡眠锁",
+        "构建完整的VFS抽象层与FAT32实现"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "兵三进一",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410336992592-2997"
+    },
+    "brief": "Being[3]++ 是一个面向 RISC-V 64 位架构的教学与竞赛级操作系统内核。该项目使用 Rust 语言开发，采用 SV39 分页机制与高半核偏移映射设计，构建了包含 VFS 抽象层与 FAT32 实现的文件系统，以及支持写时复制与懒分配的内存管理子系统。其核心特点在于创新性地引入了异步优先的内核架构，将用户线程的执行循环与阻塞型系统调用深度结合 Rust 的 async/await 语法。配合自定义的异步感知睡眠锁与基于 async-task 的混合调度器，该设计有效降低了传统阻塞操作带来的上下文切换开销。此外，项目实现了完整的进程生命周期管理与单页表设计，展现了现代系统编程理念在操作系统底层开发中的前沿探索。"
+  },
+  {
+    "id": "杭州电子科技大学-高清的KernelX-T202510336995651-14",
+    "features": {
+      "name": "KernelX",
+      "kernel_type": "microkernel",
+      "ecosystem": "RT-Thread",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现数十个兼容Linux的系统调用",
+        "修正堆内存语义并统一进程创建",
+        "基于平衡树实现高效进程与内存管理",
+        "移植终端驱动并支持伪终端机制",
+        "完善缺页异常与三级页表管理"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "高清的KernelX",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510336995651-14"
+    },
+    "brief": "KernelX 是一个基于 RT-Thread Smart 构建的面向 RISC-V 64 位平台的微内核操作系统。其技术定位是在工业级实时操作系统底座之上，通过深度改造实现 Linux 系统调用兼容，从而支持标准用户态程序的运行。该项目的核心特点在于构建了包含约 80 个系统调用的 Linux ABI 兼容层，完整涵盖了进程管理、内存管理、POSIX 信号、Futex 同步及 VFS 文件系统等关键子系统。其技术亮点包括：将 clone 与 fork 语义统一并严格对齐 Linux RISC-V 64 位参数传递规范；引入双变量设计修正了 brk 堆管理语义；修复了 openat 路径拼接等底层缺陷；并补充实现了 writev、sendfile、mprotect 等高级系统调用。KernelX 以务实的工程路径，在复用成熟基础设施的同时，显著提升了系统的 Linux 兼容性与生态支持能力。"
+  },
+  {
+    "id": "武汉大学-F7LY-T202510486995205-1539",
+    "features": {
+      "name": "F7LY OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "Xv6",
+      "language": "C++",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "采用C++23开发并集成EASTL库",
+        "支持RISC-V及龙芯双架构运行",
+        "实现百余个Linux兼容系统调用",
+        "构建多层VFS并移植ext4文件系统",
+        "引入onpstack实现完整网络协议栈"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "F7LY",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510486995205-1539"
+    },
+    "brief": "F7LY OS 是一个基于 Xv6 教学操作系统进行大规模重构与扩展的现代化操作系统内核，主要面向 RISC-V 与 LoongArch 双指令集架构。该项目在技术定位上突破了传统 C 语言内核的局限，采用 C++23 标准开发，在禁用异常与 RTTI 的前提下，深度利用面向对象特性构建了多态文件体系与虚拟文件系统。其核心特点包括：采用伙伴系统与 Slab 分配器结合的物理内存管理，支持 mmap 的三级页表虚拟内存机制，以及涵盖进程克隆、POSIX 信号、Futex 和共享内存的完善进程与 IPC 子系统。项目亮点在于引入 EASTL 模板库提升内核开发效率，实现类似 Linux procfs 的动态虚拟文件系统以增强用户态工具兼容性，并注册了 120 余个 Linux 兼容系统调用。此外，项目集成 onpstack 提供了完整的 TCP/IP 网络协议栈，展现出较高的系统完整性与工程创新价值。"
+  },
+  {
+    "id": "武汉大学-OSakura-T202510486995252-114",
+    "features": {
+      "name": "OSakura",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现支持Extent特性的ext4文件系统",
+        "实现六十余个Linux兼容系统调用",
+        "支持ELF动态链接程序的加载与执行",
+        "设计基于函数指针的多文件系统抽象层",
+        "实现轻量级的procfs虚拟文件系统"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "OSakura",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510486995252-114"
+    },
+    "brief": "OSakura 是一个面向 RISC-V 64 位架构的教学与竞赛级操作系统内核。该项目基于 C 语言开发，运行于 QEMU virt 平台并采用 OpenSBI 引导，实现了进程管理、SV39 虚拟内存管理、中断异常处理等核心子系统，并提供 60 余个 Linux 兼容系统调用。其核心特点在于设计了基于操作函数表的多文件系统抽象层，同时支持 ext4 与 FAT32 文件系统，并实现了轻量级的 procfs 虚拟文件系统。项目的主要亮点包括完整实现了支持 extent 树的 ext4 文件系统、支持 ELF 动态链接程序的加载执行，以及基于 Trampoline 机制的高效特权级上下文切换。整体代码结构清晰、模块化程度高，系统功能完整度约达 80%，是学习 RISC-V 裸机开发与操作系统底层原理的优质实践参考。"
+  },
+  {
+    "id": "武汉大学-RuOK-T202510486995232-2402",
+    "features": {
+      "name": "RuOK OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "C++",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "支持RISC-V与龙芯双架构",
+        "采用C++与EASTL构建内核",
+        "实现ext4哈希树目录索引",
+        "设计HSAI跨架构硬件抽象层"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "RuOK",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510486995232-2402"
+    },
+    "brief": "RuOK OS 是一个基于 C++17 构建并支持 RISC-V 与 LoongArch 双架构的竞赛级操作系统内核。该项目采用 HAL-HSAI-Kernel 三层分层架构，实现了 Buddy 物理内存分配、多级页表虚拟内存管理、VFS 抽象层以及 ext4、FAT32 和 ramfs 多文件系统支持，并提供 82 个 Linux 兼容系统调用，具备完整的进程与文件管理链路。其核心技术亮点在于设计了创新的 HSAI（硬件-软件抽象接口）层，有效屏蔽底层指令集差异，实现同一套代码的跨架构运行；同时深度集成 EASTL 容器库，大幅提升了内核数据结构的表达力与可维护性；此外，项目完整移植了 Linux ext4 的 dx_dir 哈希树目录索引算法，在同类作品中展现出较高的文件系统实现水平。"
+  },
+  {
+    "id": "武汉大学-智核速启队-T202510486995194-334",
+    "features": {
+      "name": "SC7",
+      "kernel_type": "monolithic",
+      "ecosystem": "XV6",
+      "language": "C",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "实现RISC-V与龙芯双架构支持",
+        "实现伙伴系统与Slab内存分配器",
+        "包含完整VFS层与ext4文件系统",
+        "支持POSIX线程及Futex同步原语",
+        "实现写时复制与共享内存机制"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "智核速启队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510486995194-334"
+    },
+    "brief": "SC7 是一个基于 MIT XV6 深度扩展与重构的操作系统内核，技术定位为支持 RISC-V 64 与 LoongArch 64 双架构的类 UNIX 教学与研究级系统。其核心特点在于采用严谨的硬件抽象层、硬件服务抽象层与内核核心层三层架构设计，实现了进程与多线程管理、伙伴系统与 Slab 分配器结合的物理内存管理、支持写时复制与 mmap 的虚拟内存管理，以及基于 lwext4 的 VFS 文件系统。此外，内核完整实现了 POSIX 信号机制、Futex 同步原语及 144 个系统调用。项目的核心亮点在于出色的双指令集跨平台兼容能力与高度的 POSIX 标准兼容性，能够运行 busybox 等标准用户空间程序。项目总代码量逾 5.6 万行，不仅展现了扎实的系统工程能力，也为操作系统跨平台设计与高级特性实现提供了极具价值的参考范本。"
+  },
+  {
+    "id": "武汉科技大学-ASVOS-T202410488992741-2142",
+    "features": {
+      "name": "ASVOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "移植lwext4实现完整文件系统",
+        "实现虚拟文件系统与挂载机制",
+        "采用位图与分级堆内存分配器",
+        "适配模拟器与VF2开发板双平台"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "ASVOS",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410488992741-2142"
+    },
+    "brief": "ASVOS 是一个基于 uCore-ch8 架构扩展的 RISC-V 宏内核操作系统，主要面向操作系统内核竞赛场景，支持 QEMU 模拟器与 StarFive VisionFive 2 物理开发板双平台运行。其核心特点包括采用进程与线程两级模型及 FIFO 调度算法，内存管理结合位图物理页分配器、分级 bin 堆分配器与 Sv39 虚拟内存机制，并设计了支持多文件系统共存与挂载点路径解析的 VFS 抽象层。项目的核心亮点在于成功移植了包含日志与 Extent 树等高级特性的完整 lwext4 文件系统，实现了 78 个系统调用入口以覆盖文件读写、进程管理、同步原语等关键功能，同时自主适配了 VirtIO 与 SPI 模式 SD 卡块设备驱动，展现了较强的工程集成与多平台硬件适配能力。"
+  },
+  {
+    "id": "河南科技大学-海底小纵队-T202410464992703-3223",
+    "features": {
+      "name": "ByteOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "x86_64",
+        "aarch64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于Rust异步机制实现协作式任务调度",
+        "支持四种CPU架构的统一硬件抽象层设计",
+        "实现VFS抽象层与Dentry目录项缓存",
+        "支持写时复制机制的虚拟内存管理子系统",
+        "兼容百余个POSIX标准的异步系统调用"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "海底小纵队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410464992703-3223"
+    },
+    "brief": "ByteOS 是一个基于 Rust 语言开发的类 POSIX 兼容操作系统内核，旨在提供跨平台、高安全性的系统级运行环境。其技术定位在于通过模块化架构支持 RISC-V 64、x86_64、AArch64 及 LoongArch64 等多种主流指令集架构。项目的核心特点包括：采用基于 Rust 异步机制的执行器实现协作式任务调度；构建了涵盖 FAT32、Ext4 及 RAMFS 的完整 VFS 抽象层；实现了包含内存写时复制、POSIX 信号处理及基础网络协议栈在内的百余个标准系统调用。其核心亮点在于通过高度抽象的 polyhal 硬件抽象层实现了卓越的多架构兼容性，同时全面支持 VirtIO 虚拟化设备与动静态 ELF 加载，充分展现了现代化、安全且高扩展性的内核设计范式。"
+  },
+  {
+    "id": "海南大学-狗剩-T202510589995148-2209",
+    "features": {
+      "name": "StarryOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "x86_64",
+        "aarch64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "基于ArceOS框架实现多架构宏内核",
+        "实现分片Futex表以减少多核锁竞争",
+        "支持写时复制机制优化进程创建性能",
+        "提供完整VFS抽象与多虚拟文件系统",
+        "集成SystemV IPC与完整信号处理"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "狗剩",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510589995148-2209"
+    },
+    "brief": "StarryOS 是一个基于 ArceOS 框架开发的支持多架构（RISC-V、x86_64、AArch64、LoongArch64）的宏内核操作系统，主要面向操作系统教学与竞赛场景。该项目采用 Rust 语言在 no_std 环境下构建，实现了超过 100 个 Linux 兼容系统调用，涵盖进程与线程管理、内存管理、文件系统、网络通信及进程间通信等核心子系统。其核心特点包括完整的 VFS 抽象层（支持 ext4 及多种虚拟文件系统）、支持写时复制（COW）与超大页的内存管理机制，以及较为完善的 POSIX 信号处理与 System V IPC 机制。项目的技术亮点在于引入了分片 Futex 表设计以显著降低 SMP 环境下的锁竞争，构建了统一的用户空间指针安全验证机制以保障内存访问安全，并深度利用 ArceOS 的模块化架构与命名空间机制实现了高效的资源隔离与组件解耦。"
+  },
+  {
+    "id": "清华大学-undefined-T202510003995291-2331",
+    "features": {
+      "name": "Undefined-OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "x86_64",
+        "aarch64",
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "支持四种主流处理器架构跨平台运行",
+        "实现完整的进程组与会话层次模型",
+        "提供统一的文件描述符抽象接口",
+        "采用动态构建的伪文件系统框架",
+        "内置系统调用追踪宏辅助内核调试"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "undefined",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510003995291-2331"
+    },
+    "brief": "Undefined-OS 是一个基于 ArceOS 框架构建的 POSIX 兼容组件化单体内核，旨在多架构环境下高效运行 Linux 用户态程序。项目以 Rust 语言为主体开发，支持 x86_64、aarch64、riscv64 与 loongarch64 架构。其核心特点在于实现了严格的四层进程管理模型，并构建了涵盖 150 余个系统调用的完整接口层，同时通过统一的 FileLike 抽象无缝整合了 ext4、tmpfs 等多种文件系统。项目的主要亮点包括：利用组件化设计实现高内聚低耦合；采用 Builder 模式优雅构建动态伪文件系统；以及自研系统调用追踪过程宏，实现参数与返回值的自动化日志记录，显著提升调试效率。整体而言，该项目在代码组织与多架构适配方面展现出较高的工程成熟度。"
+  },
+  {
+    "id": "湖北民族大学-刘奶奶找牛奶奶买牛奶队-T202410517992471-3214",
+    "features": {
+      "name": "unknown",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "移植FAT32至内核态并支持长文件名",
+        "实现SV39三级页表与虚拟内存管理",
+        "提供互斥锁与信号量等完整同步原语",
+        "探索ext4接口与双文件系统架构设计",
+        "利用Rust类型系统实现严格地址抽象"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "刘奶奶找牛奶奶买牛奶队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410517992471-3214"
+    },
+    "brief": "rCore-Tutorial扩展内核是一个基于Rust语言与RISC-V 64架构的教学级操作系统内核。该项目以rCore-Tutorial v3为基础进行深度扩展，旨在提供更为贴近真实场景的操作系统原理实践平台。其核心特点包括采用SV39三级页表的虚拟内存管理、支持fork与exec的进程及多线程控制机制，以及涵盖互斥锁、信号量和条件变量的完备同步原语，并实现了约30个基础POSIX系统调用。项目的核心亮点在于文件子系统的显著增强，不仅成功将FAT32文件系统移植至内核态并完整支持长文件名，还初步探索了ext4文件系统的集成与双文件系统架构设计。此外，内核新增了工作目录管理、基础信号机制等实用特性，在充分利用Rust类型安全优势的同时，有效提升了教学内核的功能完整度与工程实践价值。"
+  },
+  {
+    "id": "燕山大学-模仿游戏-T202510216995249-4014",
+    "features": {
+      "name": "starry-next",
+      "kernel_type": "monolithic",
+      "ecosystem": "ArceOS",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64",
+        "aarch64",
+        "x86_64"
+      ],
+      "highlights": [
+        "基于ArceOS组件化框架实现多架构支持",
+        "采用Unikernel部署方式运行宏内核功能",
+        "利用AxNamespace实现进程级资源隔离",
+        "独立页表映射信号跳板避免内核空间拷贝",
+        "完整实现共享内存与Futex同步机制"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "模仿游戏",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510216995249-4014"
+    },
+    "brief": "freeOS (starry-next) 是一个基于 ArceOS 组件化框架构建的、面向操作系统比赛的 Unikernel 风格 Linux 兼容内核。该项目支持 RISC-V 64、LoongArch64、AArch64 和 x86_64 四种硬件架构，以约 5750 行自有 Rust 代码实现了约 99 个 Linux 系统调用。其核心特点包括完备的进程与线程管理、支持按需分页与 System V 共享内存的内存管理、基于 VFS 的文件系统，以及涵盖 epoll、信号处理和 Futex 的高级并发与 I/O 多路复用机制。项目的主要亮点在于清晰的三层架构设计与对底层框架生态的深度复用，极大提升了多架构适配效率；同时，其采用的 AxNamespace 资源隔离机制与固定地址信号跳板映射设计，在保障功能覆盖面的同时优化了上下文切换性能，在有限的代码规模内展现出出色的工程权衡与系统构建能力。"
+  },
+  {
+    "id": "燕山大学-起个名字队-T202410216992481-135",
+    "features": {
+      "name": "wCore OS",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现SV39三级分页与地址空间隔离",
+        "支持VFS抽象与FAT32文件系统挂载",
+        "基于RAII机制的页帧与进程号管理",
+        "实现完整进程管理与基础命令行交互"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "起个名字队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-22024-2210153/T202410216992481-135"
+    },
+    "brief": "wCore OS 是一个基于 Rust 语言开发的类 Unix 操作系统内核，运行于 RISC-V 64 位架构，定位为操作系统教学与原理研究项目。该项目在 rCore-Tutorial 基础上进行了深度扩展，核心特点包括：采用 SV39 三级分页机制实现严格的地址空间隔离，提供完整的 fork、exec、waitpid 进程生命周期管理，并构建了支持 RamFS 与 FAT32 挂载的虚拟文件系统层。其技术亮点在于利用 Rust 的类型安全与 RAII 机制保障内存及资源管理的安全性，通过 Trampoline 跳板页设计实现高效平滑的陷入与返回，同时内置轻量级命令行 Shell，支持从磁盘动态加载并执行用户程序，展现了优秀的模块化设计与系统交互能力。"
+  },
+  {
+    "id": "西北工业大学-NPUcore-BLOSSOM-oskernel2025-npucore-blossom",
+    "features": {
+      "name": "NPUcore-BLOSSOM",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "支持RISC-V与龙芯双指令集架构",
+        "实现内存不足处理与压缩内存机制",
+        "兼容EXT4与FAT32双文件系统",
+        "实现写时复制与磁盘交换分区机制",
+        "提供完整信号机制与线程同步支持"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "NPUcore",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/oskernel2025-npucore-blossom"
+    },
+    "brief": "NPUcore-BLOSSOM 是一个基于 Rust 语言编写的操作系统内核项目，技术定位为支持 RISC-V 64 与 LoongArch 64 双指令集架构的宏内核。其核心特点在于构建了功能完备的底层子系统，包括支持写时复制、Swap 交换与 Zram 压缩的内存管理模块，兼容 EXT4 与 FAT32 的双文件系统，以及涵盖 90 余个 POSIX 标准接口的系统调用层。该项目的核心亮点在于出色的双架构硬件抽象层设计，实现了跨架构的高效代码复用与底层寄存器级适配；同时，其创新的多级 OOM 内存回收机制与基于目录树缓存的 VFS 抽象层，显著提升了系统在资源受限环境下的鲁棒性与文件访问效率，整体展现了较高的工程完成度与严谨的架构设计水平。"
+  },
+  {
+    "id": "西北工业大学-西北工业大学一二三队-T202510699995276-827",
+    "features": {
+      "name": "NPUcore_for_oscomp2025",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64"
+      ],
+      "highlights": [
+        "支持RISC-V与LoongArch双架构",
+        "实现ZRAM压缩与Swap交换机制",
+        "具备多级OOM处理与内存回收机制",
+        "同时支持FAT32与EXT4文件系统"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "西北工业大学一二三队",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510699995276-827"
+    },
+    "brief": "NPUcore_for_oscomp2025 是一个面向 2025 年全国大学生操作系统比赛、基于 Rust 语言开发的教学级双架构操作系统内核。该项目以高安全性和模块化为核心技术定位，原生支持 RISC-V 64 位与 LoongArch64 架构。其核心特点在于实现了完备的操作系统基础子系统，包括进程与线程管理、支持 ZRAM 压缩与 Swap 交换的高级虚拟内存管理、兼容 FAT32 与 EXT4 的 VFS 文件系统，以及网络协议栈和约 100 个 POSIX 系统调用。项目的核心亮点包括出色的跨平台硬件抽象层设计、引入多级 OOM 处理机制以显著提升内存利用率，以及在 LoongArch64 架构下实现了汇编级 TLB Refill 优化。此外，内核还完整实现了 POSIX 信号机制与 Futex 快速用户空间互斥锁，展现了团队在系统底层开发与架构设计上的扎实能力。"
+  },
+  {
+    "id": "西安理工大学-NPUcore-无所畏惧-T202410700992507-2477",
+    "features": {
+      "name": "NPUcore+",
+      "kernel_type": "monolithic",
+      "ecosystem": "rCore",
+      "language": "Rust",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "实现三级内存溢出回收策略",
+        "基于状态机的物理页面管理",
+        "支持内存压缩与磁盘交换机制",
+        "实现写时复制与统一缺页处理",
+        "构建完整的虚拟文件系统抽象"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "NPUcore",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410700992507-2477"
+    },
+    "brief": "NPUcore+ 是一个基于 RISC-V 64 位架构并使用 Rust 语言编写的操作系统内核，源自 rCore-Tutorial v3 教学项目，主要面向 QEMU 虚拟机与 K210 开发板等运行环境。该项目在核心子系统上具备较高的完整度，实现了 SV39 分页管理、完整的 FAT32 文件系统与 VFS 抽象层、POSIX 信号机制、Futex 同步原语以及约 80 个核心系统调用，能够支持基本的 Shell 操作与多进程多线程运行。其核心技术亮点在于极具创新性的内存管理设计：项目构建了基于 Rust 类型系统的 Frame 页面状态机，将写时复制、ZRAM 内存压缩与 Swap 磁盘交换统一于缺页异常处理流程中；同时实现了高效的三级内存耗尽回收策略，依次通过释放文件系统缓存、使用 LZ4 算法压缩不活跃页面至 ZRAM、以及交换至磁盘，有效保障了系统在资源受限环境下的稳定运行。"
+  },
+  {
+    "id": "西安电子科技大学-广告位招租-T202510701995284-398",
+    "features": {
+      "name": "NPUcore-Aspera",
+      "kernel_type": "monolithic",
+      "ecosystem": "无",
+      "language": "Rust",
+      "architectures": [
+        "loongarch64",
+        "riscv64"
+      ],
+      "highlights": [
+        "统一HAL层支持龙芯与RISC-V双架构",
+        "LAFlex页表内联汇编优化TLB填充",
+        "多层OOM处理结合Zram与Swap机制",
+        "实现Ext4与FAT32双文件系统与VFS",
+        "Frame状态机支持CoW与页面迁移"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "广告位招租",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510701995284-398"
+    },
+    "brief": "NPUcore-Aspera 是一个基于 Rust 语言开发的双架构操作系统内核，专为 LoongArch64 与 RISC-V64 平台设计，源自 2024 年计算机系统能力大赛。其技术定位在于通过高复用率的自建硬件抽象层实现跨架构的统一内核抽象。该内核核心特点在于子系统完备，内存管理支持写时复制、Zram压缩、Swap交换及多层OOM处理；文件系统兼容FAT32与Ext4，并构建了完整的VFS与目录树缓存；同时实现了117个系统调用及标准POSIX信号处理。项目亮点包括针对LoongArch64优化的LAFlex页表设计，利用内联汇编显著降低TLB Refill开销；以及基于Frame状态机的无缝页面迁移与多层内存回收策略，以约78%的整体功能完整度在竞赛级内核中展现出卓越的架构设计能力。"
+  },
+  {
+    "id": "郑州大学-NexusOS-T202510459995282-239",
+    "features": {
+      "name": "NexusOS",
+      "kernel_type": "monolithic",
+      "ecosystem": "Asterinas",
+      "language": "Rust",
+      "architectures": [
+        "riscv64",
+        "loongarch64",
+        "x86_64"
+      ],
+      "highlights": [
+        "基于异步运行时的全异步内核设计",
+        "基于类型系统的零成本能力模型",
+        "纯Rust实现的静态分发VFS层",
+        "支持RISC-V与龙芯等多架构"
+      ]
+    },
+    "metadata": {
+      "year": "2025",
+      "teamname": "NexusOS",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-36002-2710490/T202510459995282-239"
+    },
+    "brief": "NexusOS 是一个基于 Rust 语言开发的多核异步框内核操作系统，主要面向操作系统竞赛，支持 RISC-V 64 与 LoongArch 64 架构并兼容 Linux 用户态程序。该项目基于 Asterinas 框架二次开发，技术定位在于探索全异步内核设计与现代系统编程语言的深度融合。其核心特点包括全面采用异步语法处理系统调用与 I/O 操作，以及引入源自 Zircon 的 VMAR 和 VMO 能力模型进行虚拟内存管理。项目的突出亮点在于利用 Rust 类型系统实现了零成本的静态能力检查与虚拟文件系统静态分发，有效兼顾了内存安全与运行性能。此外，NexusOS 内置了纯 Rust 实现的 ext4 文件系统，配备了支持工作窃取的多核调度器，并能够稳定运行基于 musl 和 glibc 编译的用户态应用，展现了出色的工程创新性与架构前瞻性。"
+  },
+  {
+    "id": "长春理工大学-你起吧-T202410186992540-1599",
+    "features": {
+      "name": "SystemNQB",
+      "kernel_type": "monolithic",
+      "ecosystem": "xv6",
+      "language": "C",
+      "architectures": [
+        "riscv64"
+      ],
+      "highlights": [
+        "C与Rust混合编程的内核架构",
+        "使用Rust语言实现ext4文件系统",
+        "采用Linux兼容的系统调用编号",
+        "引入Rust伙伴系统内存分配器",
+        "设计支持引用计数的通用对象池"
+      ]
+    },
+    "metadata": {
+      "year": "2024",
+      "teamname": "你起吧",
+      "repourl": "https://gitlab.eduxiji.net/educg-group-26010-2376550/T202410186992540-1599"
+    },
+    "brief": "SystemNQB 是一个基于 xv6-riscv 二次开发的 RISC-V 64位操作系统内核，采用 C 与 Rust 混合编程的创新架构。其技术定位在于探索现代内存安全语言在传统教学级微内核中的工程化落地。核心特点包括：C 语言主导进程调度、虚拟内存与中断处理等核心逻辑，Rust 语言则接管 ext4 文件系统与伙伴系统物理页分配器，并通过自动生成的 FFI 实现双向交互。此外，内核高度兼容 Linux RISC-V 系统调用规范，支持 ELF 程序加载、Shebang 脚本执行以及基于 clone 的线程组管理。项目亮点在于前瞻性的混合语言设计，不仅利用 Rust 生态提升了底层子系统的安全性，还引入了泛型对象池设计以优化内核资源管理。同时，其高度自动化的构建系统能够自动生成系统调用表与跨语言绑定代码，展现了出色的工程实践与架构设计能力。"
+  }
+]

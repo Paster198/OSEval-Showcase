@@ -1,0 +1,17 @@
+{
+  "name": "SubsToKernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持双架构与LoongArch快填",
+    "实现COW与延迟分配等内存优化",
+    "集成银行家算法实现死锁避免",
+    "支持动态链接与完整辅助向量",
+    "实现四种操作的完整Futex机制"
+  ]
+}

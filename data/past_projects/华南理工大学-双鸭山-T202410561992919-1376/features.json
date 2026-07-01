@@ -1,0 +1,16 @@
+{
+  "name": "DuckOs",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "缺页异常采用Trait多态分发设计",
+    "引入VmaRange中间层灵活管理内存区间",
+    "从零手动实现完整的FAT32文件系统",
+    "采用SyncUnsafeCell优化细粒度并发",
+    "基于RAII守卫自动管理SUM位与中断"
+  ]
+}

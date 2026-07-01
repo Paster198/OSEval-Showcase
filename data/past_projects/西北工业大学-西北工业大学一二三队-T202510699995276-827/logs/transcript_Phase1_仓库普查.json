@@ -1,0 +1,374 @@
+[
+  {
+    "role": "system",
+    "content": "你是一个分析 OS 内核比赛项目的智能体。\n\n## 你的任务\n分析与评估给定的 OS 内核项目。遵循用户给出的引导完成各个阶段的任务。\n\n## 工具使用指南\n- `bash`：常规的bash工具，每次运行结束后会话不保留。\n- `process`相关：会保留会话的`bash`，最多启动 3 个。\n\n- `bash`或`process`的使用原则：\n    - 运行交互式工具（如QEMU）时使用process，否则优先使用bash。\n    - 使用`start_process`启动一个终端会话，之后使用时用得到的process_id指定使用的终端。如不需要再次使用时，使用`shutdown_process`关闭。\n    - 使用`clear_output`取出一个终端会话里输出缓冲区里剩余的输出。\n\n## 回复生成准则\n- 回复正文中**直接且仅生成**用户要求的正文，不要加入任何聊天内容、解释或者其它与用户要求的正文无关的内容。\n- 除了特定语法和格式以外，正文使用中文回复。\n- 不要使用任何emoji。\n- 生成的正文风格应当专业、严谨且结构清晰。\n- 你使用的所有数字应基于明确的事实。\n- 你使用的相对数字（如完整度）应该明确指出你使用或者自行定义的基准。\n\n\n## 当前环境中的构建与模拟工具\n\n- QEMU(QEMU环境，交互式工具)：可用：RISC-V env, LoongArch env, x86 env, aarch64 env\n\n- C_toolchain(C构建工具链)：可用：GCC, GNU Make, GNU ld, GNU as, objdump, objcopy, GDB, CMake, Ninja, Clang\n\n- Rust_toolchain(Rust构建工具链)：可用：rustc, cargo, rustup, rust-src, llvm-tools, cargo-binutils, clippy, rustfmt\n\n- RISC-V_cross_toolchain(RISC-V裸机交叉编译工具链)：可用：RISC-V GCC, RISC-V ld, RISC-V as, RISC-V objdump, RISC-V objcopy, RISC-V readelf\n\n- RISC-V_linux_gnu_toolchain(RISC-V Linux GNU 交叉编译工具链)：可用：RISC-V Linux GNU GCC, RISC-V Linux GNU ld, RISC-V Linux GNU as, RISC-V Linux GNU objdump, RISC-V Linux GNU objcopy, RISC-V Linux GNU readelf\n\n- RISC-V_musl_toolchain(RISC-V musl 交叉编译工具链)：缺失。\n\n- LoongArch_cross_toolchain(LoongArch交叉编译工具链)：可用：LoongArch GCC, LoongArch ld, LoongArch as, LoongArch objdump, LoongArch objcopy, LoongArch readelf\n\n- AArch64_cross_toolchain(AArch64交叉编译工具链)：可用：AArch64 GCC, AArch64 ld, AArch64 as, AArch64 objdump, AArch64 objcopy, AArch64 readelf\n\n- Device_tree(Device Tree 工具)：可用：dtc\n\n- SBI_firmware(RISC-V SBI 固件)：可用：OpenSBI/RustSBI QEMU firmware\n\n- Filesystem_image_tools(文件系统镜像制作工具)：可用：mkfs.ext4, mkfs.vfat, mcopy, dd, losetup\n\n- U-Boot_tools(U-Boot 镜像工具)：可用：mkimage\n\n- Bindgen(Rust bindgen 工具)：可用：bindgen, libclang\n\n- Host_build_utilities(主机构建辅助工具)：可用：Python, Git, curl, wget, tar, gzip, xz\n\n- Spike(RISC-V ISA 参考模拟器)：可用：Spike\n\n\n这些工具可以通过`bash`或者`process_run`调用。\n\n你可以尝试搜索没列出来但需要的工具，不要自行安装任何内容工具。如果现有工具无法支持你完成构建，则：\n- 尝试能利用已有工具的兼容方案；\n- 无兼容方案则跳过这一步，并且在技术报告中声明。\n\n\n\n## 当前阶段任务\n探索并熟悉当前仓库。\n\n## 任务\n\n对该OS内核项目仓库进行探索，熟悉：\n1. 该仓库的文件组织结构；\n2. 该OS内核项目实现了哪些子系统；\n3. 粗略判断哪些目录、代码文件属于哪个子系统。\n4. 粗略检查编译构建该项目需要使用哪些工具。\n\n该阶段仅作浅调查，不要：\n- 全量读取完整仓库。\n- 深入分析某个结构或者系统的具体实现。\n\n## 你的输出\n\n轻格式Markdown。包含：\n- 该项目的结构。\n- 你对该项目的初步调查结果。"
+  },
+  {
+    "role": "user",
+    "content": "请开始分析。"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_8de832425fbf4fedb65a890f",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find . -maxdepth 1 -type f -o -type d | head -50\"}"
+        }
+      },
+      {
+        "id": "call_7a69c8fb190f42c89d8d8738",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"ls -la\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": ".\n./.git\n./.gitignore\n./bootloader\n./copyglibc.sh\n./copymusl.sh\n./dependency\n./doc\n./LICENSE\n./Makefile\n./os\n./README.md\n./user\n./util",
+    "tool_call_id": "call_8de832425fbf4fedb65a890f"
+  },
+  {
+    "role": "tool",
+    "content": "total 49\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 .\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 ..\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 .git\n-rwxrwxrwx 1 horbson horbson   486 Jul  1 01:07 .gitignore\n-rwxrwxrwx 1 horbson horbson 35149 Jul  1 01:07 LICENSE\n-rwxrwxrwx 1 horbson horbson  2631 Jul  1 01:07 Makefile\n-rwxrwxrwx 1 horbson horbson   723 Jul  1 01:07 README.md\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 bootloader\n-rwxrwxrwx 1 horbson horbson  1143 Jul  1 01:07 copyglibc.sh\n-rwxrwxrwx 1 horbson horbson  1161 Jul  1 01:07 copymusl.sh\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 dependency\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 doc\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 os\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 user\ndrwxrwxrwx 1 horbson horbson   512 Jul  1 01:07 util",
+    "tool_call_id": "call_7a69c8fb190f42c89d8d8738"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_45cbc92be776454bbd185b58",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat README.md\"}"
+        }
+      },
+      {
+        "id": "call_5222e5c99e7640c9a1380463",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat Makefile\"}"
+        }
+      },
+      {
+        "id": "call_b0c8df7e17b9416d8e7968a9",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find . -maxdepth 2 -not -path './.git/*' | sort\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "## NPUcore_for_oscomp2025(RISC-V + LoongArch)\n\n#### 简介\n\nNPUcore_for_oscomp2025是来自西北工业大学的三位同学基于NPUcore-lwext4框架，参考借鉴去年内核赛道优秀参赛队伍与Linux内核的诸多优秀设计，完善其内部功能实现并进行迭代升级而形成的竞赛操作系统。\n\n\n#### 特性\n\n- 完善的内核功能支持\n\nNPUcore_for_oscomp2025支持或不完全支持的的系统调用多达100个，且较为完整的地实现了信号机制，线程等功能\n\n\n#### 分支介绍\n\n- RvLaMerge——最新代码及文档\n- la_ext4_init——支持ext4文件系统的la分支\n- main——rv版本的baseline\n\n#### 如何运行\n\n\n\n\n\n#### 文档与演示视频\ndoc/文件夹下",
+    "tool_call_id": "call_45cbc92be776454bbd185b58"
+  },
+  {
+    "role": "tool",
+    "content": "MODE ?= release\nFS_MODE ?= fat32\nBLK_MODE ?= virt\n\nQEMU_TAR := qemu-2k1000-static.20240526.tar.xz\nQEMU_URL := https://gitlab.educg.net/wangmingjian/os-contest-2024-image/-/raw/master/$(QEMU_TAR)\nQEMU_DIR := util/qemu-2k1000/tmp\nQEMU_TAR_PATH := $(QEMU_DIR)/$(QEMU_TAR)\n\nall: clean\n\tmake -C os all\n\nenv:\n\trustup default nightly-2025-01-18-x86_64-unknown-linux-gnu\n\nkernel:\n\tcd os && make kernel\n\nrun: print-logo\n\tcd os && make run\n\nrunsimple:\n\tcd os && make runsimple\n\nchange-kernel-only:\n\tcd os && make build && make runsimple\n\nprint-logo:\n\t@echo \"Welcome to NPUCore Project Aspera🚀\"\n\t@echo \"                                                                            \"\n\t@echo \"  ________    ________    ________    _______     ________    ________      \"\n\t@echo \" |\\   __  \\  |\\   ____\\  |\\   __  \\  |\\  ___ \\   |\\   __  \\  |\\   __  \\     \"\n\t@echo \" \\ \\  \\|\\  \\ \\ \\  \\___|_ \\ \\  \\|\\  \\ \\ \\   __/|  \\ \\  \\|\\  \\ \\ \\  \\|\\  \\    \"\n\t@echo \"  \\ \\   __  \\ \\ \\_____  \\ \\ \\   ____\\ \\ \\  \\_|/__ \\ \\   _  _\\ \\ \\   __  \\   \"\n\t@echo \"   \\ \\  \\ \\  \\ \\|____|\\  \\ \\ \\  \\___|  \\ \\  \\_|\\ \\ \\ \\  \\\\  \\| \\ \\  \\ \\  \\  \"\n\t@echo \"    \\ \\__\\ \\__\\  ____\\_\\  \\ \\ \\__\\      \\ \\_______\\ \\ \\__\\\\ _\\  \\ \\__\\ \\__\\ \"\n\t@echo \"     \\|__|\\|__| |\\_________\\ \\|__|       \\|_______|  \\|__|\\|__|  \\|__|\\|__| \"\n\t@echo \"                \\|_________|                                                \"\n\t@echo \"                                                                            \"\n\t@echo \"                                                                            \"\n.PHONY: all clean print-logo run run-simple qemu-download\n\nqemu-download: $(QEMU_DIR)/.extracted\n\tchmod +x util/mkimage\n\tchmod +x util/qemu-2k1000/gz/runqemu2k1000\n\tchmod +x $(QEMU_DIR)/qemu/bin/qemu-system-loongarch64\n\tmkdir -p fs-img-dir\n\tsudo chmod 777 fs-img-dir/\n\n$(QEMU_DIR)/.extracted: $(QEMU_TAR_PATH)\n\t@echo \"Extracting $(QEMU_TAR)...\"\n\tcd $(QEMU_DIR) && tar xavf $(QEMU_TAR)\n\trm -rf $(QEMU_DIR)/qemu/2k1000 \\\n\t\t$(QEMU_DIR)/qemu/runqemu \\\n\t\t$(QEMU_DIR)/qemu/README.md \\\n\t\t$(QEMU_DIR)/qemu/include \\\n\t\t$(QEMU_DIR)/qemu/var\n\t@touch $@\n\n$(QEMU_TAR_PATH):\n\t@mkdir -p $(QEMU_DIR)\n\t@if [ -f $@ ]; then \\\n\t\tif ! tar tf $@ >/dev/null 2>&1; then \\\n\t\t\techo \"File $@ is corrupted. Deleting and re-downloading...\"; \\\n\t\t\trm -f $@; \\\n\t\t\twget -q $(QEMU_URL) -P $(QEMU_DIR); \\\n\t\tfi; \\\n\telse \\\n\t\techo \"Downloading $(QEMU_TAR)...\"; \\\n\t\twget -q $(QEMU_URL) -P $(QEMU_DIR); \\\n\tfi\n\t@if ! tar tf $@ >/dev/null 2>&1; then \\\n\t\techo \"Download failed, please check network connection\"; \\\n\t\texit 1; \\\n\tfi\n\nclean:\n\tmake -C os clean\n\nrv64-only:\n\tmake -C os rv64-only BLK_MODE=${BLK_MODE}\n\n.PHONY: all kernel run clean",
+    "tool_call_id": "call_5222e5c99e7640c9a1380463"
+  },
+  {
+    "role": "tool",
+    "content": ".\n./.git\n./.gitignore\n./LICENSE\n./Makefile\n./README.md\n./bootloader\n./bootloader/fw_payload.bin\n./copyglibc.sh\n./copymusl.sh\n./dependency\n./dependency/clean.sh\n./dependency/dep_iso\n./dependency/dep_pci\n./dependency/riscv\n./dependency/rlibc\n./dependency/rustsbi\n./dependency/virtio-drivers\n./doc\n./doc/内存管理.pdf\n./doc/初赛展示ppt.pptx\n./doc/双平台支持技术报告.md\n./doc/文件系统.pdf\n./doc/演示视频.md\n./doc/计算机系统能力大赛操作系统内核赛道提交指南 .pdf\n./doc/进程管理.pdf\n./os\n./os/.cargo\n./os/Cargo.lock\n./os/Cargo.toml\n./os/Makefile\n./os/bash-la\n./os/bash-rv\n./os/buildfs.sh\n./os/clear_doc.sh\n./os/initproc\n./os/make\n./os/src\n./os/vendor\n./user\n./user/.cargo\n./user/.gitignore\n./user/Cargo.lock\n./user/Cargo.toml\n./user/Makefile\n./user/busybox_lua_testsuites\n./user/fs\n./user/src\n./user/vendor\n./util\n./util/mkimage\n./util/qemu-2k1000",
+    "tool_call_id": "call_b0c8df7e17b9416d8e7968a9"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_f2a1bd05c62f448e9453fa78",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src -maxdepth 2 -type d | sort\"}"
+        }
+      },
+      {
+        "id": "call_f25add337a0646659fea0632",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src -maxdepth 1 -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_5a2bcac7738b4d679d3f3ccf",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat os/Cargo.toml\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "os/src\nos/src/drivers\nos/src/drivers/block\nos/src/drivers/serial\nos/src/fs\nos/src/fs/dev\nos/src/fs/ext4\nos/src/fs/fat32\nos/src/hal\nos/src/hal/arch\nos/src/hal/configs\nos/src/hal/platform\nos/src/math\nos/src/mm\nos/src/mm/memory distribution\nos/src/net\nos/src/syscall\nos/src/task\nos/src/utils",
+    "tool_call_id": "call_f2a1bd05c62f448e9453fa78"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/console.rs\nos/src/lang_items.rs\nos/src/load_img-rv.S\nos/src/load_img.S\nos/src/main.rs\nos/src/preload_app-rv.S\nos/src/preload_app.S\nos/src/timer.rs",
+    "tool_call_id": "call_f25add337a0646659fea0632"
+  },
+  {
+    "role": "tool",
+    "content": "[package]\nname = \"os\"\nversion = \"0.1.0\"\nedition = \"2018\"\n\n[dependencies]\nlazy_static = { version = \"1.4.0\", features = [\"spin_no_std\"] }\nbuddy_system_allocator = \"0.8\"\nspin = \"0.7\"\nbitflags = \"1.3\"\nxmas-elf = \"0.7.0\"\nvirtio-drivers = { path = \"../dependency/virtio-drivers\" }\nembedded-hal = \"=1.0.0-alpha.7\"\nnb = \"1.0\"\nlog = \"0.4\"\nnum_enum = { version = \"0.5\", default-features = false }\ndowncast-rs = { version = \"1.2.0\", default-features = false }\nlz4_flex = { version = \"0.9.0\", default-features = false }\nbit_field = \"0.10.1\"\nrlibc = \"1.0.0\"\nvolatile = \"0.3.0\"\nrand_core = \"0.6.4\"\nmanaged = { version = \"0.8\", default-features = false, features = [\"map\"] }\n\nriscv = { path = \"../dependency/riscv\", features = [\"inline-asm\"] }\nrustsbi = { path = \"../dependency/rustsbi\" }\n\n# [target.'cfg(target_arch = \"loongarch64\")'.dependencies]\npci = {  path = \"../dependency/dep_pci/pci\"  }\nisomorphic_drivers = { path = \"../dependency/dep_iso\" }\n\nsmoltcp = { version = \"0.10.0\", default-features = false, features = [\n    \"alloc\",\n    \"log\",\n    \"medium-ethernet\",\n    \"medium-ip\",\n    \"proto-ipv4\",\n    \"proto-ipv6\",\n    \"proto-dhcpv4\",\n    \"proto-ipv4-fragmentation\",\n    \"socket-udp\",\n    \"socket-tcp\",\n    \"socket-dhcpv4\",\n    \"async\",\n] }\n\n[features]\nzero_init = []\nswap = []\nzram = []\noom_handler = [\"swap\", \"zram\"]\nlog_off = [\"log/max_level_off\"]\nlog_info = [\"log/max_level_info\"]\nlog_warn = [\"log/max_level_warn\"]\nlog_error = [\"log/max_level_error\"]\nblock_sata = []\nblock_mem = []\nblock_virt = []\nblock_virt_pci = []\ncomp = []\n\n# LoongArch Boards:\nloongarch64 = []\nboard_2k1000 = [\"oom_handler\", \"loongarch64\"]\nboard_laqemu = [\"oom_handler\", \"loongarch64\"]\n# Riscv Board:\nriscv = []\nboard_rvqemu = [\"oom_handler\", \"riscv\"]\nboard_visionfive2 = [\"oom_handler\", \"riscv\"]\n# END of LoongArch Boards.\n\n# default = [\"board_laqemu\", \"block_sata\"]\n# default = [\"board_rvqemu\", \"block_mem\"]\ndefault = [\"board_rvqemu\", \"block_virt\"]\n\n[profile.dev]\n# 优化级别\nopt-level = \"s\"\n# debug = true\n# 生成详细调试信息\ndebug = 2\n# 禁用调试断言\ndebug-assertions = false\n# 整数溢出检查\noverflow-checks = false\n# 禁用链接时优化\nlto = false\n# panic时进行栈展开\npanic = 'unwind'\n# 禁用增量编译\nincremental = false\n# 使用16个代码生成单元\ncodegen-units = 16\n# 禁用运行时库搜索路径\nrpath = false\n[profile.release]\nlto = true",
+    "tool_call_id": "call_5a2bcac7738b4d679d3f3ccf"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_a3bfb781e6b04955a7eff384",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src -maxdepth 2 -type f -name \\\"*.rs\\\" | sort\"}"
+        }
+      },
+      {
+        "id": "call_8f16abc9ec78413fa2cc4b63",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat os/Makefile\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "os/src/console.rs\nos/src/drivers/mod.rs\nos/src/fs/cache.rs\nos/src/fs/directory_tree.rs\nos/src/fs/dirent.rs\nos/src/fs/file_descriptor.rs\nos/src/fs/file_trait.rs\nos/src/fs/filesystem.rs\nos/src/fs/inode.rs\nos/src/fs/layout.rs\nos/src/fs/mod.rs\nos/src/fs/poll.rs\nos/src/fs/swap.rs\nos/src/fs/timestamp.rs\nos/src/fs/vfs.rs\nos/src/hal/mod.rs\nos/src/lang_items.rs\nos/src/main.rs\nos/src/math/mod.rs\nos/src/mm/address.rs\nos/src/mm/frame_allocator.rs\nos/src/mm/heap_allocator.rs\nos/src/mm/map_area.rs\nos/src/mm/memory_set.rs\nos/src/mm/mod.rs\nos/src/mm/page_table.rs\nos/src/mm/zram.rs\nos/src/net/address.rs\nos/src/net/config.rs\nos/src/net/mod.rs\nos/src/net/tcp.rs\nos/src/net/udp.rs\nos/src/net/unix.rs\nos/src/syscall/errno.rs\nos/src/syscall/fs.rs\nos/src/syscall/mod.rs\nos/src/syscall/net.rs\nos/src/syscall/process.rs\nos/src/syscall/syscall_id.rs\nos/src/syscall/syscall_macro.rs\nos/src/task/context.rs\nos/src/task/elf.rs\nos/src/task/manager.rs\nos/src/task/mod.rs\nos/src/task/pid.rs\nos/src/task/processor.rs\nos/src/task/signal.rs\nos/src/task/task.rs\nos/src/task/threads.rs\nos/src/timer.rs\nos/src/utils/error.rs\nos/src/utils/mod.rs\nos/src/utils/random.rs",
+    "tool_call_id": "call_a3bfb781e6b04955a7eff384"
+  },
+  {
+    "role": "tool",
+    "content": "ARCHS = rv64 la64\nCURR_ARCH ?= la64\nFS_MODE ?= ext4\nBLK_MODE ?= virt\nMODE ?= release\n\n.PHONY: all $(ARCHS) clean\n\nall: $(ARCHS)\n\n$(ARCHS):\n\t@echo \"Building for ARCH=$@\"\n\tmake ARCH=$@ -f make/$@.mk all MODE=${MODE}\n\nrv64-kernel-build-only:\n\tmake -f make/rv64.mk build BLK_MODE=${BLK_MODE} MODE=${MODE} LOG=${LOG}\n\nrv64-debug:\n\tmake -f make/rv64.mk all BLK_MODE=${BLK_MODE} MODE=debug\n\nrv64-only:\n\tmake -f make/rv64.mk all BLK_MODE=${BLK_MODE}\n\nrv64-b-only:\n\tmake -f make/rv64.mk all BLK_MODE=mem BOARD=visionfive2\n\tcp ../kernel-rv ../os.bin\n\nrv64-run-only:\n\tmake -f make/rv64.mk runsimple\n\nrv64-run:\n\tmake -f make/rv64.mk comp\n\nrv64-runtest:\n\tmake -f make/rv64.mk comp_test\n\nla64-only:\n\tmake -f make/la64.mk all \n\nla64-kernel-build-only:\n\tmake -f make/la64.mk build MODE=${MODE} LOG=${LOG}\n\nla64-b-only:\n\tmake -f make/la_board/la64board.mk all BLK_MODE=mem BOARD=2k1000\n\nla64-b-run:\n\tmake -f make/la_board/la64board.mk run-inner BLK_MODE=mem BOARD=2k1000\n\nla64-debug:\n\tmake -f make/la64.mk all MODE=debug\t\n\nla64-run-only:\n\tmake -f make/la64.mk runsimple\n\nla64-run:\n\tmake -f make/la64.mk comp\n\ncomp:\n\tmake -f make/$(CURR_ARCH).mk comp\n\nclean:\n\tfor arch in $(ARCHS); do \\\n\t\tmake ARCH=$$arch -f make/$$arch.mk clean; \\\n\tdone\n\nlaclean:\n\tmake -f make/la64.mk clean\n\nrv_board_clean:\n\tmake -f make/rv64.mk clean\n\trm ../os.bin\n\nla_board_clean:\n\tmake -f make/la_board/la64board.mk clean\n\nfs-img:\n\tmake -f make/$(CURR_ARCH).mk fs-img FS_MODE=$(FS_MODE)\n\nrun:\n\tmake -f make/$(CURR_ARCH).mk run\n\ngdb:\n\tmake -f make/$(CURR_ARCH).mk gdb\n\nrv64-gdb: rv64-debug\n\tmake -f make/rv64.mk comp-gdb\n\nla64-gdb: la64-debug\n\tmake -f make/la64.mk comp-gdb\t\n\nrvchange:\n\trm -f ../sdcard-rv.img\n\tcp ../../imgbk/sdcard-rv.img ../sdcard-rv.img\n\nfinalrvchange:\n\trm -f ../sdcard-rv.img\n\tcp ../../testsuits-for-oskernel/sdcard-rv.img ../sdcard-rv.img\n\nlachange:\n\trm -f ../sdcard-la.img\n\tcp ../../imgbk/sdcard-la.img ../sdcard-la.img\n\nfinallachange:\n\trm -f ../sdcard-la.img\n\tcp ../../img/sdcard-la.img ../sdcard-la.img",
+    "tool_call_id": "call_8f16abc9ec78413fa2cc4b63"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_e5a549c6be0f49f68ccbc20d",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/make -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_a4feae36bab74b49a807b167",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/drivers -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_ece89bb714cc474299178bf7",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/hal -type f | sort\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "os/make/la64.mk\nos/make/la_board/la64board.mk\nos/make/la_board/la_gdbserver\nos/make/la_board/run_script\nos/make/rv64.mk",
+    "tool_call_id": "call_e5a549c6be0f49f68ccbc20d"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/drivers/block/block_dev.rs\nos/src/drivers/block/mem_blk.rs\nos/src/drivers/block/mod.rs\nos/src/drivers/block/sata_blk.rs\nos/src/drivers/block/virtio_blk.rs\nos/src/drivers/block/virtio_blk_pci.rs\nos/src/drivers/mod.rs\nos/src/drivers/serial/mod.rs\nos/src/drivers/serial/ns16550a.rs",
+    "tool_call_id": "call_a4feae36bab74b49a807b167"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/hal/arch/loongarch64/acpi.rs\nos/src/hal/arch/loongarch64/boot.rs\nos/src/hal/arch/loongarch64/config.rs\nos/src/hal/arch/loongarch64/entry.asm\nos/src/hal/arch/loongarch64/kern_stack.rs\nos/src/hal/arch/loongarch64/la_libc_import.rs\nos/src/hal/arch/loongarch64/laflex.rs\nos/src/hal/arch/loongarch64/linker.ld\nos/src/hal/arch/loongarch64/mem_reg_macro.rs\nos/src/hal/arch/loongarch64/mod.rs\nos/src/hal/arch/loongarch64/register/base/badi.rs\nos/src/hal/arch/loongarch64/register/base/badv.rs\nos/src/hal/arch/loongarch64/register/base/cpuid.rs\nos/src/hal/arch/loongarch64/register/base/crmd.rs\nos/src/hal/arch/loongarch64/register/base/ecfg.rs\nos/src/hal/arch/loongarch64/register/base/eentry.rs\nos/src/hal/arch/loongarch64/register/base/era.rs\nos/src/hal/arch/loongarch64/register/base/estat.rs\nos/src/hal/arch/loongarch64/register/base/euen.rs\nos/src/hal/arch/loongarch64/register/base/llbctl.rs\nos/src/hal/arch/loongarch64/register/base/misc.rs\nos/src/hal/arch/loongarch64/register/base/mod.rs\nos/src/hal/arch/loongarch64/register/base/prcfg.rs\nos/src/hal/arch/loongarch64/register/base/prmd.rs\nos/src/hal/arch/loongarch64/register/base/rvacfg.rs\nos/src/hal/arch/loongarch64/register/csr_macros.rs\nos/src/hal/arch/loongarch64/register/mmu/asid.rs\nos/src/hal/arch/loongarch64/register/mmu/dmw.rs\nos/src/hal/arch/loongarch64/register/mmu/mod.rs\nos/src/hal/arch/loongarch64/register/mmu/pgd.rs\nos/src/hal/arch/loongarch64/register/mmu/pwch.rs\nos/src/hal/arch/loongarch64/register/mmu/pwcl.rs\nos/src/hal/arch/loongarch64/register/mmu/stlbps.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbehi.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbelo.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbidx.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrbadv.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrehi.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrelo.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrentry.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrera.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrprmd.rs\nos/src/hal/arch/loongarch64/register/mmu/tlbrsave.rs\nos/src/hal/arch/loongarch64/register/mod.rs\nos/src/hal/arch/loongarch64/register/ras/merrctl.rs\nos/src/hal/arch/loongarch64/register/ras/merrentry.rs\nos/src/hal/arch/loongarch64/register/ras/merrera.rs\nos/src/hal/arch/loongarch64/register/ras/merrinfo.rs\nos/src/hal/arch/loongarch64/register/ras/merrsave.rs\nos/src/hal/arch/loongarch64/register/ras/mod.rs\nos/src/hal/arch/loongarch64/register/timer/cntc.rs\nos/src/hal/arch/loongarch64/register/timer/mod.rs\nos/src/hal/arch/loongarch64/register/timer/tcfg.rs\nos/src/hal/arch/loongarch64/register/timer/ticlr.rs\nos/src/hal/arch/loongarch64/register/timer/tid.rs\nos/src/hal/arch/loongarch64/register/timer/tval.rs\nos/src/hal/arch/loongarch64/sbi.rs\nos/src/hal/arch/loongarch64/switch.S\nos/src/hal/arch/loongarch64/switch.rs\nos/src/hal/arch/loongarch64/time.rs\nos/src/hal/arch/loongarch64/tlb.rs\nos/src/hal/arch/loongarch64/trap/context.rs\nos/src/hal/arch/loongarch64/trap/mem_access.rs\nos/src/hal/arch/loongarch64/trap/mod.rs\nos/src/hal/arch/loongarch64/trap/trap.S\nos/src/hal/arch/mod.rs\nos/src/hal/arch/riscv/config.rs\nos/src/hal/arch/riscv/entry.asm\nos/src/hal/arch/riscv/kern_stack.rs\nos/src/hal/arch/riscv/linker-rvqemu.ld\nos/src/hal/arch/riscv/linker-visionfive2.ld\nos/src/hal/arch/riscv/linker.ld\nos/src/hal/arch/riscv/mod.rs\nos/src/hal/arch/riscv/sbi.rs\nos/src/hal/arch/riscv/sv39.rs\nos/src/hal/arch/riscv/switch.S\nos/src/hal/arch/riscv/switch.rs\nos/src/hal/arch/riscv/time.rs\nos/src/hal/arch/riscv/trap/context.rs\nos/src/hal/arch/riscv/trap/mod.rs\nos/src/hal/arch/riscv/trap/trap.S\nos/src/hal/configs/loongarch64-qemu-virt.toml\nos/src/hal/configs/riscv64-qemu-virt.toml\nos/src/hal/mod.rs\nos/src/hal/platform/loongarch64/2k1000.rs\nos/src/hal/platform/loongarch64/qemu.rs\nos/src/hal/platform/riscv/fu740.rs\nos/src/hal/platform/riscv/k210.rs\nos/src/hal/platform/riscv/qemu.rs\nos/src/hal/platform/riscv/visionfive2.rs",
+    "tool_call_id": "call_ece89bb714cc474299178bf7"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_123c0145e7dd4b2c95199817",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/fs -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_0585ff97da1e4b86bb8069a4",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/task -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_d016227dbfe34689b2ba2818",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/mm -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_db6a95bd191346988496638d",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/net -type f | sort\"}"
+        }
+      },
+      {
+        "id": "call_2ddd5a1af70445299a073879",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/syscall -type f | sort\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "os/src/fs/cache.rs\nos/src/fs/dev/hwclock.rs\nos/src/fs/dev/interrupts.rs\nos/src/fs/dev/mod.rs\nos/src/fs/dev/null.rs\nos/src/fs/dev/pipe.rs\nos/src/fs/dev/socket.rs\nos/src/fs/dev/tty.rs\nos/src/fs/dev/urandom.rs\nos/src/fs/dev/zero.rs\nos/src/fs/directory_tree.rs\nos/src/fs/dirent.rs\nos/src/fs/ext4/balloc.rs\nos/src/fs/ext4/bitmap.rs\nos/src/fs/ext4/block_group.rs\nos/src/fs/ext4/crc.rs\nos/src/fs/ext4/direntry.rs\nos/src/fs/ext4/error.rs\nos/src/fs/ext4/ext4_inode.rs\nos/src/fs/ext4/ext4fs.rs\nos/src/fs/ext4/extent.rs\nos/src/fs/ext4/file.rs\nos/src/fs/ext4/ialloc.rs\nos/src/fs/ext4/layout.rs\nos/src/fs/ext4/mod.rs\nos/src/fs/ext4/path.rs\nos/src/fs/ext4/superblock.rs\nos/src/fs/ext4/test.rs\nos/src/fs/fat32/bitmap.rs\nos/src/fs/fat32/dir_iter.rs\nos/src/fs/fat32/efs.rs\nos/src/fs/fat32/fat_inode.rs\nos/src/fs/fat32/fat_osinode.rs\nos/src/fs/fat32/layout.rs\nos/src/fs/fat32/mod.rs\nos/src/fs/file_descriptor.rs\nos/src/fs/file_trait.rs\nos/src/fs/filesystem.rs\nos/src/fs/inode.rs\nos/src/fs/layout.rs\nos/src/fs/mod.rs\nos/src/fs/poll.rs\nos/src/fs/swap.rs\nos/src/fs/timestamp.rs\nos/src/fs/vfs.rs",
+    "tool_call_id": "call_123c0145e7dd4b2c95199817"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/task/context.rs\nos/src/task/elf.rs\nos/src/task/manager.rs\nos/src/task/mod.rs\nos/src/task/pid.rs\nos/src/task/processor.rs\nos/src/task/signal.rs\nos/src/task/task.rs\nos/src/task/threads.rs",
+    "tool_call_id": "call_0585ff97da1e4b86bb8069a4"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/mm/address.rs\nos/src/mm/frame_allocator.rs\nos/src/mm/heap_allocator.rs\nos/src/mm/map_area.rs\nos/src/mm/memory distribution/memory distribution.drawio\nos/src/mm/memory distribution/memory distribution.md\nos/src/mm/memory distribution/memory distribution.png\nos/src/mm/memory_set.rs\nos/src/mm/mod.rs\nos/src/mm/page_table.rs\nos/src/mm/zram.rs",
+    "tool_call_id": "call_d016227dbfe34689b2ba2818"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/net/address.rs\nos/src/net/config.rs\nos/src/net/mod.rs\nos/src/net/tcp.rs\nos/src/net/udp.rs\nos/src/net/unix.rs",
+    "tool_call_id": "call_db6a95bd191346988496638d"
+  },
+  {
+    "role": "tool",
+    "content": "os/src/syscall/errno.rs\nos/src/syscall/fs.rs\nos/src/syscall/mod.rs\nos/src/syscall/net.rs\nos/src/syscall/process.rs\nos/src/syscall/syscall_id.rs\nos/src/syscall/syscall_macro.rs",
+    "tool_call_id": "call_2ddd5a1af70445299a073879"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_2e244d12249741d28a5a81b2",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find user/src -maxdepth 2 -type f | head -30\"}"
+        }
+      },
+      {
+        "id": "call_19047321a2174c9690d3ddf3",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"cat user/Cargo.toml\"}"
+        }
+      },
+      {
+        "id": "call_d641788709fe4364a96ae061",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find dependency -maxdepth 2 -type d | sort\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "user/src/bin/initproc.rs\nuser/src/console.rs\nuser/src/lang_items.rs\nuser/src/la_libc_import.rs\nuser/src/lib.rs\nuser/src/linker-rv.ld\nuser/src/linker.ld\nuser/src/syscall.rs\nuser/src/syscall.S\nuser/src/usr_call.rs",
+    "tool_call_id": "call_2e244d12249741d28a5a81b2"
+  },
+  {
+    "role": "tool",
+    "content": "[package]\nname = \"user_lib\"\nversion = \"0.1.0\"\nedition = \"2018\"\n\n[dependencies]\nbuddy_system_allocator = \"0.8\"\nbitflags = \"1.3.2\"\n[target.'cfg(target_arch = \"loongarch64\")'.dependencies]\nrlibc = \"1.0.0\"\n\n[profile.dev]\n# debug = true\ndebug = 2",
+    "tool_call_id": "call_19047321a2174c9690d3ddf3"
+  },
+  {
+    "role": "tool",
+    "content": "dependency\ndependency/dep_iso\ndependency/dep_iso/src\ndependency/dep_pci\ndependency/dep_pci/pci\ndependency/riscv\ndependency/riscv/bin\ndependency/riscv/ci\ndependency/riscv/descriptor\ndependency/riscv/src\ndependency/rlibc\ndependency/rlibc/src\ndependency/rustsbi\ndependency/rustsbi/src\ndependency/virtio-drivers\ndependency/virtio-drivers/examples\ndependency/virtio-drivers/src",
+    "tool_call_id": "call_d641788709fe4364a96ae061"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_4fd43d4165ec41fc8b46ce84",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find user -maxdepth 2 -type d | sort\"}"
+        }
+      },
+      {
+        "id": "call_c1fc70449a5c4de2b37978cc",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find util -maxdepth 2 -type f -o -type d | sort\"}"
+        }
+      },
+      {
+        "id": "call_0b59d5d4bca24ce498b938bc",
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "arguments": "{\"command\": \"find os/src/fs/ext4 -type f | wc -l && find os/src/fs/fat32 -type f | wc -l && find os/src -type f -name \\\"*.rs\\\" | wc -l\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "content": "user\nuser/.cargo\nuser/busybox_lua_testsuites\nuser/busybox_lua_testsuites/loongarch64\nuser/fs\nuser/fs/bin\nuser/fs/etc\nuser/fs/root\nuser/fs/var\nuser/src\nuser/src/bin\nuser/vendor\nuser/vendor/bitflags\nuser/vendor/buddy_system_allocator\nuser/vendor/rlibc\nuser/vendor/spin",
+    "tool_call_id": "call_4fd43d4165ec41fc8b46ce84"
+  },
+  {
+    "role": "tool",
+    "content": "util\nutil/mkimage\nutil/qemu-2k1000\nutil/qemu-2k1000/.gitignore\nutil/qemu-2k1000/gz",
+    "tool_call_id": "call_c1fc70449a5c4de2b37978cc"
+  },
+  {
+    "role": "tool",
+    "content": "16\n7\n170",
+    "tool_call_id": "call_0b59d5d4bca24ce498b938bc"
+  },
+  {
+    "role": "assistant",
+    "content": "# NPUcore_for_oscomp2025 项目初步调查报告\n\n## 一、项目概述\n\n本项目名为 **NPUcore_for_oscomp2025**，由西北工业大学三位同学基于 NPUcore-lwext4 框架开发，是面向 2025 年操作系统内核赛道的竞赛操作系统。项目支持 **RISC-V** 和 **LoongArch** 双架构平台，使用 **Rust** 语言编写，采用 `no_std` 裸机内核开发模式。\n\n## 二、仓库顶层结构\n\n```\n.\n├── bootloader/          # 引导加载程序（预编译的 fw_payload.bin）\n├── dependency/          # 本地依赖库（vendored）\n├── doc/                 # 文档（技术报告、PPT、PDF 等）\n├── os/                  # 内核主体代码\n├── user/                # 用户态程序与测试套件\n├── util/                # 工具（mkimage、QEMU 2K1000 模拟器）\n├── Makefile             # 顶层构建入口\n├── copyglibc.sh         # glibc 复制脚本\n├── copymusl.sh          # musl libc 复制脚本\n├── LICENSE              # 许可证\n└── README.md            # 项目说明\n```\n\n## 三、内核子系统划分\n\n内核代码位于 `os/src/` 目录下，共约 **170 个 Rust 源文件**，可划分为以下子系统：\n\n### 1. 硬件抽象层（HAL）— `os/src/hal/`\n\n负责屏蔽不同架构和平台的差异，包含三个子模块：\n\n| 子模块 | 路径 | 说明 |\n|--------|------|------|\n| 架构支持 | `hal/arch/riscv/` | RISC-V 架构：入口汇编、链接脚本、SBI 调用、SV39 页表、上下文切换、中断陷入 |\n| 架构支持 | `hal/arch/loongarch64/` | LoongArch64 架构：入口汇编、链接脚本、寄存器定义（CSR/TLB/定时器/RAS）、上下文切换、中断陷入、ACPI、TLB 管理 |\n| 平台配置 | `hal/platform/` | 具体板级支持：RISC-V（QEMU/Fu740/K210/VisionFive2）、LoongArch（QEMU/2K1000） |\n| 配置 | `hal/configs/` | TOML 格式的板级硬件配置描述文件 |\n\n### 2. 内存管理（MM）— `os/src/mm/`\n\n| 文件 | 说明 |\n|------|------|\n| `address.rs` | 地址抽象（物理地址/虚拟地址） |\n| `frame_allocator.rs` | 物理页帧分配器 |\n| `heap_allocator.rs` | 内核堆分配器 |\n| `map_area.rs` | 内存映射区域 |\n| `memory_set.rs` | 地址空间（MemorySet）管理 |\n| `page_table.rs` | 页表管理 |\n| `zram.rs` | ZRAM 压缩内存（用于 OOM 处理） |\n\n特性标志中包含 `swap`、`zram`、`oom_handler`，表明实现了交换分区和内存不足处理机制。\n\n### 3. 进程/任务管理（Task）— `os/src/task/`\n\n| 文件 | 说明 |\n|------|------|\n| `task.rs` | 进程/任务控制块 |\n| `threads.rs` | 线程支持 |\n| `context.rs` | 上下文定义 |\n| `elf.rs` | ELF 加载器 |\n| `manager.rs` | 任务管理器 |\n| `pid.rs` | PID 分配 |\n| `processor.rs` | 处理器调度 |\n| `signal.rs` | 信号机制 |\n\n### 4. 文件系统（FS）— `os/src/fs/`\n\n文件系统子系统规模较大（约 40 个文件），实现了 VFS 层和两种具体文件系统：\n\n| 子模块 | 说明 |\n|--------|------|\n| VFS 层 | `vfs.rs`、`inode.rs`、`dirent.rs`、`filesystem.rs`、`file_descriptor.rs`、`file_trait.rs`、`directory_tree.rs`、`cache.rs`、`poll.rs`、`layout.rs`、`timestamp.rs`、`swap.rs` |\n| FAT32 | `fat32/`（7 个文件）：FAT32 文件系统实现 |\n| EXT4 | `ext4/`（16 个文件）：EXT4 文件系统实现，含超级块、块分配、inode、extent、目录项、CRC 校验等 |\n| 设备文件 | `dev/`：null、zero、urandom、pipe、tty、hwclock、interrupts、socket 等伪文件系统 |\n\n### 5. 设备驱动（Drivers）— `os/src/drivers/`\n\n| 子模块 | 说明 |\n|--------|------|\n| 块设备 | `block/`：VirtIO 块设备、VirtIO PCI 块设备、SATA 块设备、内存块设备 |\n| 串口 | `serial/`：NS16550A UART 驱动 |\n\n### 6. 网络子系统（Net）— `os/src/net/`\n\n| 文件 | 说明 |\n|------|------|\n| `tcp.rs` | TCP 协议支持 |\n| `udp.rs` | UDP 协议支持 |\n| `unix.rs` | Unix 域套接字 |\n| `address.rs` | 网络地址抽象 |\n| `config.rs` | 网络配置 |\n\n底层使用 `smoltcp` 网络协议栈库。\n\n### 7. 系统调用（Syscall）— `os/src/syscall/`\n\n| 文件 | 说明 |\n|------|------|\n| `mod.rs` | 系统调用分发 |\n| `fs.rs` | 文件系统相关系统调用 |\n| `process.rs` | 进程相关系统调用 |\n| `net.rs` | 网络相关系统调用 |\n| `errno.rs` | 错误码定义 |\n| `syscall_id.rs` | 系统调用号定义 |\n| `syscall_macro.rs` | 系统调用宏 |\n\n据 README 描述，支持或不完全支持的系统调用多达 **100 个**。\n\n### 8. 其他模块\n\n| 文件/目录 | 说明 |\n|-----------|------|\n| `main.rs` | 内核入口 |\n| `console.rs` | 控制台输出 |\n| `timer.rs` | 定时器管理 |\n| `lang_items.rs` | Rust `no_std` 语言项实现 |\n| `math/` | 数学运算辅助 |\n| `utils/` | 工具模块（错误处理、随机数） |\n\n## 四、用户态与测试\n\n- `user/src/`：用户态库（`user_lib`），包含系统调用封装、initproc 等\n- `user/fs/`：文件系统镜像所需的目录结构（bin、etc、root、var）\n- `user/busybox_lua_testsuites/`：LoongArch 平台的 busybox/lua 测试套件\n\n## 五、本地依赖库\n\n| 依赖 | 路径 | 说明 |\n|------|------|------|\n| `riscv` | `dependency/riscv/` | RISC-V CSR 寄存器访问库 |\n| `rustsbi` | `dependency/rustsbi/` | RustSBI 固件接口 |\n| `virtio-drivers` | `dependency/virtio-drivers/` | VirtIO 设备驱动 |\n| `dep_pci` | `dependency/dep_pci/` | PCI 总线驱动 |\n| `dep_iso` | `dependency/dep_iso/` | isomorphic_drivers 驱动框架 |\n| `rlibc` | `dependency/rlibc/` | 裸机 C 库函数实现 |\n\n## 六、构建工具链需求\n\n| 工具 | 用途 |\n|------|------|\n| **Rust 工具链** | `rustc`（nightly-2025-01-18）、`cargo`、`rust-src`、`llvm-tools` — 内核与用户态编译 |\n| **RISC-V 交叉编译工具链** | `riscv64-unknown-elf-gcc/ld/as/objdump/objcopy` — RISC-V 架构链接与汇编 |\n| **LoongArch 交叉编译工具链** | `loongarch64-unknown-elf-gcc/ld/as` — LoongArch 架构链接与汇编 |\n| **QEMU** | RISC-V 和 LoongArch 系统模拟器（项目自带 LoongArch 2K1000 的定制 QEMU） |\n| **GNU Make** | 构建系统入口 |\n| **mkimage** | 内核镜像打包（`util/mkimage`） |\n| **dtc** | 设备树编译（可能用于 RISC-V 平台） |\n| **文件系统工具** | `mkfs.ext4`、`mkfs.vfat`、`mcopy`、`dd` — 制作文件系统镜像 |\n| **OpenSBI/RustSBI** | RISC-V SBI 固件（`bootloader/fw_payload.bin`） |\n| **Python** | 辅助脚本（可能用于测试自动化） |\n\n构建系统采用分层 Makefile 结构：顶层 `Makefile` 调用 `os/Makefile`，后者根据目标架构分发到 `os/make/rv64.mk` 或 `os/make/la64.mk`。默认配置为 `board_rvqemu + block_virt`（RISC-V QEMU + VirtIO 块设备），文件系统默认 `ext4`。"
+  }
+]

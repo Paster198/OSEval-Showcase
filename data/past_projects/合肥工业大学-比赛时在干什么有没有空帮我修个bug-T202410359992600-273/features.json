@@ -1,0 +1,16 @@
+{
+  "name": "BugOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "集成lwext4实现现代文件系统支持",
+    "实现六十余个Linux兼容系统调用",
+    "支持QEMU与K210等多硬件平台",
+    "实现POSIX标准信号处理机制",
+    "支持Sv39三级页表与内存段管理"
+  ]
+}

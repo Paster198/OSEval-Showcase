@@ -1,0 +1,16 @@
+{
+  "name": "Nonix OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于polyhal实现双架构硬件抽象",
+    "实现内存懒加载与mmap共享组机制",
+    "通过lwext4实现Ext4文件系统适配",
+    "提供73个Linux兼容系统调用"
+  ]
+}

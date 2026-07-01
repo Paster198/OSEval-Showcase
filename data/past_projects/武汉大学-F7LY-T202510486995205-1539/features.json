@@ -1,0 +1,17 @@
+{
+  "name": "F7LY OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "Xv6",
+  "language": "C++",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "采用C++23开发并集成EASTL库",
+    "支持RISC-V及龙芯双架构运行",
+    "实现百余个Linux兼容系统调用",
+    "构建多层VFS并移植ext4文件系统",
+    "引入onpstack实现完整网络协议栈"
+  ]
+}

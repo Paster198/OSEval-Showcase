@@ -1,0 +1,16 @@
+{
+  "name": "SystemNQB",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "C与Rust混合编程的内核架构",
+    "使用Rust语言实现ext4文件系统",
+    "采用Linux兼容的系统调用编号",
+    "引入Rust伙伴系统内存分配器",
+    "设计支持引用计数的通用对象池"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "TrustOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现百余个POSIX系统调用与写时复制",
+    "基于lwext4实现完整ext4文件系统",
+    "支持用户栈信号帧构建与系统调用重启",
+    "实现跨进程Futex与共享内存机制",
+    "提供辅助向量支持以兼容动态链接程序"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Explosion OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "从零自研实现完整的EXT4文件系统",
+    "基于特质与条件编译的多架构硬件抽象",
+    "实现写时复制与内存映射等高级内存管理",
+    "自研轻量级网络协议栈支持基础网络通信",
+    "支持浮点上下文延迟保存与辅助向量传递"
+  ]
+}

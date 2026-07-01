@@ -1,0 +1,15 @@
+{
+  "name": "AronaOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "基于Rust异步协程实现协作式调度",
+    "构建统一VFS层支持FAT32与ext4",
+    "实现基于引用计数的页表级写时复制",
+    "实现清晰的进程与线程分离管理模型"
+  ]
+}
