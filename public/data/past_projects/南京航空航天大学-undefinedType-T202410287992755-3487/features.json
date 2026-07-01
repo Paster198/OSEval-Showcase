@@ -1,0 +1,15 @@
+{
+  "name": "EcallFinal1 Operating System",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C++",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "使用C++面向对象特性构建内核代码",
+    "实现SV39按需分页与VMR内存管理",
+    "完整实现FAT32文件系统与VFS层",
+    "统一物理与Slab分配器实现内存路由"
+  ]
+}

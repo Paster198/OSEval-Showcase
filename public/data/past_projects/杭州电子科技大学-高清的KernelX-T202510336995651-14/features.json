@@ -1,0 +1,16 @@
+{
+  "name": "KernelX",
+  "kernel_type": "microkernel",
+  "ecosystem": "RT-Thread",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现数十个兼容Linux的系统调用",
+    "修正堆内存语义并统一进程创建",
+    "基于平衡树实现高效进程与内存管理",
+    "移植终端驱动并支持伪终端机制",
+    "完善缺页异常与三级页表管理"
+  ]
+}

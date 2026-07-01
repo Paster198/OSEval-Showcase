@@ -1,0 +1,19 @@
+{
+  "name": "StarryX",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "采用Rust语言保障内存与并发安全",
+    "清晰的三层分离与可复用模块设计",
+    "实现完整的System V IPC与信号机制",
+    "支持RISC-V与LoongArch等多架构",
+    "集成LRU页缓存与VMA按需加载机制"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "SystemNQB",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现兼容Linux的系统调用接口",
+    "引入FAT32文件系统替代原生设计",
+    "集成SBI HSM实现多核动态启动",
+    "构建时自动生成系统调用分发表"
+  ]
+}

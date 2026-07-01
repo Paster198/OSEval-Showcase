@@ -1,0 +1,16 @@
+{
+  "name": "OSKernel2024-idk",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "异步协程调度替代传统抢占式调度",
+    "自定义PTE COW标志实现写时复制",
+    "tp寄存器存储HART指针O(1)访问",
+    "stvec临时劫持实现安全用户探测",
+    "基数树页缓存结合LRU块缓存加速IO"
+  ]
+}

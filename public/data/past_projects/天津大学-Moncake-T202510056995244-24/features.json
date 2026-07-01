@@ -1,0 +1,16 @@
+{
+  "name": "MonkeyOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ByteOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于Rust异步模型实现协作式调度",
+    "支持musl与glibc双C库动态链接",
+    "通过polyhal实现跨架构硬件抽象",
+    "引入任务模板缓存加速ELF加载"
+  ]
+}

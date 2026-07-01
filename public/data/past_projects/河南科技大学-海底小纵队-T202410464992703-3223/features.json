@@ -1,0 +1,19 @@
+{
+  "name": "ByteOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "x86_64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于Rust异步机制实现协作式任务调度",
+    "支持四种CPU架构的统一硬件抽象层设计",
+    "实现VFS抽象层与Dentry目录项缓存",
+    "支持写时复制机制的虚拟内存管理子系统",
+    "兼容百余个POSIX标准的异步系统调用"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "BITOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现伙伴系统物理内存管理与SV39分页",
+    "采用跳板机制与ASID优化地址空间切换",
+    "构建支持FAT32与DevFS的VFS层",
+    "实现基于LRU策略的块设备缓冲缓存"
+  ]
+}

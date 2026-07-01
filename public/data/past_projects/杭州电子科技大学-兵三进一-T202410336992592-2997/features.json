@@ -1,0 +1,15 @@
+{
+  "name": "Being[3]++",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "基于async-task实现异步优先调度架构",
+    "内存管理支持写时复制与按需懒分配",
+    "实现深度集成Waker的异步睡眠锁",
+    "构建完整的VFS抽象层与FAT32实现"
+  ]
+}

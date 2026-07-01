@@ -1,0 +1,18 @@
+{
+  "name": "Eonix",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "x86_64",
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于Rust异步语法实现内核任务调度",
+    "支持x86_64及RISC-V等三种架构",
+    "采用RCU与无锁结构优化关键路径性能",
+    "自定义宏实现跨架构的处理器局部变量",
+    "实现完整Linux克隆语义与系统调用"
+  ]
+}

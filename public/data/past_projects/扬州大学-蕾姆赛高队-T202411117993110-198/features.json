@@ -1,0 +1,15 @@
+{
+  "name": "REMOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "移植开源库实现完整ext4文件系统",
+    "采用伙伴算法与多核内存池管理物理内存",
+    "引入每进程独立内核页表优化内存访问",
+    "扩展五十个系统调用以兼容主流应用"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "TatlinOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构统一抽象与高代码复用率",
+    "实现懒分配与写时复制的现代内存管理",
+    "引入页缓存机制优化物理页帧分配性能",
+    "兼容百余Linux系统调用与POSIX信号"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "ZeroOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "基于Rust异步模型实现系统调用",
+    "支持QEMU与VisionFive2双平台运行",
+    "用户态BTreeMap模拟FAT32文件链接",
+    "实现百余个Linux兼容系统调用"
+  ]
+}

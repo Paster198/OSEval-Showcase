@@ -1,0 +1,16 @@
+{
+  "name": "S0S",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "独立实现支持长文件名的FAT32文件系统",
+    "实现包含三十二个信号的完整POSIX信号机制",
+    "将硬件异常转化为POSIX信号传递给用户程序",
+    "实现类Unix的全局文件表与引用计数自动回收",
+    "支持多核启动与基于静态分配的多核任务调度"
+  ]
+}

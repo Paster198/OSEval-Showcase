@@ -1,0 +1,15 @@
+{
+  "name": "ChCore",
+  "kernel_type": "microkernel",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "基于能力模型实现严格的资源管理",
+    "采用迁移式通信减少上下文切换开销",
+    "支持多种可插拔调度策略与实时调度",
+    "双路径实现高兼容性的标准接口适配"
+  ]
+}

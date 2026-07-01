@@ -1,0 +1,15 @@
+{
+  "name": "undefinedType",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C++",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "采用面向对象的内核架构设计",
+    "支持动态链接用户程序的加载",
+    "集成ext4与FAT32双文件系统",
+    "实现完整的SV39虚拟内存管理"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "NoAxiom-OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于Rust无栈协程的异步调度架构",
+    "跨平台支持RISC-V与龙芯双架构",
+    "实现五种文件系统与完整VFS抽象",
+    "深度集成异步驱动与网络协议栈",
+    "细粒度并发控制与任务状态分类"
+  ]
+}

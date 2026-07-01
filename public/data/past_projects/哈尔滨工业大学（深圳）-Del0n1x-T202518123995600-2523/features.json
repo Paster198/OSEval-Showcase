@@ -1,0 +1,17 @@
+{
+  "name": "Del0n1x",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "采用无栈协程实现内核异步任务调度",
+    "实现跨指令集架构的硬件抽象层设计",
+    "基于位图与缓存优化文件描述符分配",
+    "集成页缓存与脏块追踪优化文件系统",
+    "实现分级释放策略的内存溢出处理"
+  ]
+}

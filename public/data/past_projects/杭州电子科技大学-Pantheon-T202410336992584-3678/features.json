@@ -1,0 +1,16 @@
+{
+  "name": "Pantheon OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "采用基于Rust的无栈协程调度架构",
+    "用户进程与内核任务统一建模为协程",
+    "实现EXT4文件系统与页缓存机制",
+    "支持Sv39分页与写时复制机制",
+    "高度模块化设计包含十九个内核库"
+  ]
+}

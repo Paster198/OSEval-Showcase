@@ -1,0 +1,16 @@
+{
+  "name": "cabbageOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "支持多核启动与跨CPU内存窃取",
+    "实现完整的Buddy系统与COW机制",
+    "采用PCB与TCB分离的多线程模型",
+    "实现Sv39三级页表与按需分页机制",
+    "集成FAT32与ext4双文件系统支持"
+  ]
+}

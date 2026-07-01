@@ -1,0 +1,16 @@
+{
+  "name": "OSakura",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现支持Extent特性的ext4文件系统",
+    "实现六十余个Linux兼容系统调用",
+    "支持ELF动态链接程序的加载与执行",
+    "设计基于函数指针的多文件系统抽象层",
+    "实现轻量级的procfs虚拟文件系统"
+  ]
+}

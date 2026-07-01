@@ -1,0 +1,16 @@
+{
+  "name": "unknown",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "移植FAT32至内核态并支持长文件名",
+    "实现SV39三级页表与虚拟内存管理",
+    "提供互斥锁与信号量等完整同步原语",
+    "探索ext4接口与双文件系统架构设计",
+    "利用Rust类型系统实现严格地址抽象"
+  ]
+}

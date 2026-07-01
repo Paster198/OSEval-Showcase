@@ -1,0 +1,16 @@
+{
+  "name": "TOYOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "支持FAT32与ext4双文件系统",
+    "实现ELF动态链接与mmap支持",
+    "基于Trampoline的高效特权级切换",
+    "采用Extent树优化ext4大文件访问",
+    "提供55个Linux标准兼容系统调用"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Undefined-OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "x86_64",
+    "aarch64",
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持四种主流处理器架构跨平台运行",
+    "实现完整的进程组与会话层次模型",
+    "提供统一的文件描述符抽象接口",
+    "采用动态构建的伪文件系统框架",
+    "内置系统调用追踪宏辅助内核调试"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "NPUcore-Aspera",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "loongarch64",
+    "riscv64"
+  ],
+  "highlights": [
+    "统一HAL层支持龙芯与RISC-V双架构",
+    "LAFlex页表内联汇编优化TLB填充",
+    "多层OOM处理结合Zram与Swap机制",
+    "实现Ext4与FAT32双文件系统与VFS",
+    "Frame状态机支持CoW与页面迁移"
+  ]
+}

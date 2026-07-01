@@ -1,0 +1,19 @@
+{
+  "name": "AstrancE",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于linkme实现可插拔陷阱处理",
+    "支持线性与按需分配多后端内存映射",
+    "完整支持静态与动态链接ELF加载",
+    "同时实现SysV与POSIX双共享内存",
+    "基于闭包生成器实现procfs动态生成"
+  ]
+}

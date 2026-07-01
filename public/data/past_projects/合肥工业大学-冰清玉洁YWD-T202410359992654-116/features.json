@@ -1,0 +1,16 @@
+{
+  "name": "冰清玉洁YWD",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "设计每进程独立的内核页表",
+    "引入物理页引用计数支持写时复制",
+    "实现FAT32文件系统与挂载机制",
+    "实现按需页面加载与延迟分配",
+    "扩展五十二个Linux兼容系统调用"
+  ]
+}

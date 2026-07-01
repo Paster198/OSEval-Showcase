@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "x86_64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于ArceOS框架实现多架构宏内核",
+    "实现分片Futex表以减少多核锁竞争",
+    "支持写时复制机制优化进程创建性能",
+    "提供完整VFS抽象与多虚拟文件系统",
+    "集成SystemV IPC与完整信号处理"
+  ]
+}

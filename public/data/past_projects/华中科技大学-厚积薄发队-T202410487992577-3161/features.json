@@ -1,0 +1,15 @@
+{
+  "name": "xv6",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现每进程独立内核页表增强安全隔离",
+    "系统调用编号兼容主流操作系统标准接口",
+    "移植轻量级库实现完整的扩展文件系统",
+    "采用混合编程集成独立编写的存储驱动"
+  ]
+}

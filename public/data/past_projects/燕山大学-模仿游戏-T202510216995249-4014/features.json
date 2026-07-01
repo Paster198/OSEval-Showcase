@@ -1,0 +1,19 @@
+{
+  "name": "starry-next",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于ArceOS组件化框架实现多架构支持",
+    "采用Unikernel部署方式运行宏内核功能",
+    "利用AxNamespace实现进程级资源隔离",
+    "独立页表映射信号跳板避免内核空间拷贝",
+    "完整实现共享内存与Futex同步机制"
+  ]
+}

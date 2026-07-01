@@ -1,0 +1,16 @@
+{
+  "name": "HatOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "位置无关内核代码与高虚拟地址映射设计",
+    "支持写时复制与缺页懒分配的虚拟内存管理",
+    "支持ext4和FAT32双文件系统架构",
+    "支持动态链接的ELF可执行文件加载机制",
+    "完整信号处理机制与固定地址信号跳板设计"
+  ]
+}

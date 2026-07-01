@@ -1,0 +1,17 @@
+{
+  "name": "SpringOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持RISC-V与LoongArch双架构",
+    "适配星光二代与龙芯真机开发板",
+    "集成轻量库实现完整EXT4文件系统",
+    "实现龙芯架构非对齐访问软件模拟",
+    "具备完整的类Linux信号处理机制"
+  ]
+}

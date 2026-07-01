@@ -1,0 +1,19 @@
+{
+  "name": "WenyiOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "x86_64",
+    "aarch64",
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于ArceOS生态构建宏内核",
+    "统一支持四种主流CPU架构",
+    "实现百余个Linux兼容系统调用",
+    "完善的信号处理与IPC共享内存",
+    "命名空间机制实现进程级资源隔离"
+  ]
+}
