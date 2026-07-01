@@ -22,7 +22,7 @@ function Home() {
   return (
     <div className="home">
       <header className="home-header">
-        <h1>RuntimeError - OSEval 分析结果展示</h1>
+        <h1>评测结果</h1>
         <p className="subtitle">以下所有项目均使用 Qwen3.7-Max 或者 DeepSeek V4 Pro 搭配本Agent完成分析。</p>
       </header>
 
