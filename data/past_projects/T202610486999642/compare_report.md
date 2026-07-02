@@ -1,5 +1,3 @@
-Now I have sufficient data from all reports. Let me compile the comprehensive comparison report.
-
 # 对比分析报告
 
 ## 一、项目概览
