@@ -1,7 +1,3 @@
-Now I have all the data needed. Let me compose the comprehensive comparison report.
-
----
-
 # 对比分析报告
 
 ## PwnMyOS 与五个同类竞赛内核项目的多维对比分析

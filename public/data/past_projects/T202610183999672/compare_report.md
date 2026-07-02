@@ -1,5 +1,3 @@
-Now I have comprehensive data for all six projects. Let me write the detailed comparison report.
-
 # 对比分析报告
 
 ## 一、项目概览

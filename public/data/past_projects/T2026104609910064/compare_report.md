@@ -1,7 +1,3 @@
-Now I have all the information needed. Let me generate the comprehensive comparison report.
-
----
-
 # 对比分析报告
 
 ## 一、对比项目概况

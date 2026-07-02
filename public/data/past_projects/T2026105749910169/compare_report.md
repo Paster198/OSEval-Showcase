@@ -1,5 +1,3 @@
-Now I have all the information needed. Let me synthesize the comparison report.
-
 # 对比分析报告
 
 ## 一、参与对比的项目

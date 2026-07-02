@@ -1,5 +1,3 @@
-Now I have all the detailed information from all five selected projects and the current project (Starry Next). Let me compile the comprehensive comparison report.
-
 # 对比分析报告
 
 ## 一、Starry Next 项目特别之处与亮点

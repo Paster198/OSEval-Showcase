@@ -1,7 +1,3 @@
-Now I have all the data needed for the comparison. Let me generate the report.
-
----
-
 # 对比分析报告
 
 ## 一、对比范围

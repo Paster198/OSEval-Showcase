@@ -1,5 +1,3 @@
-Now I have comprehensive information on all five projects. Let me generate the comparison report.
-
 # 对比分析报告
 
 ## 一、对比项目概览
