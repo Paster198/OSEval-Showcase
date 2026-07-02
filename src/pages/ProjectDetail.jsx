@@ -85,10 +85,7 @@ function ProjectDetail() {
               <span className="info-label">参赛年份</span>
               <span className="info-value">{m.year || '-'}</span>
             </div>
-            <div className="info-item">
-              <span className="info-label">队伍名称</span>
-              <span className="info-value">{m.teamname || '-'}</span>
-            </div>
+
             <div className="info-item">
               <span className="info-label">仓库链接</span>
               <span className="info-value">
