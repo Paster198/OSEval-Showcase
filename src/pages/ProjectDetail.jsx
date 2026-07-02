@@ -36,7 +36,10 @@ function ProjectDetail() {
         // Load Markdown files
         const loadMd = async (name, optional = false) => {
           try {
-            const res = await fetch(`${basePath}/${name}.md`);
+            let res = await fetch(`${basePath}/${name}.md`);
+            if (!res.ok) {
+              res = await fetch(`${basePath}/${name}.html`);
+            }
             if (res.ok) return await res.text();
             return optional ? null : `*未能加载 ${name}.md*`;
           } catch (e) {
