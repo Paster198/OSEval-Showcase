@@ -57,7 +57,7 @@ function Home() {
 
   // Filter projects based on state
   const filteredProjects = useMemo(() => {
-    return projects.filter(p => {
+    const result = projects.filter(p => {
       const pLang = p.features?.language || '未知语言';
       const pArchs = p.features?.architectures || [];
       const pKernel = p.features?.kernel_type || '未知类型';
@@ -84,6 +84,15 @@ function Home() {
 
       return true;
     });
+
+    // Sort by year descending (newer projects first)
+    result.sort((a, b) => {
+      const yearA = parseInt(a.metadata?.year) || 0;
+      const yearB = parseInt(b.metadata?.year) || 0;
+      return yearB - yearA;
+    });
+
+    return result;
   }, [projects, filterLang, filterArch, filterKernel, filterYear, searchQuery]);
 
   return (
