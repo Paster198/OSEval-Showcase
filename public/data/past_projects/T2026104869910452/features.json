@@ -1,0 +1,17 @@
+{
+  "name": "NighthawkOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "全异步内核设计，基于 async/await 实现系统调用与 I/O 异步调度，支持多核 work-stealing。",
+    "同时支持 RISC-V 64 和 LoongArch 64，利用条件编译与架构多态宏实现双架构。",
+    "实现约 186 个 Linux 系统调用，可运行 busybox/lua 等应用，覆盖 epoll/signalfd/io_uring 等特殊文件。",
+    "完善的信号处理，支持 POSIX 实时信号、sigaltstack，并通过汇编 trampoline 实现 sigreturn。",
+    "模块化 VFS，通过 trait 对象支持 EXT4/FAT32 及 procfs/devfs 等十余种文件系统扩展。"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "MOSS OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于ArceOS unikernel组件改造为Linux兼容宏内核",
+    "Scope机制实现类型安全的进程级资源隔离",
+    "enum_dispatch多态内存后端减少间接调用开销",
+    "LRU缓存加速ELF重复加载提升shell脚本性能",
+    "跨架构信号trampoline抽象简化多平台支持"
+  ]
+}

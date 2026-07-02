@@ -1,0 +1,17 @@
+{
+  "name": "NameNotFound",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "编译期静态依赖注入（Need/Provide），消除模块间直接耦合",
+    "Effect副作用约束在编译期防止错误依赖与层级违反",
+    "代码生成器archgen自动解析模块依赖并生成初始化接线代码",
+    "完整支持RISC-V 64与LoongArch 64双ISA后端",
+    "从物理内存管理到Linux ABI与ext4文件系统的完整路径"
+  ]
+}

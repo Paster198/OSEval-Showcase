@@ -1,0 +1,16 @@
+{
+  "name": "OSKernel2026-X",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "内核级shebang解析实现脚本解释器识别与递归执行",
+    "魔数驱动的ext4与xv6文件系统透明切换机制",
+    "ext4 extent树遍历与64bit块组描述符只读驱动",
+    "动态ELF加载器支持PIE、动态解释器、TLS和aux向量",
+    "自适应竞赛测试调度框架集成看门狗与SBI关机"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "HPU OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构支持：同时实现RISC-V和LoongArch，架构抽象合理，代码复用率高",
+    "EXT4只读驱动：从超级块到extent树完整实现，支持64位特性和真实磁盘镜像读取",
+    "惰性页故障处理：基于mmap预留区域的按需物理页分配，简化内存管理",
+    "进程级文件系统视图：独立文件描述符表与工作目录，正确继承fork语义",
+    "内核原生评测框架：集成自动扫描、串行测试、超时看门狗的状态标记输出"
+  ]
+}

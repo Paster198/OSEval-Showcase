@@ -1,0 +1,16 @@
+{
+  "name": "OSKernel2026-AllNull",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现EXT4文件系统，支持extent tree遍历和块分配",
+    "系统调用稀疏散列表与递归页表操作，降低时间复杂度",
+    "基于gp寄存器的内核陷阱处理框架，减少中断延迟",
+    "支持CLONE_VM线程及自动地址空间变更同步机制",
+    "混合polling与中断的块设备I/O，兼顾效率与响应"
+  ]
+}

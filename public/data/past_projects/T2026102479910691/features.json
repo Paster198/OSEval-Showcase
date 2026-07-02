@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2026-X",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "汇编自举Sv39分页，利用2MB大页降低页表层数并直接构建恒等映射",
+    "基于sscratch的双向交换陷阱入口，实现用户态到内核态的零拷贝上下文保存",
+    "内嵌用户程序二进制与测试组标记输出框架，支持无文件系统的自动化测试验证",
+    "纯轮询VirtIO MMIO块设备驱动配合精简EXT4只读解析，可读取磁盘文件内容",
+    "项目同步包含LoongArch架构启动桩，体现多架构扩展的工程考量"
+  ]
+}

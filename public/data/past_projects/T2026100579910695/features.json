@@ -1,0 +1,17 @@
+{
+  "name": "Chronix OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "采用async-first内核架构，所有系统调用均为异步函数，基于无栈协程实现协作式多任务调度",
+    "通过trait抽象实现RISC-V和LoongArch双架构HAL层，清晰分离架构相关与架构无关代码",
+    "UserPtr<T,P>编译期权限标记配合SumGuard运行时保护，实现类型安全的用户空间内存访问",
+    "帧分配器OOM时自动触发页面缓存清理与脏页回写，实现完整的内存压力反馈与回收机制",
+    "内核集成AES、Salsa20、SHA2等加密原语，提供AF_ALG兼容接口支持内核态加密操作"
+  ]
+}

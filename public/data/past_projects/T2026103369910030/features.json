@@ -1,0 +1,17 @@
+{
+  "name": "KernelX",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "自主研发完整的用户态TCP协议栈，含状态机和快速重传",
+    "零开销架构抽象：ArchTrait+宏支持RISC-V与LoongArch",
+    "VFS实现挂载传播、绑定挂载等高级挂载语义",
+    "双ext4方案：C库绑定实现读写，纯Rust实现只读安全",
+    "丰富工程特性：Kconfig配置、lockdep、看门狗及LTP追踪"
+  ]
+}

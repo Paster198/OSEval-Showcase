@@ -1,0 +1,17 @@
+{
+  "name": "name_undefined",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同时支持RISC-V 64位与LoongArch 64位双CPU架构的内核实现",
+    "在内核中为EXT4文件系统提供了基本读写支持，包括extent树操作",
+    "实现了约67个Linux RISC-V兼容系统调用，可运行静态链接的BusyBox",
+    "在系统调用层面集成了shebang脚本解析机制，支持脚本直接执行",
+    "完善的虚拟内存管理，支持按需调页、mmap/munmap及惰性分配"
+  ]
+}

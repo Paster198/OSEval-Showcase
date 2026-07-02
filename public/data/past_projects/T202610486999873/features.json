@@ -1,0 +1,19 @@
+{
+  "name": "ScintillaOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "VFS Dentry缓存与挂载点系统，实现多文件系统透明挂载。",
+    "支持约110个Linux ABI系统调用，覆盖进程/内存/文件/网络。",
+    "集成lwext4库实现对Ext4文件系统完整读写。",
+    "基于smoltcp实现TCP/UDP套接字及DHCP，支持本地回环。",
+    "线程组间虚拟内存元数据同步机制（共享页表线程）。"
+  ]
+}

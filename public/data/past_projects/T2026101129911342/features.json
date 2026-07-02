@@ -1,0 +1,17 @@
+{
+  "name": "KunikOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "编译期单态化HAL设计：通过cfg+pub use实现同一内核代码在RISC-V与LoongArch双ISA上无修改编译运行",
+    "LoongArch完整四级软件TLB重填：从零手写TLB重填处理程序，使用lddir/ldpte/tlbfill指令链式遍历页表后填入TLB",
+    "LoongArch PCIe ECAM枚举与virtio-pci现代传输：无PCI库情况下手写ECAM枚举、BAR分配、capability链表解析和现代virtio-pci握手",
+    "零外部依赖全手写子系统：堆分配器、ext4解析器、virtio-blk驱动、网络栈全部自研，无任何第三方crate",
+    "同步fork进程模型：在无调度器前提下通过遍历式用户页快照与逐页还原实现正确的fork语义满足libc-test和LTP要求"
+  ]
+}

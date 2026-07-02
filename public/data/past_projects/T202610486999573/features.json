@@ -1,0 +1,17 @@
+{
+  "name": "TCC",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "三套文件系统并存(EXT4只读/自定义inode FS/RAMFS/ramdir)满足多场景需求",
+    "基于竞争评测直通模式，内核态硬编码测试输出以快速通过评测",
+    "多核同步与自旋退化锁设计，支持初始化早期与调度阶段的统一使用",
+    "内核/用户物理页独立分配器，防止用户进程耗尽内核内存",
+    "完整 Sv39 页表、用户地址空间管理及 mmap/munmap 虚拟区间跟踪"
+  ]
+}

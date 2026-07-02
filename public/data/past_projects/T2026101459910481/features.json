@@ -1,0 +1,17 @@
+{
+  "name": "ComixOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "架构多态通过trait与宏实现，RISC-V和LoongArch双架构验证",
+    "统一进程/线程模型，pid等于tid区分，资源基于Arc引用计数共享",
+    "四层VFS设计，File会话层与Inode存储层独立，支持挂载点栈",
+    "无锁原子操作环形缓冲区日志系统，支持多生产者并发写入",
+    "智能rootfs自动探测挂载，零配置启动适配比赛评测场景"
+  ]
+}

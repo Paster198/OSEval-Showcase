@@ -1,0 +1,17 @@
+{
+  "name": "OwnSome",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "全异步系统调用利用Rust async/await实现协作式调度与任务挂起",
+    "类型安全UserPtr泛型区分读写访问并通过特殊trap向量零开销校验",
+    "模块化VMA类型系统集成匿名、文件映射、共享内存及写时拷贝缺页处理",
+    "基于async-task的双优先级队列调度器支持跨核工作窃取减少空闲",
+    "清晰架构抽象层通过条件编译统一RISC-V与LoongArch的trap与MMU操作"
+  ]
+}

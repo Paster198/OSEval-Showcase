@@ -1,0 +1,19 @@
+{
+  "name": "MoonOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于ArceOS底座构建宏内核，实现202个系统调用的Linux兼容层",
+    "scope_local作用域与on_enter/on_leave切换机制实现高效资源隔离",
+    "extern_trait任务扩展机制，不改上游代码即集成宏内核特性",
+    "离线全缓存编译与axconfig-gen配置代码生成，构建系统成熟",
+    "完整信号机制、futex及epoll实现，通过300+LTP测试验证"
+  ]
+}

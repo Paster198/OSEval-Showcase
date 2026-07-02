@@ -1,0 +1,17 @@
+{
+  "name": "RocketOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构支持RISC-V64与LoongArch64，同时兼容musl和glibc两种C库",
+    "实现FIFO与CFS双调度器，可通过编译开关灵活切换调度策略",
+    "深入的ext4文件系统支持，包含extent树、fanotify监控及POSIX文件锁",
+    "覆盖180+系统调用，通过484个LTP测试用例，具备高度POSIX兼容性",
+    "基于smoltcp的TCP/UDP/Unix socket完整网络栈，支持AF_ALG加密套接字"
+  ]
+}

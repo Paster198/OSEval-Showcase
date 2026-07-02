@@ -1,0 +1,17 @@
+{
+  "name": "GCore",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构HAL抽象：统一RISC-V与LoongArch底层差异",
+    "完整ext4 extent树：实现extent分裂/合并与多级索引",
+    "三级内存回收：Zram压缩、Swap换出与OOM Handler协作",
+    "完善POSIX信号：支持64信号、sigaltstack及sigreturn跳板",
+    "进程资源分离设计：基于Arc<Mutex<>>实现高效CoW/fork"
+  ]
+}

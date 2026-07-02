@@ -1,0 +1,16 @@
+{
+  "name": "weijun-eos-kernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "通过include_bytes内嵌引导ELF，无需磁盘init即可启动用户程序",
+    "统一伙伴分配器同时实现PagingHandler和VirtIO Hal，避免内存分区浪费",
+    "clone深拷贝全部用户页帧，简化fork实现，避免写时复制和缺页处理",
+    "利用sscratch实现原子栈切换，消除用户态到内核态陷阱入口的竞态",
+    "基于rsext4实现完整ext4读写能力，结合管道IPC支持50+POSIX系统调用"
+  ]
+}

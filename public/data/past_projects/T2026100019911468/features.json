@@ -1,0 +1,17 @@
+{
+  "name": "Oblivion",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "COW fork与惰性内存分配实现，支持写时复制与按需堆栈增长",
+    "双页表架构统一内核与用户内存访问，避免页表切换开销",
+    "Linux ABI兼容层通过进程名匹配运行linux二进制（50+系统调用）",
+    "支持轮转/优先级/MLFQ三种调度算法并可动态切换",
+    "FAT32读写与EXT4只读双文件系统通过VFS统一调度"
+  ]
+}

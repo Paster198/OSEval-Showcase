@@ -1,0 +1,17 @@
+{
+  "name": "F423OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双ABI共存架构，按进程分发xv6与Linux系统调用。",
+    "从零实现EXT4 extent树解析，通过xv6缓冲适配块大小。",
+    "在只读EXT4上实现per-process tmpfs，支持写操作。",
+    "内核内置测试编排器，利用exit推进测试序列。",
+    "最小化务实策略，未实现系统调用返回零以兼容测试。"
+  ]
+}

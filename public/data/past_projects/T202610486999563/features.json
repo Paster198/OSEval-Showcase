@@ -1,0 +1,17 @@
+{
+  "name": "whuse",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "HAL trait 抽象层实现 RISC-V/LoongArch 双架构共享内核逻辑",
+    "自旋式阻塞系统调用模型，通过不递增 sepc 自动重试简化内核同步",
+    "竞赛级智能看门狗自动检测超时、死锁并按进程名分类处理",
+    "集成自检 init 程序，启动时验证 eventfd/epoll/futex 等核心功能",
+    "编译期内嵌用户态文件系统，无需外部存储即可直接运行 busybox 环境"
+  ]
+}

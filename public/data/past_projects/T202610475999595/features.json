@@ -1,0 +1,15 @@
+{
+  "name": "OSKernel2026-SGYB",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现支持惰性模式的sbrk延迟分配,缺页中断自动映射物理页",
+    "新增8个系统调用与tms进程时间统计,扩展进程信息查询",
+    "采用RISC-V Sstc定时器扩展替代传统CLINT,简化时钟中断",
+    "完整移植xv6文件系统,包含日志崩溃恢复与多级索引inode"
+  ]
+}

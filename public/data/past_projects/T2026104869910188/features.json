@@ -1,0 +1,17 @@
+{
+  "name": "name_undefined",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "兼容Linux 5.10 ABI，实现约90个系统调用",
+    "双架构支持RISC-V与LoongArch，统一HAL抽象",
+    "三层内存管理：伙伴系统、slab分配器与VMA缺页处理",
+    "集成lwext4实现ext4文件系统及lwIP TCP/IP协议栈",
+    "完整信号处理、futex同步与System V共享内存机制"
+  ]
+}

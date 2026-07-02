@@ -1,0 +1,17 @@
+{
+  "name": "Chronix OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "RISC-V与LoongArch双架构统一HAL抽象",
+    "全异步内核设计支持协作式多任务与SMP",
+    "实现247个Linux兼容系统调用与丰富ABI",
+    "支持EXT4/FAT32、TCP/UDP、完整信号系统",
+    "集成io_uring、seccomp与加密算法socket"
+  ]
+}

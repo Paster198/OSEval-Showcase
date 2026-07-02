@@ -1,0 +1,17 @@
+{
+  "name": "OSOSOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore-Tutorial",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双ISA同构设计，RISC-V 64与LoongArch 64共享上层子系统代码",
+    "233个系统调用实现深度Linux ABI兼容，可运行glibc/musl用户程序",
+    "完整信号机制支持嵌套递送，通过栈式上下文保存实现信号嵌套处理",
+    "混合优先级调度器融合FIFO/RR实时调度与普通任务stride调度",
+    "基于银行家算法的死锁检测机制，可追踪多线程资源循环等待"
+  ]
+}

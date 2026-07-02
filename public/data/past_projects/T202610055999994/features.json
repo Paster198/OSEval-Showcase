@@ -1,0 +1,17 @@
+{
+  "name": "PwnMyOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过bindgen集成lwext4 C库，为内核提供完整的ext4文件系统支持",
+    "内置busybox路由与LTP测试兼容层，适配glibc/musl双C库评测场景",
+    "基于polyhal硬件抽象层，利用条件编译同时支持RISC-V64与LoongArch64架构",
+    "实现100+Linux兼容系统调用，覆盖进程/线程/文件/信号/内存管理等子系统",
+    "内存管理采用写时复制与懒惰分配策略，并通过MutexNoIrq保证中断安全"
+  ]
+}

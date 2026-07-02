@@ -1,0 +1,17 @@
+{
+  "name": "StellarOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过显式pub use固化HAL接口契约，实现编译器强制架构抽象边界",
+    "基于可插拔SchedClass trait实现EEVDF/FIFO多策略调度器，支持运行时策略切换",
+    "采用illumos式Squeue串行化perimeter，实现无忙等的网络轮询并发安全",
+    "内核ELF加载器集成LoongArch musl兼容补丁，通过符号定位与字节签名自动修复sched桩",
+    "实现两阶段任务入队与pending_reenqueue机制，从设计上消除SMP并发窗口"
+  ]
+}

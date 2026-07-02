@@ -1,0 +1,3 @@
+StarryOS 是一个基于 ArceOS unikernel 基础设施构建的 Linux ABI 兼容宏内核。项目采用 Rust 语言编写，内核部分约 6.7 万行代码，通过 364 个系统调用分支实现了广泛的 Linux 系统调用覆盖，运行于 RISC-V64 和 LoongArch64 等架构之上。
+
+核心特点包括：在 unikernel 运行时之上构建完整的 Linux 兼容层，实现了 clone/execve/exit/wait 完整进程生命周期、COW 写时复制内存管理、CFS 完全公平调度器、64 种 POSIX 信号处理、futex 同步机制、五种 Linux 命名空间、ext4 文件系统以及 devfs/procfs/sysfs/cgroupfs/tmpfs 等伪文件系统。网络栈支持 TCP、UDP、Unix 域套接字、VSock、Packet 原始套接字及 Netlink 协议族。项目实现了 19 种特殊文件类型，包括 inotify、fanotify、signalfd、timerfd、memfd、pidfd、eventfd、userfaultfd 及 io_uring 等现代 Linux API。eBPF 子系统包含完整解释器与静态验证器，支持 Array、Hash 和 RingBuf 三种 BPF map 类型。系统调用分发采用快速路径优化，针对空系统调用和时钟读取场景进行了专项加速。项目同时提供 Docker 构建环境、LTP 测试目标管理和评测回放系统。

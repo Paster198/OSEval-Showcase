@@ -1,0 +1,16 @@
+{
+  "name": "uuOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构统一内核框架，平台无关代码与架构目录分离",
+    "Trampoline机制实现协作式用户态进入/退出与阻塞等待",
+    "紧凑EXT4只读实现，支持多级extent树逻辑地址映射",
+    "脚本驱动自动化测试框架，支持解析测试脚本并输出标准化标记"
+  ]
+}

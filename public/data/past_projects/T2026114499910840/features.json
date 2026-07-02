@@ -1,0 +1,18 @@
+{
+  "name": "NAOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "x86_64",
+    "aarch64",
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "Linux兼容层完整，x86_64实现262个系统调用",
+    "模块化TCP/IP协议栈，lwIP以可加载模块形式运行",
+    "完整DRM显示框架，含dma-buf及PRIME支持",
+    "三引导协议统一抽象，跨Limine、SBI与laboot"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "TxKernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于 Step v3 代数统一异步操作，实现系统调用可组合性",
+    "EBR epoch 保护与 Zone 分配器结合，保障内核内存安全",
+    "身份-负载分离模式解耦共享与可变状态，提升并发安全性",
+    "实现120+ Linux 系统调用，提供高度二进制兼容层",
+    "异步运行时结合调度器与等待源，支持高效异步I/O"
+  ]
+}

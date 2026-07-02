@@ -1,0 +1,3 @@
+RocketOS 是一个基于 Rust 语言从零构建的高完整度宏内核，支持 RISC-V 64 与 LoongArch 64 双架构，以及 musl 和 glibc 双 C 库用户程序。项目以约八万六千行代码实现了 Linux 内核的大多数核心子系统，涵盖约一百八十余个系统调用，通过四百八十余项 LTP 测试用例。其技术定位为探索 Rust 在操作系统内核领域的工程实践与竞技项目。
+
+核心特点包括：完整的虚拟文件系统层，支持 ext4 extent 树、FAT32、fanotify 事件监控、POSIX 文件记录锁及 fs_context 新挂载 API；基于 smoltcp 实现的 TCP/UDP/Unix 域套接字网络栈；双调度器架构，既可选用 FIFO 实时调度也可切换为 CFS 完全公平调度；完善的进程管理，含线程组、信号、futex、System V IPC 及 CAP 权限模型。亮点在于双架构深度适配、利用 Rust 零抽象开销的 tp 寄存器直接寻址任务控制块、对 AF_ALG 加密套接字等 Linux 特有特性的支持，以及良好的模块化设计，在功能完整度和代码质量之间取得了平衡。

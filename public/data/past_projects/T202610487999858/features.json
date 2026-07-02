@@ -1,0 +1,17 @@
+{
+  "name": "httos",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同时支持RISC-V与LoongArch双架构，代码级统一条件编译，降低维护成本",
+    "集成lwext4库实现ext4完整读写，搭配自研VFS框架解耦文件类型与后端",
+    "基于clone系统调用实现轻量级线程，支持共享地址空间和futex同步原语",
+    "实现按需分页与mmap映射，线程间缺页共享保证共享内存物理页一致性",
+    "完整支持动态链接，可加载ELF解释器并构建辅助向量，运行glibc/musl程序"
+  ]
+}

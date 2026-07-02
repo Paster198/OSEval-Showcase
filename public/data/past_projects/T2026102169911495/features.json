@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "hybrid",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于ArceOS构建完整Linux ABI兼容层，融合unikernel低开销与Linux生态",
+    "实现写时复制内存管理，支持mmap多映射类型及大页",
+    "基于Scope的文件描述符表隔离，优雅支持CLONE_FILES语义",
+    "完整的TTY子系统和线路规程，支持PTY和作业控制",
+    "安全用户态内存访问原语，结合编译期与运行时保护"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2026-X",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "架构契约模式：12个硬件服务契约通过函数指针+三阶段状态机实现跨平台解耦，两个架构完整实现",
+    "进程管理与系统调用：实现约150+个Linux系统调用，支持fork/execve/动态链接ELF，覆盖进程/信号/时间/内存/文件/IPC",
+    "内存可写覆盖层：在只读ext4基础上实现overlay文件系统，支持文件与目录创建/删除及白名单机制",
+    "EDF实时调度器：支持SCHED_DEADLINE策略与20种阻塞等待通道，具备futex requeue跨桶迁移能力",
+    "纯no_std零依赖：不依赖任何外部crate，全部功能基于Rust core/alloc自实现，构建产物完全自包含"
+  ]
+}

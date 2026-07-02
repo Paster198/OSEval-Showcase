@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel C Base Model",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "Sv39 虚拟内存及基于引用计数的 COW 机制实现完整",
+    "execve 支持 musl/glibc 双 ABI 自动检测与路径重映射",
+    "用户态 init shell 内建 grep/sort/awk 等文本过滤器管道",
+    "155 个 Linux 兼容系统调用覆盖文件、网络、信号与进程管理",
+    "ext4 只读支持含 extent 树遍历、文件缓存与名称缓存优化"
+  ]
+}

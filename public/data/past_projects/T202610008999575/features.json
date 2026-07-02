@@ -1,0 +1,17 @@
+{
+  "name": "ShellCore",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构统一抽象：条件编译实现 RISC-V 与 LoongArch 支持，上层代码复用率达 90%。",
+    "多粒度物理内存分配：支持 4KB/2MB/1GB 三种页面粒度，提升内存管理灵活性。",
+    "Ext4 文件系统读写：完整实现 extent 树遍历与节点插入，支持块分配及目录操作。",
+    "双层缓存架构：文件页缓存与块缓存两级 LRU 设计，配合锁序防止死锁。",
+    "信号嵌套处理：支持信号处理函数内再接收信号，利用栈保存上下文实现嵌套返回。"
+  ]
+}

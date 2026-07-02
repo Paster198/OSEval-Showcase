@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于 ArceOS unikernel 框架构建 Linux 兼容宏内核，实现多进程与完整 ABI",
+    "支持 239 个系统调用，通过 506 个 LTP 测试用例，兼容 musl/glibc",
+    "COW 内存管理含全局帧引用计数，支持大页与动态链接器加载",
+    "完整的 TTY 子系统（termios/PTY/作业控制）与伪文件系统",
+    "双架构 FAT 符号链接模拟，测试驱动开发，详尽的工程记录"
+  ]
+}

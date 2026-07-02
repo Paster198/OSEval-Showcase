@@ -1,0 +1,17 @@
+{
+  "name": "NPUcore-Ovo",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同时支持RISC-V与LoongArch双架构，通过统一HAL接口实现上层子系统与ISA完全解耦",
+    "完整实现EXT4 extent树文件系统，含extent节点分裂、合并、B-tree遍历等复杂数据结构操作",
+    "实现Linux风格RT(FIFO/RR)/CFS/Idle三级调度框架，含完整nice权重表和vruntime计算",
+    "实现约200个Linux兼容系统调用，覆盖文件、进程、信号、网络、定时器等主要子系统",
+    "实现ZRAM内存压缩(LZ4算法)与磁盘Swap交换空间组合，支持OOM场景下的内存回收"
+  ]
+}

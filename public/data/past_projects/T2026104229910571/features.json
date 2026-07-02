@@ -1,0 +1,19 @@
+{
+  "name": "ByteOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ByteOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "Async-first协作式执行器，系统调用均为异步函数，实现非阻塞等待",
+    "基于Arc引用计数的COW fork机制，优雅实现写时复制与内存共享",
+    "利用linkme分布式切片实现编译时驱动自动注册，消除手动维护列表",
+    "同时提供基于C FFI的lwext4和纯Rust的ext4_rs双EXT4后端实现",
+    "内建完整的自动化测试编排引擎，支持脚本解析、分组执行与超时管理"
+  ]
+}

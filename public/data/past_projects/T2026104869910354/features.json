@@ -1,0 +1,17 @@
+{
+  "name": "oskernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双文件系统后端自动切换：启动时探测磁盘魔数，自动适配 easy-fs 与 EXT4",
+    "EXT4 Overlay层：基于内存的只读EXT4覆盖层实现伪写入，支持进程级文件隔离",
+    "LoongArch最小内核：手写PCI枚举、virtqueue操作和EXT4读取，完成启动验证",
+    "内置测试编排器：支持自动运行glibc、musl、lmbench、lua、iozone等标准化测试套件",
+    "兼容Linux ABI：实现约85个标准系统调用，覆盖进程、文件、网络、同步等核心功能"
+  ]
+}

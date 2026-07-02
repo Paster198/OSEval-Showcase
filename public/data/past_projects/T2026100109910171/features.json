@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "在Unikernel组件基础上构建宏内核，高效复用底层基础设施",
+    "利用access_user_memory闭包与缺页捕获，安全访问用户态内存",
+    "以enum_dispatch实现映射后端多态，消除虚函数调用开销",
+    "引入LRU缓存解析ELF文件，显著减少重复加载延迟",
+    "基于ringbuf实现管道，支持动态扩容及SIGPIPE信号处理"
+  ]
+}

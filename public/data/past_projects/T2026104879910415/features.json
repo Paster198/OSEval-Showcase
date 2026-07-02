@@ -1,0 +1,17 @@
+{
+  "name": "VOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于ArceOS的Linux兼容宏内核，实现约220个系统调用",
+    "支持RISC-V64和LoongArch64双架构及glibc/musl双运行时",
+    "创新的musl libc运行时二进制热补丁技术解决ABI差异",
+    "组合式VFS：ext4只读、ramfs可写、proc/sys/dev叠加",
+    "LTP白名单策略和竞赛闭环设计，最大化评测得分"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "A20OS",
+  "kernel_type": "hybrid",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "双重 ABI 体系同时支持 Linux 兼容与能力导向的 Native 接口",
+    "Native ABI 实现 Handle 权限、Channel 通信和 VMO 内存对象",
+    "内核统一支持 RISC-V、LoongArch、AArch64 和 x86_64 四架构",
+    "VFS 框架完备，支持 ext4、FAT32、procfs、块缓存与页缓存",
+    "进程管理实现 COW fork、MLFQ 调度、信号机制与 cgroup 集成"
+  ]
+}

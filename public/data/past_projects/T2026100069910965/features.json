@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2026",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过运行真实busybox二进制解释测试脚本，实现完整Linux ABI兼容性与逐字节输出匹配",
+    "双架构统一内核核心，RISC-V Sv39与LoongArch软件TLB共享通用页表管理接口",
+    "智能路径别名解析，自动重定向glibc/musl库路径并支持53个busybox applet路由",
+    "完整的写时复制实现，利用PTE保留位标记COW页面，支持跨架构的fork优化",
+    "ext4 extent树只读驱动，支持任意深度extent节点遍历与现代ext4文件系统块映射"
+  ]
+}

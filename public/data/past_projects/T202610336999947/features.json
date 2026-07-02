@@ -1,0 +1,19 @@
+{
+  "name": "ArceOS",
+  "kernel_type": "unikernel",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "x86_64",
+    "riscv64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于Cargo feature的编译期组件化模块架构，实现高度可裁剪",
+    "新颖的链接段命名空间隔离框架，同时支持unikernel与宏内核模式",
+    "编译期可切换多调度策略（FIFO/RR/CFS），泛型抽象实现",
+    "四层级接口兼容（原生/POSIX/Rust std/C libc），广泛支持现有应用",
+    "驱动框架支持静态分发与动态分发双模式，兼顾性能与灵活性"
+  ]
+}

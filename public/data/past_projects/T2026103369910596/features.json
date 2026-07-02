@@ -1,0 +1,17 @@
+{
+  "name": "CosmOS",
+  "kernel_type": "microkernel",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "统一的架构抽象层实现RISC-V与LoongArch双架构支持，核心逻辑零耦合",
+    "完整实现约193个Linux兼容系统调用，可运行busybox等标准用户态程序",
+    "自研CFS完全公平调度器，含vruntime追踪、权重表及唤醒抢占机制",
+    "支持ext4/FAT32/自研easyfs及6种内存文件系统，含块缓存与目录项缓存",
+    "基于smoltcp的完整TCP/UDP/Unix Socket网络栈，采用自适应混合轮询机制"
+  ]
+}

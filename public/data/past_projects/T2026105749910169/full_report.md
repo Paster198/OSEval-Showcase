@@ -1,0 +1,1155 @@
+# OS_mod 操作系统内核技术深度分析报告
+
+---
+
+## 目录
+
+1. [分析范围与方法](#1-分析范围与方法)
+2. [测试结果](#2-测试结果)
+3. [子系统与功能清单](#3-子系统与功能清单)
+4. [各子系统实现细节详细拆解](#4-各子系统实现细节详细拆解)
+   - [4.1 架构抽象层](#41-架构抽象层)
+   - [4.2 启动汇编与陷阱处理](#42-启动汇编与陷阱处理)
+   - [4.3 页表构建核心](#43-页表构建核心)
+   - [4.4 虚拟内存管理](#44-虚拟内存管理)
+   - [4.5 进程管理](#45-进程管理)
+   - [4.6 信号机制](#46-信号机制)
+   - [4.7 系统调用接口](#47-系统调用接口)
+   - [4.8 文件系统](#48-文件系统)
+   - [4.9 VirtIO 块设备驱动](#49-virtio-块设备驱动)
+   - [4.10 ELF 加载器](#410-elf-加载器)
+   - [4.11 脚本与基准测试运行时](#411-脚本与基准测试运行时)
+   - [4.12 基准测试适配器](#412-基准测试适配器)
+   - [4.13 RISC-V 用户态指令模拟](#413-risc-v-用户态指令模拟)
+   - [4.14 能力分类与运行时策略](#414-能力分类与运行时策略)
+5. [各子系统交互关系](#5-各子系统交互关系)
+6. [OS内核实现完整度评估](#6-os内核实现完整度评估)
+7. [创新性分析](#7-创新性分析)
+8. [其他重要信息](#8-其他重要信息)
+9. [总结](#9-总结)
+
+---
+
+## 1. 分析范围与方法
+
+本报告对 OS_mod 内核项目（参赛队"不讲不讲队"，全国大学生计算机系统能力大赛·操作系统设计赛·内核实现赛道）进行了全面的静态分析和动态验证。分析方法包括：
+
+- **静态源码审查**：遍历全部约 43,762 行 Rust 源码（`src/` 目录下 81 个 `.rs` 文件）+ 约 662 行汇编（`boot/riscv64.S` 和 `boot/loongarch64.S`）+ 链接脚本 + 构建系统。
+- **代码结构分析**：统计行数分布、模块依赖关系、feature gate 策略。
+- **动态验证**：
+  - 成功执行 `cargo test --lib`：**386 项全部通过，0 失败**。
+  - 成功编译 RISC-V 内核（`arch-riscv64 stage1-per-process stage1-lazy-demand addrspace`）：生成 4,009,624 字节 ELF。
+  - 成功编译 LoongArch 内核（`arch-loongarch64 la-addrspace-probe`）：生成可执行 ELF。
+- **交叉验证**：将源码中的注释声明与实现进行对照验证。
+
+---
+
+## 2. 测试结果
+
+### 2.1 宿主机单元测试
+
+```
+cargo test --lib
+```
+
+**结果：386 通过，0 失败，0 忽略，0 过滤**
+
+测试覆盖范围：
+- **`paging` 模块**：Sv39 页表遍历、映射/解除映射、LaPt 三级页表转换等
+- **`vm` 模块**：`AddrSpace` 需求分页与 COW、帧分配器引用计数、`fork_cow` 共享与写时复制、`FrameAllocator` 分配与回收、`LaPt` 插入到泛型 `AddrSpace` 等
+- **`process` 模块**：管道读写数据流、FIFO、进程调度、回环套接字连接/接受/双向数据、wait4 子进程收割、futex 唤醒等
+- **`signal` 模块**：信号状态机（pending/blocked/disposition 规则）、`sigaction`/`sigprocmask`/`sigreturn` 等
+- **`elf` 模块**：ELF 头部解析、段加载计划、TLS 段解析等
+- **`user` 模块**：用户内存读写边界检查、初始栈构建、auxiliary vector 生成、动态链接器加载
+- **`syscall` 模块**：VFS 节点分配/释放、`unlink` 延迟清理、外部文件存储等
+- **`riscv_user` 模块**：指令访问故障恢复、压缩指令模拟、原子操作模拟等
+- **`boot_contract_tests`**：验证启动汇编中的陷阱向量正确保存寄存器、LoongArch TLB refill 设置正确的页大小
+- **`no_hang_contract_tests`**：验证用户帧不意外开启中断、`sret`/`ertn` 返回用户态等
+
+### 2.2 编译结果
+
+| 目标架构 | Feature 组合 | 结果 | 产物大小 |
+|-----------|-------------|------|---------|
+| RISC-V 64GC | `arch-riscv64 stage1-per-process stage1-lazy-demand addrspace` | 成功，6 个警告 | ~4.0 MB ELF |
+| LoongArch 64 | `arch-loongarch64 la-addrspace-probe` | 成功，7 个警告 | 编译通过 |
+
+编译警告均为未使用的函数和变量（`dead_code`），属于正常的 feature-gated 代码。
+
+### 2.3 QEMU 实跑测试
+
+因当前环境缺少评测所需的 ext4 磁盘镜像（如 `../testsuits-for-oskernel-scripts/` 目录），QEMU 实跑未能进行。所有验证脚本（`scripts/verify-*.sh`）依赖这些外部测试数据。从代码结构和预编译的内核 ELF（`kernel-rv-genuine`, `kernel-rv-fencefix`, `kernel-la-probe`）可以推断作者已自行完成 QEMU 实跑验证。
+
+---
+
+## 3. 子系统与功能清单
+
+| 子系统 | 文件/模块 | 状态 | 核心功能 |
+|--------|----------|------|---------|
+| **架构抽象层** | `src/arch/riscv64.rs` (692行), `src/arch/loongarch64.rs` (635行) | 完成 | UART 输出、CSR 操作、定时器中断、用户态陷阱帧、satp 构建、SBI 调用/ACPI 关机 |
+| **启动汇编** | `boot/riscv64.S` (213行), `boot/loongarch64.S` (449行) | 完成 | 启动向量、栈初始化、陷阱入口/出口、TLB refill 软件处理、上下文保存/恢复 |
+| **页表构建** | `src/paging.rs` (1,192行) | 完成 | Sv39 PTE 位定义、三级页表遍历/映射/解除映射、LaPt (LoongArch Page Table) 抽象、`PageTable` trait |
+| **虚拟内存管理** | `src/vm.rs` (2,910行) | 完成（feature-gated） | `AddrSpace<PT: PageTable>` 泛型地址空间、按需分页、写时复制 COW、引用计数帧分配器、`MAP_SHARED` 共享内存、文件映射、`fork_cow` |
+| **进程管理** | `src/process.rs` (3,589行) | 完成 | `ProcessRuntime` 调度器（协作+抢占）、进程/线程生命周期（fork/clone/execve/exit/wait4）、管道（pipe/FIFO）、回环套接字、futex 阻塞、nanosleep 阻塞、文件描述符表、线程组管理 |
+| **信号机制** | `src/signal.rs` (591行) | 完成 | POSIX 信号状态机：disposition（ignore/default/handler）、pending/blocked 掩码、sigaction/sigprocmask/sigreturn、SIGALRM+setitimer、SIGCHLD 等 |
+| **系统调用接口** | `src/syscall/mod.rs` (7,393行), `file.rs` (1,050行), `io.rs` (305行), `memory.rs` (253行), `time.rs` (269行), `info.rs` (231行), `storage.rs` (221行) | 完成 | ~130+ 系统调用号、VFS 节点类型、errno 常量、`SyscallContext`、`SyscallOutput`/`UserMemoryAccess` trait |
+| **文件系统** | `src/fs/ext4.rs` (1,401行) | 完成 | ext4 只读解析器：超级块验证（magic 0xEF53）、extent 树（深度0和1）遍历、inode 读取、目录项枚举、路径解析、脚本发现 |
+| **块设备抽象** | `src/block.rs` (206行) | 完成 | `BlockDevice` trait、`BlockError`、失败断路器（死设备检测）、诊断快照 |
+| **VirtIO-MMIO 驱动** | `src/virtio/mmio.rs` (473行) | 完成 | RISC-V MMIO 传输层：设备发现、Legacy/Modern 协商、队列设置、读写操作 |
+| **VirtIO-PCI 驱动** | `src/virtio/pci.rs` (594行) | 完成 | LoongArch PCI 配置空间扫描、设备发现、MSI-X 中断、队列设置 |
+| **VirtIO 队列** | `src/virtio/queue.rs` (208行) | 完成 | 描述符环、available/used 环管理 |
+| **VirtIO 块请求** | `src/virtio/blk.rs` (68行) | 完成 | 块设备读请求封装 |
+| **ELF 加载器** | `src/elf.rs` (1,004行) | 完成 | ELF64 解析：ET_EXEC/ET_DYN、PT_LOAD/PT_INTERP/PT_TLS、RISC-V (EM=243) 和 LoongArch (EM=258)、动态链接器加载、指针重定位策略 |
+| **ELF 缓存** | `src/exec_cache.rs` (194行) | 完成 | LRU 语义（2 槽位）ELF 镜像缓存 |
+| **用户内存管理** | `src/user.rs` (1,903行) | 完成 | `USER_BASE=0x1000`、`USER_SIZE=40 MiB`、`UserMemory` 读写接口、初始栈/auxiliary vector 构建、动态链接器 co-load、页面保护 |
+| **RISC-V 指令模拟** | `src/riscv_user.rs` (673行) | 完成 | 指令访问故障恢复：load/store/atomic 指令解码与模拟（含压缩指令） |
+| **脚本运行时** | `src/runner.rs` (614行), `src/script.rs` (150行), `src/script_exec.rs` (370行) | 完成 | 测试脚本解析、marker 识别、命令执行计划 |
+| **脚本运行时子模块** | `src/script_runtime/` (398行) | 完成 | BusyBox 词法分析、按行分割、嵌套深度守卫、shell `test` 内置命令模拟 |
+| **基准测试适配器** | `src/busybox.rs` (568行)、`src/lua.rs` (88行)、`src/libctest.rs` (345行)、`src/libcbench.rs` (188行)、`src/lmbench.rs` (241行)、`src/ltp.rs` (486行)、`src/cyclictest.rs` (133行)、`src/iozone.rs` (290行)、`src/unixbench.rs` (434行)、`src/iperf.rs` (67行)、`src/netperf.rs` (79行) | 完成 | 各基准测试套件的用户态执行适配 |
+| **能力分类** | `src/capability.rs` (387行) | 完成 | 脚本组分类（Basic/BusyBox/Lua/LibcTest 等）、能力等级（Real/PartialReal/CompatibilityRenderer/Unsupported） |
+| **运行时策略** | `src/runtime/budget.rs` (147行), `resources.rs` (78行), `session.rs` (35行) | 完成 | 运行 tick 预算、集中式资源策略配置、会话管理 |
+| **基础设施** | `src/main.rs` (10,723行), `src/lib.rs` (271行), `src/console.rs` (45行), `src/mmio.rs` (41行), `src/byte.rs` (48行), `src/fixed.rs` (72行), `src/panic.rs` (7行), `src/shutdown.rs` (15行) | 完成 | 内核入口 `kernel_main`、测试脚本调度、panic 处理、MMIO 原语、字节序转换、固定容量列表 |
+
+---
+
+## 4. 各子系统实现细节详细拆解
+
+### 4.1 架构抽象层
+
+架构抽象层通过 Rust 的 `#[cfg(feature = "arch-xxx")]` 条件编译实现双架构支持，编译时互斥（二选一）。
+
+#### 4.1.1 RISC-V 64GC (`src/arch/riscv64.rs`, 692行)
+
+**硬件常量定义**：
+```rust
+pub const UART0: usize = 0x1000_0000;    // QEMU virt UART MMIO 基址
+pub const VIRTIO0: usize = 0x1000_1000;  // VirtIO MMIO 基址
+const TEST_FINISHER: usize = 0x0010_0000; // 测试退出机制
+```
+
+**TrapFrame 结构体**（与汇编陷阱向量紧密耦合）：
+```rust
+#[repr(C)]
+pub struct TrapFrame {
+    pub regs: [usize; 32],  // 通用寄存器 x0-x31
+    pub sepc: usize,         // 异常程序计数器
+    pub sstatus: usize,      // 特权状态
+    pub scause: usize,       // 异常原因
+    pub stval: usize,        // 异常值
+}
+```
+
+实现了完整的 TrapFrame 方法：
+- `syscall_args()` 从 a0-a5（regs[10]-regs[15]）提取系统调用参数
+- `syscall_nr()` 从 a7（regs[17]）提取系统调用号
+- `set_syscall_result()` 写入 a0（regs[10]）
+- `sanitize_user_privilege()` 清除 SPP 位防止特权级提升攻击
+- `reset_for_exec()` 为 execve 准备干净的寄存器上下文
+
+**定时器管理**：
+- 预算时钟周期 = 1,000,000 个 rdtime 计数（100 ms @ 10 MHz）
+- `BUDGET_TICKS_PER_SECOND = 10`（每秒 10 次调度 tick）
+- `TICKS_PER_ROTATION = 1`（每次 tick 都做进程轮转）
+- 使用 SBI TIME 扩展（`sbi_set_timer`）设置定时器
+
+**MMU 页表构建**：
+- `build_user_satp()`：构建 per-run Sv39 页表，映射内核 RAM 1 GiB gigapage + MMIO 2 MiB megapage + 用户窗口
+- `build_window_satp()`：per-process VM 变体，每个进程窗口独立页表帧池（6 个窗口 × 64 帧）
+- `build_window_satp_lazy()`：惰性版本，仅预分配中间级页表骨架，叶子 PTE 按需填充
+- `map_user_page()`：按需填充单个用户页面
+- 所有叶子 PTE 预设 A（Accessed）和 D（Dirty）位
+
+**特权级 CSR 操作**：通过内联汇编直接操作 `sstatus`、`sie`、`stvec`、`sscratch` 等 CSR。
+
+#### 4.1.2 LoongArch 64 (`src/arch/loongarch64.rs`, 635行)
+
+**硬件常量定义**：
+```rust
+pub const UART0: usize = 0x1fe0_01e0;           // QEMU virt LA UART
+const ACPI_GED_SLEEP_CTL: usize = 0x100e_001c;  // ACPI 关机控制
+const LEGACY_PM_CTRL: usize = 0x1008_0010;      // 传统 PM 关机
+```
+
+**TrapFrame 结构体**：
+```rust
+#[repr(C)]
+pub struct TrapFrame {
+    pub regs: [usize; 32],  // 通用寄存器 r0-r31
+    pub era: usize,          // 异常返回地址
+    pub prmd: usize,         // 特权模式（PPLV 位段）
+    pub estat: usize,        // 异常状态（ECODE 位段）
+    pub badv: usize,         // 错误虚拟地址
+}
+```
+
+与 RISC-V 的关键差异：
+- 系统调用参数在 r4-r9（`regs[4..9]`），调用号在 r11（`regs[11]`）
+- 系统调用返回值写入 r4（`regs[4]`）
+- `sanitize_user_privilege()` 强制 PPLV=user（与 RISC-V SPP 清除等效）
+- 特权级检查使用 `prmd & PRMD_PPLV_MASK`
+
+**定时器管理（CSR 直接操作，无 SBI）**：
+- 预算周期 = 10,000 `TCFG.InitVal`（400 µs @ 100 MHz）
+- `BUDGET_TICKS_PER_SECOND = 2,500`（每秒 2,500 次 tick）
+- `TICKS_PER_ROTATION = 250`（每 250 次 tick = 100 ms 才做进程切换，避免多 MB 快照复制的抖动）
+- 使用 CSR `0x41`(TCFG) / `0x44`(TINTCLR) 直接操作定时器
+- 支持 `ECFGF_TIMER` 中断使能、`ESTATF_TIMER` 状态查询
+- ECODE 解析区分系统调用（ECODE_SYS=0xb 和 ECODE_SYS_ALT=0x8）和中断（ECODE_INT=0x0）
+
+**DMW（直接映射窗口）配置**：
+- LoongArch 通过 DMW 实现内核直通映射，避免 TLB 遍历
+- `init_paging()` 配置 DMW0
+
+### 4.2 启动汇编与陷阱处理
+
+#### 4.2.1 RISC-V 启动汇编 (`boot/riscv64.S`, 213行)
+
+**_start 入口**：
+```asm
+_start:
+    bnez a0, .Lsecondary_hart    // 非 hart 0 进入 WFI 自旋
+    la sp, __boot_stack_top
+    call kernel_main
+.Lhang:
+    wfi
+    j .Lhang
+```
+
+- 仅 hart 0 执行内核，其他 hart 永久 WFI 休眠
+- 内核启动栈：正常模式 512 KiB，`OSMOD_BIG_STACK` 模式 4 MiB
+
+**陷阱向量 `__riscv_trap_vector`**：
+- 寄存器保存顺序：使用 `sscratch` 交换 sp 值，先保存 t0（x5）再通过 t0 读回原 sp
+- 保存全部 32 个通用寄存器 + sepc/sstatus/scause/stval 到栈帧（`36*8` 字节）
+- 恢复 `gp`、`tp` 从全局保存区
+- 调用 `riscv_trap_handler`（Rust 函数）
+- 返回时恢复 sepc/sstatus，然后逐寄存器恢复，最后 `sret`
+
+**用户态进入 `__riscv_enter_user`**：
+- 保存内核 ra/sp/gp/tp/s0-s11 到全局变量
+- 设置 sscratch 指向内核栈
+- 从 TrapFrame 加载所有寄存器
+- 设置 sepc/sstatus 并通过 `sret` 跳入用户态
+
+**返回用户态处理**：`prepare_user_return` 修改 TrapFrame，将 sepc 指向 `__riscv_return_ra`，sstatus 设为特权模式（SPP=1），从而 `sret` 回到 `__riscv_enter_user` 的调用者。
+
+#### 4.2.2 LoongArch 启动汇编 (`boot/loongarch64.S`, 449行)
+
+**_start 入口**：与 RISC-V 类似，栈大小 512 KiB。
+
+**陷阱向量 `__loongarch_trap_vector`**：
+- 使用 `csrwr` 将 t0/t1 暂存到 `0x30`(0x31)，然后切换到 trap 栈
+- 保存全部 32 个寄存器 + era/prmd/estat/badv 到栈帧
+- 恢复 tp 和 r21（全局指针等价物，因 LA 无 gp 寄存器）
+- 调用 `loongarch_trap_handler`
+- 返回时恢复 era（`csrwr $t0, 0x6`）和 prmd（`csrwr $t0, 0x1`）
+- 恢复所有寄存器后 `ertn`
+
+**TLB Refill 处理 `__loongarch_tlb_refill`**（核心不同点）：
+
+这是 LoongArch 上最复杂的汇编代码，实现两类 TLB 填充策略：
+
+1. **线性窗口模式**（`pgd_pa == 0`）：
+   - 从 `__la_refill_buffer_pa`、`__la_refill_user_base`、`__la_refill_user_end` 读取全局参数
+   - 窗口内：PA = buffer_pa + (VA - user_base)，TLBELO = PA | 0x4F（V|WE|PLV3|uncached|G）
+   - 窗口外：PA = VA（identity），TLBELO = PA | 0x43（V|WE|PLV0|uncached|G）
+   - 每次填充一个 8 KiB 对（even+odd page pair），设置 TLBREHI.PS=12（4 KiB 页）
+
+2. **页面表遍历模式**（`pgd_pa != 0`）：
+   - 三级页表遍历：L2（PGD）→ L1 → L0
+   - 通过 DMW0 别名（`0x8000_0000_0000_0000 | PA`）访问所有页表，避免嵌套 TLB 缺失
+   - 内核 RAM（`0x9000_0000`-`0xC000_0000`）和 UART MMIO（`0x1fe0_0000`-`0x2000_0000`）走 identity PLV0
+   - 其他用户 VA 走 LaPt 遍历
+   - 使用 `LA_PT_PTE_TO_ELO` 宏将内存中 PTE 转换为硬件 TLBELO 格式
+   - 中间级缺失 → 填充无效项（V=0）触发 page-invalid 异常 → 需求分页
+
+**TLB Refill 安全保证**：
+- `TLBREHI.PS` 必须设为 12（4 KiB），否则硬件安装 1 字节页导致无限循环重入
+- 该约束由 `boot_contract_tests::loongarch_tlb_refill_sets_nonzero_page_size` 单元测试静态验证
+- 整个 refill 处理不使用任何可重入 Rust 代码，不走中断路径，因此不受 per-group wall deadline 或 budget-timer charge 约束
+
+### 4.3 页表构建核心 (`src/paging.rs`, 1,192行)
+
+#### 4.3.1 Sv39 页表 (RISC-V)
+
+**PTE 位定义**：
+```rust
+pub const PTE_V: u64 = 1 << 0;   // valid
+pub const PTE_R: u64 = 1 << 1;   // readable
+pub const PTE_W: u64 = 1 << 2;   // writable
+pub const PTE_X: u64 = 1 << 3;   // executable
+pub const PTE_U: u64 = 1 << 4;   // user-accessible
+pub const PTE_G: u64 = 1 << 5;   // global
+pub const PTE_A: u64 = 1 << 6;   // accessed
+pub const PTE_D: u64 = 1 << 7;   // dirty
+```
+
+**`Sv39Table` 结构体**：封装三级页表（root L2 → L1 → L0），每个 PTE 为 64 位。关键方法：
+
+- `map(va, pa, prot, alloc)`：映射单个 4 KiB 页面（三级遍历，按需创建中间表）
+- `map_range(va, pa, size, prot, alloc)`：使用最大可能页粒度映射范围（优先使用 1 GiB gigapage 或 2 MiB megapage）
+- `unmap(va)`：解除映射（清除 PTE V 位）
+- `translate(va)`：单级 walk 返回 `(pa, prot)`
+- `satp()`：返回 Sv39 MODE=8 的 satp 值
+- `reserve_tables(va, size, alloc)`：仅分配中间表骨架，不填叶子（惰性需求分页用）
+
+**`BumpFrameAllocator`**：线性分配帧（无释放），从预分配的 `Frame` 数组（4096 字节对齐）中分配。用于启动阶段构建页表。
+
+**`FrameFreeList`**：自由链表帧分配器，支持分配/释放，用于运行时 `FrameAllocator`。
+
+#### 4.3.2 LaPt 页表 (LoongArch)
+
+**软件定义 PTE 格式**（镜像硬件 TLBELO 语义）：
+```rust
+pub const LA_PT_V: u64 = 1 << 0;     // valid
+pub const LA_PT_LEAF: u64 = 1 << 1;  // 1 = 4 KiB leaf；0 = 下一级指针
+pub const LA_PT_R: u64 = 1 << 2;     // readable
+pub const LA_PT_W: u64 = 1 << 3;     // writable
+pub const LA_PT_X: u64 = 1 << 4;     // executable
+pub const LA_PT_U: u64 = 1 << 5;     // user (PLV3)
+```
+
+**`la_pt_pte_to_tlbelo(pte)`**：内存 PTE → 硬件 TLBELO 转换，由汇编 `LA_PT_PTE_TO_ELO` 宏镜像。规则：
+- V=0 → elo=0（未映射 → 页面无效异常 → 需求分页）
+- 构建 TLBELO = PFN | V | G | (W?WE:0) | PLV(U?3:0) | (X?0:NX)
+- 可写用户页 → 0x4F（V|WE|PLV3|G）
+- 只读用户页 → 0x4D（V|PLV3|G，无 WE → 写触发 COW 断点）
+
+**`la_linear_refill(badv, buffer_pa, user_base, user_size)`**：线性窗口 TLB 填充计算，纯函数，可在宿主机单元测试中验证——作为汇编 refill 处理器的正式规约。
+
+**`LaPt` 结构体**：三级遍历（PGD→PMD→PTE），每级索引 9 位。实现 `PageTable` trait，插入到泛型 `AddrSpace<LaPt>`。
+
+### 4.4 虚拟内存管理 (`src/vm.rs`, 2,910行)
+
+真实现代 VM 子系统，通过 `addrspace` feature gate 编译，不影响评测快照构建。
+
+#### 4.4.1 核心类型
+
+**`Prot` 权限抽象**：
+```rust
+pub struct Prot(pub u8);
+// Prot::R(1), Prot::W(2), Prot::X(4), Prot::U(8)
+impl Prot {
+    pub const fn union(self, o: Prot) -> Prot { Prot(self.0 | o.0) }
+    pub const fn contains(self, o: Prot) -> bool { self.0 & o.0 == o.0 }
+}
+```
+
+**`Backend` 枚举**（页面后备存储类型）：
+```rust
+pub enum Backend {
+    Anonymous,                           // 匿名内存：zero-filled 按需
+    FileBacked { node, offset, len },    // 文件映射（Phase 3）
+    Shared { phys_base: usize },         // SysV SHM 直接映射
+    SharedFile,                          // MAP_SHARED 文件映射（refcounted，不可 COW）
+}
+```
+
+**`MapArea`**：描述地址空间中一个连续区域：
+```rust
+pub struct MapArea {
+    pub start: usize,
+    pub end: usize,
+    pub prot: Prot,
+    pub backend: Backend,
+}
+```
+
+**`AddrSpace<PT: PageTable>`**：泛型地址空间：
+```rust
+pub struct AddrSpace<PT: PageTable> {
+    pub table: PT,                        // Sv39Table 或 LaPt
+    areas: [Option<MapArea>; MAX_AREAS],  // 最多 64 个区域
+    area_count: usize,
+}
+```
+- 区域查找采用 LAST-match-wins 策略：后压入的区域可以覆盖先前区域
+
+#### 4.4.2 需求分页 (`fault` 方法)
+
+```rust
+pub fn fault(&mut self, fault_va: usize, alloc: &mut FrameAllocator) -> Result<(), VmFault>
+```
+
+流程：
+1. 对齐 `fault_va` 到页面边界
+2. 在 `areas[]` 中查找覆盖区域（后压入优先）
+3. 已映射页面直接返回 Ok（防止虚假双重故障）
+4. 根据 Backend 类型处理：
+   - `Anonymous`：分配零填充帧 → 映射
+   - `Shared { phys_base }`：直接映射到共享物理区域（不分配帧）
+   - `FileBacked` / `SharedFile`：未实现（返回 Unmapped）
+5. 失败路径：无覆盖区域 → `VmFault::Unmapped`；分配器耗尽 → `VmFault::OutOfMemory`
+
+#### 4.4.3 写时复制 COW (`fork_cow` 和 `fault_write`)
+
+**`fork_cow`**：
+```rust
+pub fn fork_cow(&mut self, alloc: &mut FrameAllocator) -> Option<AddrSpace<RvSv39>>
+```
+
+流程：
+1. 为子进程创建新的页表（分配新的 root+中间表）
+2. 遍历父进程所有已映射页面：
+   - `Backend::Shared` / `Backend::SharedFile`：映射同一物理帧，incref（共享，不可 COW 断开）
+   - 其他：将子进程映射到同一帧，映射为只读（清除 W 位），incref
+   - 父进程也被重新映射为只读（双向只读）
+3. 复制所有 MapArea 到子进程
+
+**COW 断点**：`resolve_page_for_write` / `fault_write`：
+1. 检查区域 prot 是否允许写入
+2. `Backend::Shared`：直接返回（永不 COW）
+3. `Backend::SharedFile`：确保叶子可写
+4. 帧引用计数 > 1：分配私有副本 → `ptr::copy_nonoverlapping` → 映射为可写 → decref 旧帧
+5. 引用计数 = 1 但叶子只读：原地重映射为可写
+
+**内核写 COW 保护（HARD INVARIANT #1）**：
+- `copy_to_user`、`zero_user` 通过 `resolve_page_for_write` 走相同的 COW 逻辑
+- 内核 memcpy 不会触发 CPU store 页面故障，必须在写入前主动检查并断开 COW
+- 防止内核写破坏其他共享者的数据
+
+#### 4.4.4 `FrameAllocator`（引用计数帧分配器）
+
+```rust
+pub struct FrameAllocator {
+    free: FrameFreeList,        // 空闲帧链表
+    pool_base: usize,            // 帧池基址
+    refcount: *mut u16,          // 引用计数数组
+    refcount_len: usize,
+}
+```
+
+关键方法：
+- `alloc()` → 分配一个零填充帧，refcount=1
+- `incref(pa)` / `decref(pa)` → 增减引用计数，decref 到 0 时释放回自由链表
+- `refcount_of(pa)` → 查询引用计数
+
+安全特性：
+- `in_pool(pa)` 守卫：SysV SHM 帧是静态内核区域，不在池中，永不 incref/decref
+- 单核运行，`Send + Sync`
+
+#### 4.4.5 `PageTable` Trait
+
+```rust
+pub trait PageTable {
+    fn translate(&self, va: usize) -> Option<(usize, Prot)>;
+    fn map(&mut self, va: usize, pa: usize, prot: Prot, alloc: &mut FrameAllocator) -> Result<(), MapError>;
+    fn unmap(&mut self, va: usize) -> Option<usize>;
+    fn map_kernel_identity(&mut self, alloc: &mut FrameAllocator) -> Result<(), MapError>;
+    // ...
+}
+```
+
+- `RvSv39` 和 `LaPt` 分别实现此 trait
+- `AddrSpace<PT>` 对两者通用
+- 使 fork_cow / fault / protect_range 等核心算法架构无关
+
+### 4.5 进程管理 (`src/process.rs`, 3,589行)
+
+#### 4.5.1 `ProcessRuntime<F: ProcessFrame, const N: usize>`
+
+核心进程调度器，泛型化设计支持不同的帧类型（真实 TrapFrame 和测试用 TestFrame）。
+
+**数据结构**：
+```rust
+pub struct ProcessRuntime<F: ProcessFrame, const N: usize> {
+    slots: [ProcessSlot<F>; N],      // 进程槽位数组
+    current: usize,                    // 当前运行进程索引
+    next_pid: usize,                   // PID 分配器
+    pipes: [Pipe; PIPE_LIMIT],         // 全局管道表（8 个）
+    sockets: [Socket; SOCKET_LIMIT],   // 全局套接字表（16 个）
+    // ...
+}
+```
+
+**进程槽位状态**：
+- `Runnable`：可运行
+- `Waiting { since }`：通用阻塞（wait4 等）
+- `WaitingSleep(wake_ns)`：nanosleep 阻塞
+- `WaitingFutex(uaddr)`：FUTEX_WAIT 阻塞
+- `WaitingPipeRead/Write(fd)`：管道阻塞
+- `WaitingSocketAccept/Recv/Send(sock_idx)`：套接字阻塞
+- `Zombie(exit_code)`：僵尸进程
+
+**调度策略**：
+- **协作式**：`SYS_SCHED_YIELD` 显式触发切换（仅在 RISC-V per-process VM）
+- **抢占式**：定时器中断触发，通过 `switch_to_runnable_child` 或 `switch_to_runnable_sibling_or_parent`
+- 切换时保存/恢复进程内存快照（在 `main.rs` 中处理）
+
+#### 4.5.2 进程/线程生命周期
+
+**`clone_current_with_budget(frame, stack, tls, is_thread, child_event_budget)`**：
+- 在空闲槽位创建子进程
+- 支持 `CLONE_THREAD`（线程）：共享 tgid，有独立 TLS
+- 子进程事件预算独立
+- 返回子进程 PID
+
+**`exit_current(code)` → `Zombie(code)`**：
+- 向父进程标记 pending wait status
+- 唤醒阻塞的父进程
+- 非根进程退出时，如果所有活进程都是僵尸 → 结束运行
+
+**`wait4_current(args)`**：
+- WNOHANG：非阻塞轮询
+- 无子进程 → `-ECHILD`（正确 Linux 语义）
+- 有子进程但未退出 → 阻塞（`Waiting` 状态）
+- 子进程已退出 → 收割返回 PID + 退出码
+
+**`execve`**：在 `main.rs` 中处理（`run_user_elf_with_args` 重新加载 ELF 并重置进程上下文）
+
+#### 4.5.3 管道实现
+
+```rust
+const PIPE_LIMIT: usize = 8;
+const PIPE_BUFFER: usize = 256;       // 环形缓冲区
+```
+
+- 两个文件描述符：读端和写端
+- `read_pipe_current_or_block()`：数据可用时读取，空时阻塞
+- `write_pipe_current_or_block()`：空间可用时写入，满时阻塞
+- 支持 `SYS_PIPE2` 创建管道对
+
+#### 4.5.4 回环套接字
+
+```rust
+const SOCKET_LIMIT: usize = 16;
+const SOCKET_BUFFER: usize = 4096;
+const LISTEN_BACKLOG: usize = 8;
+```
+
+- 全内存实现，无真实网络栈
+- 支持 TCP 风格流套接字（`SOCK_STREAM`）
+- `socket()` → 分配槽位
+- `bind()` → 绑定地址（本地回环）
+- `listen()` → 设置监听状态
+- `connect()` → 与监听方建立连接对
+- `accept()` → 接受新连接
+- `sendto()` / `recvfrom()` → 双向数据传输
+- 服务于 iozone/iperf/netperf 的回环通信需求
+
+#### 4.5.5 Futex 同步
+
+```rust
+pub enum FutexAction {
+    Ready(isize),      // 立即返回（wake 成功 / EAGAIN）
+    Switched(usize),   // 调用者已休眠，切换到 next 槽位
+    NoPeer,            // 无可运行对等进程
+}
+```
+
+- 支持 `FUTEX_WAIT`（原子比较+阻塞）和 `FUTEX_WAKE`（唤醒等待者）
+- 内核 `tick_itimer_real` 在每个定时器 tick 检查 ITIMER_REAL 到期并触发 SIGALRM
+
+### 4.6 信号机制 (`src/signal.rs`, 591行)
+
+纯状态机实现（无架构依赖），完全可在宿主机单元测试。
+
+#### 4.6.1 信号集表示
+
+```rust
+pub const NSIG: u32 = 64;  // Linux 通用 ABI
+pub fn sigmask(sig: u32) -> u64 { 1u64 << (sig - 1) }
+```
+
+整个 sigset 由一个 `u64` 表示（64 位覆盖信号 1-64）。
+
+#### 4.6.2 `SignalState` 结构体
+
+```rust
+pub struct SignalState {
+    actions: [SigAction; NSIG as usize],  // 每个信号的 disposition
+    pending: u64,                          // 待处理信号掩码
+    blocked: u64,                          // 阻塞信号掩码（旧掩码保存在 saved_blocked）
+    // ...
+}
+```
+
+**`SigAction`**：
+```rust
+pub struct SigAction {
+    pub handler: usize,   // SIG_DFL(0), SIG_IGN(1), 或用户函数指针
+    pub flags: usize,     // SA_SIGINFO, SA_RESTORER, SA_RESTART, SA_NODEFER, SA_RESETHAND
+    pub mask: u64,        // 处理期间额外阻塞的信号
+    pub restorer: usize,  // rt_sigreturn 蹦床
+}
+```
+
+#### 4.6.3 信号处理流程
+
+1. **`raise_signal(sig)`**：将信号标记为 pending
+2. **`maybe_deliver_pending_signal(frame)`**（在 `main.rs` 中调用）：
+   - 计算 `deliverable = pending & !blocked`
+   - 按优先级选择最高 pending 信号（小号优先）
+   - 查询 disposition：
+     - `SIG_DFL` + Term action → `exit_current` 处理
+     - `SIG_DFL` + Ignore action → 清除 pending
+     - `SIG_IGN` → 清除 pending
+     - 用户 handler → 压入信号栈帧（含 `sa_restorer`）、设置阻塞掩码、跳转 handler
+3. **`rt_sigreturn`**：从信号栈帧恢复原始上下文和信号掩码
+
+#### 4.6.4 支持的信号操作
+
+- `SYS_RT_SIGACTION`：安装/查询信号处置
+- `SYS_RT_SIGPROCMASK`：设置/获取信号掩码（SIG_BLOCK/SIG_UNBLOCK/SIG_SETMASK）
+- `SYS_RT_SIGPENDING`：查询 pending 信号集
+- `SYS_RT_SIGRETURN`：从信号 handler 返回
+- `SYS_KILL` / `SYS_TKILL`：向进程/线程发送信号
+- `SYS_TGKILL`：按线程组+线程 ID 发送信号
+- `SYS_SETITIMER` / `SYS_GETITIMER`：ITIMER_REAL 定时器 → SIGALRM
+
+### 4.7 系统调用接口
+
+#### 4.7.1 `SyscallContext` (VFS 模型)
+
+```rust
+pub struct SyscallContext {
+    pub pid: usize,
+    pub ppid: usize,
+    pub state: ProcessState,       // Running / Exited(code)
+    fds: [FileDescriptor; FD_LIMIT],  // 128 个文件描述符
+    nodes: [Option<VfsNode>; MAX_NODES],  // VFS 节点池
+    pub signal: SignalState,
+    // ... itimer, clear_child_tid, 等
+}
+```
+
+**`FileDescriptor` 枚举**：
+```rust
+enum FileDescriptor {
+    Closed,
+    Stdin,
+    Console,              // stdout/stderr
+    File { node, offset, append },
+    Directory { node },
+    PipeRead { pipe, peer_write_fd },
+    PipeWrite { pipe, peer_read_fd },
+    Socket { sock_index, cloexec, nonblock },
+    Reserved,
+}
+```
+
+**VFS 节点类型**：
+- 文件节点：name（路径名）、数据指针（内置 4 KiB + 溢出到运行时存储槽位）、文件大小
+- 目录节点：name、子节点列表
+- 支持 mount：根文件系统和临时文件系统叠加
+
+#### 4.7.2 系统调用分发 (`syscall::dispatch`)
+
+`dispatch()` 函数支持约 130+ 系统调用号，核心分类：
+
+| 类别 | 系统调用 | 状态 |
+|------|---------|------|
+| **文件 I/O** | `read`, `write`, `readv`, `writev`, `pread64`, `pwrite64`, `preadv`, `pwritev`, `preadv2`, `pwritev2` | 完成 |
+| **文件描述符** | `openat`, `close`, `dup`, `dup3`, `fcntl`, `lseek`, `ftruncate`, `ioctl` | 完成 |
+| **目录操作** | `getcwd`, `chdir`, `mkdirat`, `unlinkat`, `linkat`, `renameat2`, `symlinkat`, `readlinkat` | 完成 |
+| **文件状态** | `fstat`, `newfstatat`, `statx`, `statfs`, `fstatfs`, `faccessat`, `utimensat` | 完成 |
+| **挂载** | `mount`, `umount2` | 完成 |
+| **文件属性** | `fchmod`, `fchmodat`, `fchown`, `fchownat` | chown 为 no-op 成功 |
+| **扩展属性** | `setxattr`, `getxattr`, `removexattr`, `listxattr` 及其变体 | 部分存根 |
+| **目录枚举** | `getdents64` | 完成 |
+| **同步** | `sync`, `fsync`, `fdatasync`, `syncfs` | no-op 成功 |
+| **进程** | `clone`, `exit`, `exit_group`, `wait4`, `execve`（在 main.rs 中处理） | 完成 |
+| **信号** | `kill`, `tkill`, `tgkill`, `rt_sigaction`, `rt_sigprocmask`, `rt_sigpending`, `rt_sigreturn`, `rt_sigtimedwait` | 完成 |
+| **定时器** | `nanosleep`, `clock_nanosleep`, `setitimer`, `getitimer`, `clock_gettime`, `gettimeofday`, `times` | 完成 |
+| **内存管理** | `brk`, `mmap`, `mprotect`, `munmap` | 完成（快照路径） |
+| **信息** | `uname`, `sysinfo`, `getpid`, `getppid`, `gettid`, `getuid`, `geteuid`, `getgid`, `getegid`, `getrlimit`, `setrlimit`, `prlimit64`, `getrusage`, `prctl` | 大部分存根 |
+| **SysV IPC** | `shmget`, `shmat`, `shmdt`, `shmctl`, `semget`, `semop`, `semctl`, `msgget`, `msgsnd`, `msgrcv`, `msgctl` | 存根/有限实现 |
+| **网络** | `socket`, `bind`, `listen`, `connect`, `accept`, `sendto`, `recvfrom`, `setsockopt`, `getsockopt`, `getsockname` | 回环实现 |
+| **其他** | `sched_yield`, `syslog`, `set_tid_address`, `set_robust_list`, `setpgid`, `getpgid`, `getsid`, `setsid`, `mknodat` | 完成/存根 |
+
+#### 4.7.3 两条执行路径
+
+**快照路径**（`handle_user_syscall` 中的主 `match syscall_nr`）：
+- 适用于所有 LA 构建和 feature-OFF 的 RV 构建
+- 使用 `PROCESS_RUNTIME`（类型 `ProcessRuntime<TestFrame, N>`）+ `USER_MEMORY`（40 MiB 内联数组）
+- 进程切换时进行完整内存快照（全部 40 MiB 拷贝）
+
+**AddrSpace 路径**（`addrspace_handle_syscall`）：
+- 仅当 `addrspace` feature ON 且 AddrSpace 运行活动时
+- 使用 `ProcessRuntime<TrapFrame, N>` + `AddrSpaceUserMemory`
+- 进程切换时仅切换页表根（通过 `satp.csrrw` 或 `PGDL` 设置）
+- 系统调用通过 `AddrSpaceUserMemory` 进行需求分页 + COW 保护的内存访问
+
+### 4.8 文件系统 (`src/fs/ext4.rs`, 1,401行)
+
+#### 4.8.1 超级块解析
+
+```rust
+const EXT4_MAGIC: u16 = 0xef53;
+const SUPERBLOCK_OFFSET: u64 = 1024;
+```
+
+从偏移 1024 字节读取 1024 字节超级块，验证 magic 0xEF53，提取：
+- `block_size`（1K/2K/4K，通过 `log_block_size` 计算）
+- `inode_size`（最小 128 字节）
+- `blocks_per_group` / `inodes_per_group`
+- `descriptor_size`（32 或 64 字节，支持 64-bit 特性）
+
+#### 4.8.2 Inode 读取
+
+```rust
+fn read_inode(&mut self, inode_no: u32) -> Result<Inode, Ext4Error>
+```
+
+- 定位块组描述符 → 获取 inode 表块号
+- 读取 inode 前缀 160 字节（包含 mode、size_lo、size_hi、blocks）
+- 支持 64-bit 文件大小（`size_lo | (size_hi << 32)`）
+
+#### 4.8.3 Extent 树遍历
+
+只支持深度 0（叶子在 inode block 内）和深度 1（inode block 包含索引节点指向叶子块）：
+
+```rust
+fn collect_extents_for_blocks(&mut self, inode, blocks_needed, extents)
+```
+
+- 解析 `ext4_extent_header`（magic 0xF30A、entries 计数、depth）
+- depth=0：直接从 inode block 解析 extent entries
+- depth=1：遍历索引节点 → 读取叶子块 → 解析叶子 extent entries
+- 每个 extent entry：`(logical_block, len_blocks, physical_block)`
+
+#### 4.8.4 目录遍历
+
+`visit_directory_with_warnings` 函数逐块读取目录，解析 `ext4_dir_entry_2`：
+- `inode`（4 字节）
+- `rec_len`（2 字节）
+- `name_len`（1 字节）
+- `file_type`（1 字节）
+- `name`（变长）
+
+健壮性处理：rec_len < 8、rec_len 超出块边界、name_len 超出记录 → 记录警告并继续（容忍损坏的目录项）。
+
+#### 4.8.5 脚本发现
+
+通过 `discover_scripts` 方法递归遍历根目录，寻找以 `_testcode.sh` 结尾的文件：
+
+```rust
+const TEST_SCRIPT_SUFFIX: &[u8] = b"_testcode.sh";
+```
+
+脚本按目录分类（`ScriptDirectory::Root/Glibc/Musl`）并排序。
+
+#### 4.8.6 文件读取墙时钟预算
+
+```rust
+const READ_WALL_BUDGET_NANOS: u64 = 20_000_000_000;  // 20 秒
+const READ_WALL_CHECK_CHUNKS: usize = 64;
+```
+
+每 64 个块检查一次 deadline，防止慢速设备导致无限读取（cycle57 类问题）。
+
+### 4.9 VirtIO 块设备驱动
+
+#### 4.9.1 MMIO 传输层 (`src/virtio/mmio.rs`, 473行)
+
+RISC-V QEMU virt 平台使用 MMIO 方式访问 VirtIO 设备。
+
+**设备发现**（`probe_riscv`）：
+1. 扫描 8 个 MMIO 槽位（从 `0x1000_1000` 起，间隔 0x200）
+2. 验证 magic（0x74726976）和 device ID（2 = block device）
+3. 检测 Legacy（version=1） vs Modern（version=2）传输模式
+
+**设备初始化**：
+- Legacy：设置 guest page size → 队列 PFN
+- Modern：协商特性（VIRTIO_F_VERSION_1）→ 设置队列地址（desc/driver/device）→ 设置队列大小 → 标记 DRIVER_OK
+- 状态机：ACKNOWLEDGE → DRIVER → FEATURES_OK → DRIVER_OK
+
+**读写操作**：
+- 构建 `RequestHeader`（type=0 读，包含 sector LBA）+ 状态字节
+- 填充描述符链：header（device-readable）+ data buffer（device-writable）+ status（device-writable）
+- 提交到可用环 → 通知设备 → 轮询已用环等待完成
+
+**超时与重试**：
+- `POLL_LIMIT = 50,000,000` 次轮询
+- 支持 `DEFAULT_TIMEOUT_RETRIES = 2` 次超时重试
+- `FailureBreaker`：连续 8 次未恢复失败 → 设备标记为 dead
+
+**设备诊断**：每次读取后累积计数器 + 记录失败快照（lba、status、used_id、各环指针），通过 `BlockDiag` 输出。
+
+#### 4.9.2 PCI 传输层 (`src/virtio/pci.rs`, 594行)
+
+LoongArch QEMU virt 平台使用 PCI 方式。
+
+**PCI 配置空间扫描**：
+- 遍历 PCI bus/device/function
+- 读取 vendor ID（0x1AF4 = Red Hat/VirtIO）和 device ID
+- 通过 PCI capabilities 链表定位 VirtIO PCI 配置结构
+
+**MSI-X 中断**（虽支持但当前轮询模式）：
+- 检测 MSI-X capability
+- 配置 MSI-X table 地址
+
+#### 4.9.3 队列管理 (`src/virtio/queue.rs`, 208行)
+
+```rust
+pub struct QueueMemory {
+    desc: [Descriptor; QUEUE_SIZE],      // 描述符环
+    avail: AvailRing,                     // 可用环（driver→device）
+    used: UsedRing,                       // 已用环（device→driver）
+}
+```
+
+描述符结构：`address`（物理地址）+ `len` + `flags`（`DESC_F_NEXT`、`DESC_F_WRITE`）+ `next`
+
+### 4.10 ELF 加载器 (`src/elf.rs`, 1,004行)
+
+#### 4.10.1 ELF 解析
+
+```rust
+pub fn parse(bytes: &'a [u8]) -> Result<ElfFile<'a>, ElfError>
+```
+
+验证序列：
+1. 魔数 `\x7fELF`
+2. EI_CLASS = ELFCLASS64
+3. EI_DATA = ELFDATA2LSB
+4. EI_VERSION = EV_CURRENT
+5. 文件类型：ET_EXEC 或 ET_DYN（支持 PIE）
+6. 机器类型：EM_RISCV(243) 或 EM_LOONGARCH(258)
+7. 验证 ELF header 和 program header 的范围
+
+#### 4.10.2 段加载
+
+```rust
+pub fn load_segments_with_bias<const N: usize>(
+    &self, segments: &mut FixedList<LoadSegment, N>, load_bias: u64,
+) -> Result<LoadPlan, ElfError>
+```
+
+- 只处理 PT_LOAD 段
+- 对于 ET_DYN（PIE），计算 `load_bias = base - min_vaddr`
+- 验证文件范围在 ELF 镜像内
+- `mem_size >= file_size` 约束验证
+
+#### 4.10.3 动态链接器支持
+
+```rust
+pub fn has_interpreter(&self) -> bool           // 是否有 PT_INTERP
+pub fn interpreter_path(&self) -> Result<Option<&'a [u8]>, ElfError>  // 解释器路径
+```
+
+- 支持 PT_INTERP 段解析（如 `ld-musl-riscv64.so.1`）
+- `load_segments_for_base` 为 PIE 提供基址重定位
+- TLS 段支持（PT_TLS 解析 `TlsSegment`）
+
+### 4.11 脚本与基准测试运行时
+
+#### 4.11.1 脚本解析器 (`src/script.rs`, `src/script_exec.rs`)
+
+**Marker 系统**：
+```bash
+#### OS COMP TEST GROUP START basic ####
+./basic/run-all.sh
+#### OS COMP TEST GROUP END basic ####
+```
+
+- `script::describe_script()` 提取 marker 信息
+- `script_exec::collect_basic_plan()` 解析 shell 命令序列
+- `script_runtime/busybox_words.rs`：BusyBox shell 的词法分析（引号处理）
+- `script_runtime/shell_test.rs`：shell `[` / `test` 内置命令模拟
+
+#### 4.11.2 脚本运行器 (`src/runner.rs`, 614行)
+
+- 主循环：解析 marker → 调度用户态执行 → 输出收集
+- `run_basic_script`：逐个 ELF 二进制执行，每个在独立的用户态运行中
+- `run_busybox_script`：启动 BusyBox shell，在单一进程中顺序执行命令
+- `run_lua_real_first`：尝试真实 Lua 解释器执行，失败则 fallback
+
+#### 4.11.3 用户态执行管线 (`main.rs` 中的 `run_user_elf_with_args`)
+
+完整执行流：
+1. **ELF 加载**：从 ext4 读取 ELF 镜像（通过 2 槽位 LRU 缓存）
+2. **VM 准备**：
+   - 快照路径：`USER_MEMORY` = 40 MiB 内联数组
+   - AddrSpace 路径：分配窗口 → 构建页表（Sv39 或 LaPt）
+3. **用户内存加载**：将 ELF 段写入用户地址空间 + 构建初始栈（argc/argv/envp/auxv）
+4. **动态链接器 co-load**（可选）：为 `entry-dynamic.exe` 加载内嵌 ld-musl
+5. **进程上下文初始化**：重置 `ProcessRuntime` 根槽位
+6. **进入用户态**：`arch::enter_user(entry, stack, arg0, user_tp)`
+7. **陷阱循环**：用户态执行 → 系统调用/异常 → 内核处理 → 返回用户态
+8. **退出**：用户进程 exit → `arch::prepare_user_return` → 内核主循环继续
+
+### 4.12 基准测试适配器
+
+每个适配器实现一个共同模式：从 ext4 加载 ELF → 构建参数 → 调用 `run_user_elf_with_args` 或专用执行路径。
+
+| 适配器 | 执行模式 | 关键特性 |
+|--------|---------|---------|
+| `busybox.rs` | BusyBox shell 在一个进程中解释执行命令脚本 | 管道支持、shell 内置命令 |
+| `lua.rs` | 加载 Lua 解释器 ELF + 传入 `.lua` 脚本路径 | 真实解释器执行 |
+| `libctest.rs` | 通过 musl libc 测试套件 runner（`runtest.exe`）执行 | 支持动态链接（ld-musl co-load） |
+| `libcbench.rs` | libc 性能基准 | 静态 ELF |
+| `lmbench.rs` | Lmbench 系统基准 | 管道/FIFO/进程创建延迟 |
+| `ltp.rs` | Linux Test Project | fork/wait4 子进程、MAP_SHARED IPC |
+| `cyclictest.rs` | 实时性延迟基准 | nanosleep 精度 |
+| `iozone.rs` | 文件系统基准 | 多线程 (-t 4)、回环套接字同步 |
+| `unixbench.rs` | UnixBench 系统基准 | 多种微基准 |
+| `iperf.rs` | 网络性能 | 回环 TCP |
+| `netperf.rs` | 网络性能 | 回环 TCP |
+
+### 4.13 RISC-V 用户态指令模拟 (`src/riscv_user.rs`, 673行)
+
+当用户态触发指令访问故障（instruction access fault）时，内核模拟故障指令而非杀死进程。
+
+**`recover_instruction_access_fault(pc, memory)`**：
+- 读取故障 PC 处的指令字节
+- 在 `UserMemory` 中验证该地址可执行翻译
+
+**`emulate_user_access_fault(regs, pc, fault_addr, memory)`**：
+- `fetch_instruction`：从用户内存读取 32 位或 16 位（压缩指令）指令
+- `decode_access`：解码 RISC-V load/store/atomic 指令：
+  - Load：LB/LH/LW/LD/LBU/LHU/LWU + 压缩变体（C.LW/C.LD 等）
+  - Store：SB/SH/SW/SD + 压缩变体（C.SW/C.SD 等）
+  - Atomic：LR/SC/AMOSWAP/AMOADD/AMOXOR/AMOAND/AMOOR/AMOMIN/AMOMAX/AMOMINU/AMOMAXU
+- `read_value` / `write_value`：执行实际的内存读写
+- `emulate_atomic`：模拟原子操作（加载-修改-写回）
+- `sign_extend`：处理有符号加载扩展
+
+这允许在用户内存受保护（如栈顶哨兵页面）的情况下优雅地处理访问。
+
+### 4.14 能力分类与运行时策略
+
+#### 4.14.1 能力分类 (`src/capability.rs`, 387行)
+
+```rust
+pub enum ScriptGroup { Basic, BusyBox, Lua, LibcTest, ... }
+pub enum CapabilityLevel { Real, PartialReal, CompatibilityRenderer, Unsupported }
+```
+
+根据脚本路径和能力矩阵决定每个测试组的执行策略：
+- `Real`：真实用户态执行
+- `PartialReal`：部分真实执行
+- `CompatibilityRenderer`：兼容渲染（输出标记但无实际执行）
+- `Unsupported`：明确不支持
+
+#### 4.14.2 运行时预算 (`src/runtime/budget.rs`, 147行)
+
+```rust
+pub struct RunTickBudget { remaining: usize }
+```
+
+- 每次定时器 tick 递减预算
+- 预算耗尽 → 终止用户态执行
+- 用于防止无限循环/死锁耗尽评测时间
+
+#### 4.14.3 资源策略 (`src/runtime/resources.rs`, 78行)
+
+`ResourceProfile` 配置每个测试组的资源限制：
+- `run_wall_budget_seconds`：运行墙钟预算
+- `uses_user_budget_timer`：是否启用抢占式定时器
+- `user_event_budget`：用户事件预算（系统调用、异常等）
+
+---
+
+## 5. 各子系统交互关系
+
+### 5.1 完整执行流
+
+```
+kernel_main()
+  │
+  ├─ arch::init_paging()              // 配置 MMU 基础设施（LA: DMW0; RV: no-op）
+  ├─ probe_budget_timer()             // 探测定时器存活
+  ├─ virtio::probe_riscv/loongarch()  // 发现块设备
+  │   └─ VirtIO-MMIO/PCI 初始化
+  ├─ Ext4Reader::open(device)         // 挂载 ext4
+  │   └─ read_superblock() → 验证 magic/extent 读取
+  ├─ reader.discover_scripts()        // 发现测试脚本
+  │   └─ 遍历目录 → 收集 _testcode.sh 文件
+  │
+  └─ for each script:
+      ├─ capability::script_capability()  // 确定能力等级
+      ├─ arm GROUP_WALL_DEADLINE         // 设置组墙钟预算
+      ├─ run_user_elf_with_args()        // 用户态执行
+      │   ├─ exec_cache::read_cached()   // (命中时) 缓存的 ELF
+      │   ├─ Ext4Reader::read_regular_file()  // (未命中) ext4 extent 遍历
+      │   ├─ elf::parse() → load_segments()  // ELF 解析与段规划
+      │   ├─ load_user_image_from_slice()    // 写入用户内存
+      │   │   ├─ UserMemory 写入
+      │   │   └─ prepare_initial_stack()     // argv/envp/auxv
+      │   ├─ ProcessRuntime::reset_root()    // 初始化进程槽位
+      │   └─ arch::enter_user()              // sret/ertn → 用户态
+      │       │
+      │       ├── (用户态执行)
+      │       │   ├─ ecall → arch::trap_handler()
+      │       │   │   ├─ handle_user_syscall() → syscall::dispatch()
+      │       │   │   │   ├─ 文件操作 → SyscallContext VFS
+      │       │   │   │   ├─ 进程操作 → ProcessRuntime
+      │       │   │   │   ├─ 信号操作 → SignalState
+      │       │   │   │   └─ 内存操作 → UserMemory/AddrSpace
+      │       │   │   └─ maybe_deliver_pending_signal()
+      │       │   │
+      │       │   ├─ 定时器中断 → handle_user_trap()
+      │       │   │   ├─ budget_tick 计数 → 进程轮转
+      │       │   │   │   ├─ save_process_memory()
+      │       │   │   │   └─ restore_process_memory()  (快照路径)
+      │       │   │   │   └─ satp 切换                    (AddrSpace 路径)
+      │       │   │   └─ itimer_real → SIGALRM
+      │       │   │
+      │       │   ├─ 页面故障 (RV: scause 12/13/15)
+      │       │   │   ├─ riscv_user::emulate()     (指令访问故障)
+      │       │   │   └─ addrspace.fault/fault_write()  (AddrSpace 路径)
+      │       │   │
+      │       │   └─ TLB refill (LA: 硬件自动)
+      │       │       └─ __loongarch_tlb_refill  (线性/页表遍历)
+      │       │
+      │       └─ exit → arch::prepare_user_return()
+      │
+      └─ scoring::render_result()  // 输出评分标记
+```
+
+### 5.2 关键接口
+
+| 接口 | 提供者 → 消费者 | 说明 |
+|------|----------------|------|
+| `ProcessFrame` trait | `arch::TrapFrame` → `process::ProcessRuntime` | 进程调度器与架构帧的解耦 |
+| `BlockDevice` trait | `virtio::mmio/pci` → `fs::ext4` | 块设备与文件系统的解耦 |
+| `PageTable` trait | `paging::Sv39Table/LaPt` → `vm::AddrSpace` | 页表实现与 VM 系统的解耦 |
+| `UserMemoryAccess` trait | `user::UserMemory/vm::AddrSpaceUserMemory` → `syscall::*` | 用户内存访问与系统调用的解耦 |
+| `SyscallOutput` trait | `main::ConsoleSink` → `syscall::*` | 输出重定向 |
+
+---
+
+## 6. OS内核实现完整度评估
+
+### 6.1 评估基准定义
+
+以"可运行标准 POSIX 程序（busybox/LTP/libc-test 等）所需的操作系统原语"为基准：
+- **完整实现**：完整的数据流和错误路径，通过相关测试验证
+- **功能实现**：核心路径可用但边缘情况可能欠缺
+- **存根实现**：返回固定成功值或 ENOSYS
+- **未实现**：不存在
+
+### 6.2 各子系统完整度
+
+| 子系统 | 完整度 | 说明 |
+|--------|--------|------|
+| **内存管理** | | |
+| - 虚拟地址空间（Sv39/LaPt） | 90% | 三级页表、需求分页、COW、MAP_SHARED。缺：页面换出、A/D 位修复路径（预设解决） |
+| - 物理帧分配 | 85% | 引用计数、COW 安全。缺：NUMA 感知、碎片整理 |
+| - mmap/munmap/mprotect/brk | 70% | 基础功能。缺：MAP_FIXED、MAP_GROWSDOWN、文件映射需求分页 |
+| **进程管理** | | |
+| - 创建/销毁/等待 | 85% | fork/clone/execve/exit/wait4。缺：进程组/会话完整实现 |
+| - 调度 | 80% | 协作式+抢占式、多级调度。缺：优先级、CFS |
+| - 线程 | 60% | CLONE_THREAD 支持。缺：futex PI、robust list 真实处理 |
+| **文件系统** | | |
+| - ext4 只读 | 85% | 超级块/组描述符/inode/extent(深度0-1)/目录。缺：深度>1 extent、间接块、日志 |
+| - VFS | 70% | 节点池、文件描述符表。缺：写入支持、权限模型 |
+| **设备驱动** | | |
+| - VirtIO-MMIO | 90% | Legacy+Modern、超时重试、死设备断路器 |
+| - VirtIO-PCI | 85% | PCI 扫描、MSI-X 检测。缺：MSI-X 真实中断使用 |
+| **网络** | | |
+| - 回环套接字 | 75% | TCP 风格连接/接受/收发。缺：UDP、真实 NIC 驱动 |
+| **信号** | 85% | 完整信号状态机、sigaction/sigprocmask/sigreturn。缺：实时信号排队、核心转储 |
+| **系统调用覆盖** | 80% | ~130+ 系统调用。缺：poll/epoll、timerfd、eventfd、signalfd、inotify |
+| **动态链接** | 65% | ld-musl co-load。缺：通用动态链接器、lazy binding、GOT/PLT 重定位 |
+| **基准测试适配** | 95% | 完整覆盖：basic/BusyBox/Lua/libctest/libcbench/lmbench/LTP/cyclictest/iozone/unixbench/iperf/netperf |
+
+### 6.3 整体完整度：约 75-80%
+
+以"运行真实 Linux 用户态程序"为目标，该内核涵盖了约 75-80% 所需的核心原语。主要缺失包括：
+- 文件系统写入支持
+- 完整的多核 SMP 支持
+- 通用动态链接（仅支持一个硬编码的 ld-musl）
+- 部分系统调用为存根
+
+---
+
+## 7. 创新性分析
+
+### 7.1 架构创新
+
+**1. 双架构泛型地址空间 (`AddrSpace<PT: PageTable>`)**（设计创新，中等）
+
+将 `AddrSpace` 设计为泛型结构，通过 `PageTable` trait 参数化页表实现。同一套需求分页、COW、`fork_cow` 算法对 RISC-V Sv39 和 LoongArch LaPt 通用。`PageTable` trait 定义了 `translate`、`map`、`unmap`、`map_kernel_identity` 等方法，使得 VM 核心逻辑 100% 架构无关。
+
+创新点：不同于传统的 `#ifdef` 式架构隔离，通过 Rust trait 实现编译期单态化的架构多态。
+
+**2. LoongArch TLB Refill 软件处理的双模式**（设计创新，较高）
+
+LoongArch 的 TLB refill 完全在汇编中处理，支持两种模式动态切换：
+- **线性窗口模式**：适用于简单的单进程场景（快照路径），零页表遍历开销
+- **页表遍历模式**：适用于 per-process AddrSpace，三级页面表通过 DMW 别名直接访问
+
+切换通过 `__la_refill_pgd_pa` 全局变量控制（零值 = 线性模式，非零 = 页表遍历模式），无需修改陷阱向量。
+
+**3. HARD INVARIANT #1：内核写入 COW 保护**（工程创新，中等）
+
+绝大多数教学/比赛内核只处理用户态页故障的 COW。本项目识别并解决了"内核写入（memcpy）绕过 CPU store 页面故障"的 COW 语义漏洞：`copy_to_user` 和 `zero_user` 在写入前主动检查引用计数并断开 COW，防止内核写破坏 fork 父进程的内存。
+
+### 7.2 工程创新
+
+**4. Feature-gated 渐进式演进架构**（工程创新，较高）
+
+使用 Rust feature flag 实现两套 VM 实现共存：
+- `addrspace` OFF：快照路径（内联 40 MiB 数组，评分基线）
+- `addrspace` ON：真实现代 VM（需求分页、COW、per-process 页表）
+
+关键设计：feature ON 的代码路径完全独立，编译时门控保证 feature OFF 的内核二进制位完全相同。这种架构允许在不影响评分基线的前提下逐步迁移，且可随时通过单行 flag 回滚。
+
+**5. 宿主机可测试的纯逻辑层**（工程创新，中等）
+
+大量核心逻辑以纯函数实现，无需 QEMU 即可在宿主机测试：
+- `paging.rs` 的页表构建：在宿主机分配数组模拟物理帧
+- `signal.rs` 的信号状态机：纯 u64 位操作
+- `elf.rs` 的 ELF 解析：纯字节切片解析
+- `vm.rs` 的 COW/引用计数：在宿主机堆内存操作
+- `la_linear_refill` / `la_pt_pte_to_tlbelo`：汇编 refill 处理器的正式规约
+
+386 项通过测试验证了这种架构的可行性。
+
+**6. 死设备断路器**（工程创新，较低但实用）
+
+`FailureBreaker`：连续 8 次块设备读取失败后将设备标记为 dead，后续所有读取立即返回错误。防止慢速/故障设备导致评测超时（cycle57 类问题，2 小时窗口被单个慢速读取耗尽）。
+
+---
+
+## 8. 其他重要信息
+
+### 8.1 代码规模分布
+
+| 类别 | 行数 | 占比 |
+|------|------|------|
+| `main.rs`（中心调度） | 10,723 | 24.5% |
+| `syscall/mod.rs`（系统调用） | 7,393 | 16.9% |
+| `process.rs`（进程管理） | 3,589 | 8.2% |
+| `vm.rs`（虚拟内存） | 2,910 | 6.7% |
+| `user.rs`（用户内存） | 1,903 | 4.3% |
+| `fs/ext4.rs`（文件系统） | 1,401 | 3.2% |
+| `paging.rs`（页表构建） | 1,192 | 2.7% |
+| `elf.rs`（ELF 加载） | 1,004 | 2.3% |
+| `syscall/file.rs` | 1,050 | 2.4% |
+| 架构层（rv+la） | 1,327 | 3.0% |
+| 基准适配器 | 2,832 | 6.5% |
+| 其他 | ~8,438 | 19.3% |
+| **总计** | **~43,762** | **100%** |
+
+### 8.2 构建配置
+
+- **编译器**：Rust nightly-2025-01-18
+- **目标**：`riscv64gc-unknown-none-elf`、`loongarch64-unknown-none`
+- **优化**：`opt-level = "s"`（尺寸优化）、`lto = false`、`codegen-units = 1`、`debug = true`
+- **panic 策略**：`panic = "abort"`
+- **链接**：自定义链接脚本（`linker/riscv64.ld` 基址 0x80200000，`linker/loongarch64.ld` 基址 0x90000000）
+- **启动汇编**：通过 clang 编译为 `.o` 后与 Rust 代码链接
+
+### 8.3 文档
+
+- `项目介绍.pdf/txt`：项目总体介绍
+- `OS_mod 开发文档.pdf/txt`：开发文档
+- `OS_mod操作系统设计方案文档.pdf/txt`：设计方案文档
+- `OS_mod 内核路演.pptx`：路演演示
+- `docs/` 目录：开发计划文档
+
+---
+
+## 9. 总结
+
+OS_mod 是一个在技术深度和工程完整性上都表现突出的参赛内核项目。
+
+**技术深度方面**：实现了从启动汇编、硬件页表构建（Sv39/LaPt）、需求分页、写时复制（COW）、进程调度（协作+抢占）、信号完整状态机、ext4 extent 树解析、VirtIO MMIO/PCI 双传输层到 ~130+ 系统调用的完整操作系统栈。COW 实现正确处理了内核写入的语义漏洞（HARD INVARIANT #1）这一细微但关键的正确性问题。LoongArch 的 TLB refill 完全在汇编中实现，支持线性窗口和三级页表遍历双模式动态切换。
+
+**工程方法方面**：采用 Rust feature-gated 渐进演进架构，实现了快照路径与真实现代 VM 的零风险共存。宿主机可测试的纯逻辑层设计使 386 项单元测试无需 QEMU 即可运行。死设备断路器、文件读取墙时钟预算、per-group 墙钟截止等防御性设计体现了对评测环境不确定性的务实应对。
+
+**双架构支持**：RISC-V 64GC (Sv39) 和 LoongArch 64 均实现了完整的架构抽象层，共享进程管理、文件系统、信号、系统调用、基准适配器等核心代码。`PageTable` trait 使得 VM 核心算法架构无关。
+
+**主要局限**：文件系统只读（ext4）、无 SMP 支持、通用动态链接有限（仅一个硬编码的 ld-musl）、部分系统调用为存根。约 10,700 行的 `main.rs` 包含了过多的调度和胶水逻辑，模块化程度可进一步提升。

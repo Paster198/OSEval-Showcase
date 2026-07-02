@@ -1,0 +1,17 @@
+{
+  "name": "RustMicroOS",
+  "kernel_type": "microkernel",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "Rust安全与微内核能力系统纵深防御，集成CHERI能力模拟",
+    "覆盖311个系统调用，追求极端Linux兼容性",
+    "实现RISC-V64和LoongArch64双架构HAL层，架构隔离清晰",
+    "内置形式化验证框架，可输出属性验证报告",
+    "移植io_uring、eBPF JIT、Landlock等现代Linux特性"
+  ]
+}

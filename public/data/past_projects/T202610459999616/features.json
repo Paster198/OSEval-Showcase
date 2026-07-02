@@ -1,0 +1,17 @@
+{
+  "name": "PulseOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于扁平数组的页帧表实现无锁O(1)引用计数管理",
+    "安全内存拷贝通过虚拟地址转物理地址避免跨页越界",
+    "纯Rust实现的ext4文件系统，消除外部C库依赖",
+    "位图辅助的空闲文件描述符快速查找与分配策略",
+    "exec原子替换：先构建新地址空间，失败时保留原态"
+  ]
+}

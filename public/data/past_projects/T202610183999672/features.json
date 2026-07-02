@@ -1,0 +1,17 @@
+{
+  "name": "MangoCore",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构HAL抽象：RISC-V与LoongArch共享内核，编译期选择架构",
+    "多级文件缓存体系：PageCache/MetaCache/DirCache加速ext4访问",
+    "完整信号与futex：POSIX信号、sigaltstack、多种futex操作",
+    "丰富文件系统支持：ext4(extent)、FAT32、procfs/sysfs/devfs等",
+    "Lockless热路径：调度器与syscall入口无锁原子访问，提升性能"
+  ]
+}

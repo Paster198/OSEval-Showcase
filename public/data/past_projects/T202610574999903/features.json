@@ -1,0 +1,17 @@
+{
+  "name": "MyOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "Panic时全寄存器快照与帧指针链栈回溯，7块独立asm!克服寄存器分配限制，三重边界检查防死循环",
+    "build.rs自动扫描用户源码并调用objcopy生成link_app.S，全自动构建流水线",
+    "纯Python手写LoongArch ELF，struct.pack直接构造，零工具链依赖的创新绕过方案",
+    "ANSI转义码实现INFO/WARN/ERROR三级彩色日志系统，提升裸机内核输出可读性",
+    "run_debug.sh+debug.gdb一键GDB调试，自动检测工具链并设置断点与自动显示"
+  ]
+}

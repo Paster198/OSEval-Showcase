@@ -1,0 +1,16 @@
+{
+  "name": "OSKernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "通过函数指针回调注入实现架构层与调度/系统调用层完全解耦",
+    "全内核零堆分配，以固定全局数组管理TCB、文件表、管道等所有资源",
+    "深度0 extent树EXT4读写驱动，包含块与Inode分配器，支持创建、删除、写入",
+    "帧后备存储AddressSpace映射记录，动态按需分配，突破静态数组限制",
+    "完整POSIX信号机制与musl/glibc双libc动态链接器兼容"
+  ]
+}

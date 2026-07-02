@@ -167,7 +167,11 @@ function Home() {
             })}
             
             {filteredProjects.length === 0 && (
-              <div className="no-results">没有找到符合条件的项目。</div>
+              <div className="no-results">
+                无结果。<br />
+                - 搜索作品名或者作品在提交情况fork url里的url<br />
+                - 搜索的作品可能由于仓库被锁或者内容过少而被跳过分析。
+              </div>
             )}
           </div>
         </>

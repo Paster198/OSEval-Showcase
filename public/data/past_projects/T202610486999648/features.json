@@ -1,0 +1,19 @@
+{
+  "name": "name_undefined",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "通过反向依赖注入实现架构层与内核层的解耦设计",
+    "实现同构驱动框架，允许驱动代码在用户态和内核态复用",
+    "利用静态两级页表映射sigreturn trampoline，避免每进程重复映射",
+    "支持RISC-V、LoongArch、AArch64、x86_64四架构及多硬件平台",
+    "以工业标准ext4作为根文件系统，增强与Linux用户态的兼容性"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "AsyncBridge",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "全异步内核设计：系统调用以 async fn 实现，基于 async-task 运行时调度，阻塞 I/O 自然让出 CPU。",
+    "统一异步 I/O 桥接：EventSource 与 WaitPolicy 将管道、socket、futex 等不同等待语义统一为 waker 模型。",
+    "分层锁策略：任务数据按访问模式划分为 Mutable、ThreadOnly、Immutable、SharedMut 四种，编译期编码并发安全。",
+    "双架构清洁抽象：RISC-V 与 LoongArch 共享 ArchBoot、ArchTrap、ArchPageTable 等 trait，实现架构级解耦。",
+    "丰富的 VFS 与 IPC：自带 ext4/FAT32/ramfs/devfs/procfs 五类文件系统、页缓存、System V 消息队列与信号量。"
+  ]
+}

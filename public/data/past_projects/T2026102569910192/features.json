@@ -1,0 +1,17 @@
+{
+  "name": "SWTC",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同一仓库内并行维护 RISC-V 与 LoongArch 两条独立完整的内核主线",
+    "SWTC-la 采用 xapi→xcore→xmodules→ArceOS 四层清晰分层架构，模块边界明确",
+    "xsignal crate 以 arch 子模块实现 aarch64/loongarch64/riscv/x86_64 四种架构的信号复用",
+    "RISC-V 主线利用 Sv39 PTE 保留位实现自定义 COW 标志，巧妙支持写时复制",
+    "LoongArch 主线 vDSO 基于 seqlock 协议实现无锁时钟查询，优化 gettimeofday 等高频调用"
+  ]
+}

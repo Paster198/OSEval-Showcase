@@ -1,0 +1,17 @@
+{
+  "name": "Anemone OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "Trait 抽象架构层以零成本安全支持 RISC-V 与 LoongArch 双架构",
+    "过程宏声明式系统调用注册与 initcall 分级自动收集初始化函数",
+    "接近完整的 VFS 层，实现 ext4、ramfs 等五种文件系统及设备模型",
+    "类 Linux 进程模型，支持完整信号子系统、futex 及凭据管理",
+    "独立子 crate 设计，集成内核态 KUnit 测试框架与自定义构建系统"
+  ]
+}

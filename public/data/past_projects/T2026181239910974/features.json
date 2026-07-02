@@ -1,0 +1,17 @@
+{
+  "name": "Somber OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同时完整适配RISC-V64和LoongArch64双架构，实现清晰的平台抽象层",
+    "页面故障时输出包含内存窗口、PTE状态、ELF文件对比的详尽诊断信息",
+    "统一的阻塞-唤醒框架将Futex、管道、Socket等阻塞场景纳入同一等待管理",
+    "内存区域权限覆盖机制支持页粒度mprotect，避免拆分合并VMA的复杂性",
+    "在竞赛级内核中实现了用户命名空间及UID/GID映射等容器化基础原语"
+  ]
+}

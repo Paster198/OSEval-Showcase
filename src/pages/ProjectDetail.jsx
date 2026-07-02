@@ -13,7 +13,8 @@ function ProjectDetail() {
     brief: '',
     survey: '',
     full: '',
-    eval: ''
+    eval: '',
+    compare: null
   });
   const [loading, setLoading] = useState(true);
 
@@ -33,21 +34,22 @@ function ProjectDetail() {
         const metadata = metadataRes && metadataRes.ok ? await metadataRes.json().catch(()=>null) : null;
 
         // Load Markdown files
-        const loadMd = async (name) => {
+        const loadMd = async (name, optional = false) => {
           try {
             const res = await fetch(`${basePath}/${name}.md`);
             if (res.ok) return await res.text();
-            return `*未能加载 ${name}.md*`;
+            return optional ? null : `*未能加载 ${name}.md*`;
           } catch (e) {
-            return `*未能加载 ${name}.md*`;
+            return optional ? null : `*未能加载 ${name}.md*`;
           }
         };
 
-        const [brief, survey, full, evalReport] = await Promise.all([
+        const [brief, survey, full, evalReport, compareReport] = await Promise.all([
           loadMd('brief'),
           loadMd('survey_report'),
           loadMd('full_report'),
-          loadMd('eval_report')
+          loadMd('eval_report'),
+          loadMd('compare_report', true)
         ]);
 
         setProjectData({
@@ -56,7 +58,8 @@ function ProjectDetail() {
           brief,
           survey,
           full,
-          eval: evalReport
+          eval: evalReport,
+          compare: compareReport
         });
       } catch (err) {
         console.error("Error loading project details", err);
@@ -172,6 +175,12 @@ function ProjectDetail() {
           className={`tab-btn ${activeTab === 'eval' ? 'active' : ''}`}
           onClick={() => setActiveTab('eval')}
         >评估报告</button>
+        {projectData.compare && (
+          <button 
+            className={`tab-btn ${activeTab === 'compare' ? 'active' : ''}`}
+            onClick={() => setActiveTab('compare')}
+          >对比报告</button>
+        )}
       </div>
 
       <div className="tab-content card-bg">
@@ -179,6 +188,7 @@ function ProjectDetail() {
         {activeTab === 'survey' && renderMarkdown(projectData.survey)}
         {activeTab === 'full' && renderMarkdown(projectData.full)}
         {activeTab === 'eval' && renderMarkdown(projectData.eval)}
+        {activeTab === 'compare' && projectData.compare && renderMarkdown(projectData.compare)}
       </div>
     </div>
   );

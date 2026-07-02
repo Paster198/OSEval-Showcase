@@ -1,0 +1,17 @@
+{
+  "name": "luwu",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "深度实现ext4文件系统，支持extent tree、HTree目录索引与JBD2日志等高级特性",
+    "通过Rust trait泛型实现零成本架构抽象，内核核心代码在RISC-V与LoongArch双架构共享",
+    "基于async/await的异步VirtIO块设备驱动，支持MMIO与PCI双transport模式",
+    "实现约75个Linux兼容系统调用，覆盖进程、文件、内存、信号等核心子系统",
+    "LoongArch汇编实现高效软件TLB refill，四条指令完成三级页表遍历"
+  ]
+}

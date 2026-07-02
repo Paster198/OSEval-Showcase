@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于 ArceOS unikernel 构建完整 Linux 系统调用兼容层",
+    "FileLike trait 统一抽象 epoll/socket/pipe 等所有文件类型",
+    "全局引用计数帧表实现线程安全的写时复制（CoW）内存管理",
+    "FutexKey 私有/共享双轨设计支持跨进程与本地 futex",
+    "Epoll 完整支持水平触发、边沿触发与一次性触发三种模式"
+  ]
+}

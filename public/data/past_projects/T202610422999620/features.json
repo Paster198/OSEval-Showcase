@@ -1,0 +1,17 @@
+{
+  "name": "RespOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "统一HAL抽象支持RISC-V与LoongArch双架构，架构适配清晰收敛",
+    "页表帧延迟回收隔离队列解决进程退出时TLB shootdown竞态",
+    "共享文件页缓存基于(dev,ino,page)去重，多进程映射同一页节省内存",
+    "130+系统调用覆盖进程、文件、信号及futex等，支持运行原生用户程序",
+    "自实现完整的procfs与devfs虚拟文件系统，提供/proc/self/smaps等复杂接口"
+  ]
+}

@@ -144,9 +144,11 @@
 }
 
 .no-results {
-  text-align: center;
   grid-column: 1 / -1;
   padding: 40px;
   color: var(--text-secondary);
   font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }

@@ -1,0 +1,16 @@
+{
+  "name": "unit00",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现232个Linux系统调用分派，覆盖进程管理、信号、futex、mmap等主要子系统",
+    "内嵌58个冒烟测试断言与用户态汇编测试程序，启动时自动验证内核关键功能",
+    "统一路径解析器跨越rootfs、ext4、procfs、scratchfs四种文件系统类型进行路径查找",
+    "完整虚拟内存管理：SV39页表、写时复制、按需分页、mmap/mprotect/mremap全支持",
+    "成熟的futex实现含优先级继承互斥锁，支持FUTEX_WAIT/WAKE/PI等完整操作集"
+  ]
+}
