@@ -1,0 +1,22 @@
+[
+  {
+    "id": "武汉大学-智核速启队-T202510486995194-334",
+    "name": "SC7",
+    "select_reason": "同为monolithic/xv6/C的双架构(riscv64+loongarch64)内核，均实现伙伴系统、ext4、POSIX线程与futex，且SC7额外支持写时复制，直接可比。"
+  },
+  {
+    "id": "吉林大学-reXvapor-T202510183995907-273",
+    "name": "Re-XVapor",
+    "select_reason": "同为xv6/C双架构内核，均移植lwext4实现ext4，提供mmap按需调页、ELF动态链接与futex，技术栈高度重叠，适合对比功能完备度。"
+  },
+  {
+    "id": "中山大学-静春山-T202510558995330-264",
+    "name": "SpringOS",
+    "select_reason": "同为xv6/C双架构内核，集成ext4与信号处理并适配真机，可对比其实硬件适配与非对齐访问模拟等差异。"
+  },
+  {
+    "id": "合肥工业大学-比赛时在干什么有没有空帮我修个bug-T202410359992600-273",
+    "name": "BugOS",
+    "select_reason": "同为xv6/C生态，也通过lwext4集成ext4并实现信号与六十余系统调用，单架构与小特性集可作为基线对比httos的架构扩展深度。"
+  }
+]

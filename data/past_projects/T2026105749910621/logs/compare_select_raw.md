@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 62,
+    "name": "OSakura",
+    "select_reason": "同为C语言monolithic内核，均从零实现支持Extent的只读型ext4文件系统。对比自研ext4的深度、Extent遍历与系统调用集成方式，可揭示独立实现ext4的不同工程取舍。"
+  },
+  {
+    "id": 54,
+    "name": "SC7",
+    "select_reason": "均基于xv6生态、C语言，并尝试RISC-V与LoongArch双架构。SC7实现了完整的VFS与ext4（可能移植），而F423OS为自研只读ext4+tmpfs，可对比双架构适配策略与文件系统架构选型。"
+  },
+  {
+    "id": 38,
+    "name": "HatOS",
+    "select_reason": "同为xv6基座、C语言，且支持ext4文件系统。HatOS额外集成FAT32、COW、动态链接和信号机制，对比可体现F423OS在功能覆盖（只读ext4、无动态链接）上的设计边界与取舍。"
+  },
+  {
+    "id": 27,
+    "name": "xv6",
+    "select_reason": "均基于xv6，并引入ext4文件系统与Linux兼容系统调用。该项目移植lwext4库实现ext4，而F423OS自研只读解析器，可鲜明对比“移植成熟库”与“自研最小化实现”两种工程路线的代价与收益。"
+  },
+  {
+    "id": 66,
+    "name": "Explosion OS",
+    "select_reason": "不同生态（rCore/Rust）但同样从零自研完整EXT4文件系统，并支持双架构。对比Rust安全与模块化对ext4实现的影响，以及语言和基座差异在内存管理、并发模型上带来的路线分歧。"
+  }
+]
+```

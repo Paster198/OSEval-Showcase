@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 65,
+    "name": "TatlinOS",
+    "select_reason": "同为无基座Rust宏内核，均支持RISC-V与LoongArch双架构，实现懒分配与COW内存管理，兼容百余Linux系统调用，技术路线高度重合，适合直接对比架构设计与实现深度。"
+  },
+  {
+    "id": 32,
+    "name": "MinotaurOS",
+    "select_reason": "同为无基座Rust宏内核，但采用全异步内核设计与统一事件总线机制，与RocketOS的同步调度形成鲜明技术路线对比，可深入比较两种并发模型的优劣与适用场景。"
+  },
+  {
+    "id": 68,
+    "name": "NPUcore-Aspera",
+    "select_reason": "同为无基座Rust宏内核且支持双架构，在内存管理方面有突出深度（多层OOM处理、Zram压缩、Swap交换），与RocketOS可形成内存子系统专项对比，评估各自设计取舍。"
+  },
+  {
+    "id": 72,
+    "name": "Chronix",
+    "select_reason": "同为无基座Rust宏内核且支持双架构，基于异步模型实现调度并覆盖约200个系统调用，具备负载追踪与多核负载均衡，可比较系统调用覆盖广度与调度器设计差异。"
+  },
+  {
+    "id": 46,
+    "name": "ChCore",
+    "select_reason": "采用微内核架构与能力模型实现严格资源管理，与RocketOS的宏内核设计形成根本性范式差异，适合从内核架构层面比较资源隔离、通信开销与扩展性等核心设计维度。"
+  }
+]
+```

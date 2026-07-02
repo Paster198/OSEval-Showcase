@@ -1,0 +1,17 @@
+{
+  "name": "HITOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持250+个系统调用，涵盖文件/进程/信号/网络/IPC，通过LTP测试驱动开发",
+    "RISC-V与LoongArch双架构统一抽象，独立页表/Trap/上下文切换，实现代码高度复用",
+    "采用EEVDF公平调度器结合RT优先级调度，支持四种策略，多核负载均衡",
+    "实现PID/挂载/网络/UTS等多命名空间隔离及cgroup v2，提供近似容器的隔离能力",
+    "集成WireGuard VPN控制面与Noise握手，基于smoltcp实现TCP/UDP/Unix socket/netlink"
+  ]
+}

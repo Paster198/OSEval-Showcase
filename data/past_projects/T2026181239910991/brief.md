@@ -1,0 +1,3 @@
+TxKernel 是一个使用 Rust 语言开发的类 Unix 宏内核，目标平台为 RISC‑V 64 与 LoongArch 64 的 QEMU 虚拟环境。项目代码规模约 34 万行，以 Cargo workspace 组织 30 余个 crate，采用分层架构覆盖进程管理、虚拟内存、VFS、TCP/IP 网络栈、信号、IPC、epoll、futex 等主要内核子系统，并实现了超过 120 个 Linux 系统调用，具备良好的 Linux ABI 兼容性。
+
+内核的核心创新在于 Step v3 形式化操作代数：所有可能阻塞的内核操作被统一建模为实现了 `StepOp` trait 的有限状态机，通过 `Done/Progress/Yield/Err` 四态结果表达完成、进展、等待和错误语义，使得复杂的异步控制流（如 fork、缺页处理、网络收发）具备高度的可组合性。在此基础上，内核实现了基于 Epoch‑Based Reclamation 的 Zone 分配器、身份‑负载分离的对象模型以及 `OnBehalfOf` 执行范围等机制，在保持内存安全的同时支撑起 SMP 多核调度和基于 reactor 的异步运行时。项目已能在 QEMU 上实际启动并运行用户态程序，展示了在异步操作代数与 Rust 内存安全结合方向的深入工程探索。

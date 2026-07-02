@@ -1,0 +1,17 @@
+{
+  "name": "Chronix",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于async/await的异步内核调度模型，系统调用与文件操作均为异步",
+    "通过trait抽象实现RISC-V与LoongArch双架构硬件抽象层，代码复用率超90%",
+    "VFS层内置页缓存支持，Inode直接提供缓存读写方法",
+    "完整实现31种标准信号与33种实时信号，支持优先级继承futex与robust futex",
+    "内核集成AES、Salsa20、SHA-2等密码学原语以支持/dev/urandom与网络安全"
+  ]
+}

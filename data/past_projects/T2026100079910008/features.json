@@ -1,0 +1,17 @@
+{
+  "name": "Ax",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构 trait 抽象实现 RISC-V 与 LoongArch 高度代码共享",
+    "编译期求值构造系统调用表与引导页表，消除运行时开销",
+    "完整 POSIX 信号子系统，支持实时信号与自定义处理函数",
+    "futex 支持 WAIT/WAKE/REQUEUE/CMP_REQUEUE/WAIT_BITSET 五种操作",
+    "LoongArch 利用 DMW 实现天然 Meltdown 免疫，无需 KPTI"
+  ]
+}

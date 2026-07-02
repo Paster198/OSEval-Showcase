@@ -1,0 +1,17 @@
+{
+  "name": "wll_OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过统一HAL实现RISC-V64与LoongArch64双架构支持",
+    "内核内建评测Harness实现同步测试编排与结果收集",
+    "挂载表驱动混合VFS，融合MemFS、ext4与VFAT后端",
+    "构建时ELF预载机制免去初始ramdisk依赖并加速启动",
+    "自研ext4页缓存脏状态机与可配置异步写回队列"
+  ]
+}

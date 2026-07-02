@@ -1,0 +1,17 @@
+{
+  "name": "SuperOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "HAL/HSAI分层设计实现RISC-V与LoongArch双架构内核核心代码共享",
+    "完整移植嵌入式EXT4文件系统，支持extent树、HTree索引及JBD2日志",
+    "实现119个Linux兼容系统调用，可运行busybox及glibc/musl动态链接程序",
+    "Buddy+SLAB物理内存分配器与VMA虚拟内存管理构建完整内存管理子系统",
+    "支持动态链接ELF加载，兼容多架构解释器、PIE及shebang脚本"
+  ]
+}

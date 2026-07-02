@@ -1,0 +1,17 @@
+{
+  "name": "RocketOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同时支持RISC-V与LoongArch架构，LoongArch CSR寄存器实现类型安全封装",
+    "实现ext4 extent树读写支持及完整VFS层，集成多文件系统",
+    "实现约208个Linux兼容系统调用，覆盖进程、文件、网络等核心功能",
+    "基于Rust原子操作实现可靠TCP状态机，设计统一FutexKey标识",
+    "自定义页表标志位实现写时复制和共享页面的高效管理"
+  ]
+}

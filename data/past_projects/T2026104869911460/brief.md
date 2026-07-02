@@ -1,0 +1,5 @@
+AsyncBridge 是一个基于异步运行时 (async runtime) 的宏内核，面向 RISC-V 64 和 LoongArch 64 架构，追求现代操作系统设计与 Linux 系统调用兼容性的统一。其核心定位是利用 Rust 语言的 async/await 语义，将整个内核的系统调用层构建为原生异步模型，从而在宏内核结构下实现对 I/O 密集型负载的高效调度与资源管理。
+
+该项目的核心特点在于以异步执行模型替代传统内核中的同步阻塞语义。所有系统调用均以 Rust async fn 实现，阻塞 I/O 操作通过内核异步运行时 (MultiLevelRuntime) 挂起任务而非阻塞线程，调度器由此能够在同一执行上下文中无缝切换至其他就绪任务。围绕这一范式，内核设计了统一的 EventSource/Waker 机制，将管道的就绪等待、futex 的挂起唤醒、信号的异步投递、定时器超时等异构等待语义收敛于一套 `poll_ready` 加 Waker 回调的等待模型，从而简化了并发控制逻辑并提升了对 POSIX 信号中断与超时条件的处理一致性。
+
+在系统完整性方面，AsyncBridge 实现了涵盖约 293 个系统调用、支持五种文件系统 (ramfs, devfs, procfs, ext4, FAT32) 且具备页缓存与块缓存的完整 VFS 层，以及包括写时复制 (COW) 支持、mmap、System V 共享内存在内的虚拟内存管理子系统。进程管理涵盖 fork/clone/execve 完整生命周期、四种 namespace 隔离和 POSIX 信号子系统。网络方面基于 smoltcp 协议栈实现了 TCP/UDP socket。整体内核代码规模约 77,000 行 Rust（不含 vendor），在宏内核的异步设计路线上具备突出的架构创新价值与较高的工程实现水准。

@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2026-X",
+  "kernel_type": "monolithic",
+  "ecosystem": "RT-Thread",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于RT-Thread宏内核实现用户态进程环境，形成OS-on-OS双层架构",
+    "通过弱引用钩子将内核trap处理无缝桥接到自研系统调用处理器",
+    "直接解析EXT4块设备的只读扫描器，无需传统文件系统栈",
+    "自研内存文件系统支持管道、伪文件与动态ELF文件加载",
+    "引入syscall预算机制限制用户程序调用次数，防止资源耗尽"
+  ]
+}

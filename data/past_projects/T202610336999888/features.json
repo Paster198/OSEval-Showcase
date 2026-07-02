@@ -1,0 +1,19 @@
+{
+  "name": "OrayS",
+  "kernel_type": "unikernel",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "在ArceOS unikernel上构建完整Linux ABI兼容层，实现231+系统调用",
+    "实现写时复制(COW)fork，支持vfork优化和独立页表隔离",
+    "多架构信号栈帧(RISC-V/LoongArch)及实时信号传递与系统调用重启",
+    "精细的虚拟文件系统元数据层，满足LTP对stat/chown/xattr等POSIX语义需求",
+    "采用Linux内核CFS权重表实现完全公平调度，支持nice值和SMP亲和性"
+  ]
+}

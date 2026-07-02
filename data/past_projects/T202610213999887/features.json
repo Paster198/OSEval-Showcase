@@ -1,0 +1,17 @@
+{
+  "name": "name_undefined",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "实现EXT4完整读写支持，含extent树分配、分裂与扩展操作",
+    "统一VFS层同时支持RISC-V和LoongArch双异构架构",
+    "通过642项LTP测试，实现高Linux ABI兼容性",
+    "实现AF_ALG加密算法套接字，支持salsa20、aes等加密算法",
+    "完整信号处理机制，支持SA_SIGINFO、SA_RESTART等高级特性"
+  ]
+}

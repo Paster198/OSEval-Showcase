@@ -1,0 +1,17 @@
+{
+  "name": "name_undefined",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "crate_interface跨crate回调机制，类型安全解决底层调用上层循环依赖",
+    "sigtrx信号传递trampoline利用非法指令优雅实现sigreturn",
+    "共享文件页缓存实现MAP_SHARED多进程物理帧共享",
+    "高半内核执行模型避免trampoline页面复杂性",
+    "详尽OOM诊断与借用冲突诊断增强内核可调试性"
+  ]
+}

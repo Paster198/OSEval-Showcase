@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 5,
+    "name": "OSKernel2024-KeepOnOS",
+    "select_reason": "同为 ArceOS 生态、Rust 语言、宏内核类型。KeepOnOS 支持三种架构、百余系统调用，侧重广度；Aurora 专注单架构但深度实现 ext4/CoW，形成同生态广度与深度对比。"
+  },
+  {
+    "id": 40,
+    "name": "ZeroOS",
+    "select_reason": "同为 ArceOS 生态、Rust 宏内核，但采用异步模型实现系统调用。Aurora 以同步为主、仅含最小异步执行器，两者在调度模型上形成异步与同步架构路线的直接对比。"
+  },
+  {
+    "id": 69,
+    "name": "StarryOS",
+    "select_reason": "同为 ArceOS 生态、Rust 宏内核，均实现写时复制与 Futex 同步机制。StarryOS 使用分片 Futex 表减少锁竞争，Aurora 以自定义 PTE_COW 位实现 CoW，可对比两种实现策略。"
+  },
+  {
+    "id": 25,
+    "name": "TOYOS",
+    "select_reason": "同支持 FAT32 与 ext4 双文件系统、ELF 动态链接与 mmap。TOYOS 用 C 语言实现，Aurora 用 Rust，在相同技术目标下形成 C 与 Rust 实现路径的对比。"
+  },
+  {
+    "id": 62,
+    "name": "OSakura",
+    "select_reason": "同为 C 语言实现的 ext4 文件系统含 Extent 树寻址，与 Aurora 的 Rust 版 ext4 形成直接功能对照。可比较 ext4 完整度、Extent 实现深度及不同语言的工程表达。"
+  }
+]
+```

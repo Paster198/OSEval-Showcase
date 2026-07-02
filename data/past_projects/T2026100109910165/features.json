@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2026",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "统一VFS抽象层，将多种文件系统接口一致化为file_operations/inode_operations",
+    "基于trampoline页面的Sv39地址空间切换机制，保证取指连续性并隔离用户态",
+    "内联procfs于VFS模块，通过模板和动态PID目录实现灵活的/proc文件系统",
+    "条件嵌入musl动态加载器，在内存中创建ld-musl文件支持动态链接程序",
+    "EXT4目录项预缓存8192条，加速路径查找避免重复磁盘访问"
+  ]
+}

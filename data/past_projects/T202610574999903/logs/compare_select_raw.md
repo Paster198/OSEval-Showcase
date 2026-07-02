@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 2,
+    "name": "MyOs",
+    "select_reason": "同为rCore生态的Rust宏内核，但实现了FAT32文件系统、SV39虚拟内存与多线程管理，可对比当前项目从批处理到完整内核的功能演进路径。"
+  },
+  {
+    "id": 31,
+    "name": "NPUcore",
+    "select_reason": "基于rcore-tutorial，具备多层级OOM处理、FAT32与VFS层、信号机制等完整功能，对比当前仅实现批处理和系统调用的教学内核，凸显后续开发方向。"
+  },
+  {
+    "id": 35,
+    "name": "TrustOS",
+    "select_reason": "同为rCore生态，支持百余个系统调用、ext4文件系统、信号与Futex等，实现度极高，与当前项目形成‘基础—完备’的强对比，展现Rust宏内核的可能性。"
+  },
+  {
+    "id": 23,
+    "name": "ChaOS",
+    "select_reason": "基于rCore，支持QEMU与VisionFive2双平台、SV39分页与ext4文件系统，对比当前仅支持QEMU和无文件系统的状态，体现平台与文件系统扩展的参考价值。"
+  },
+  {
+    "id": 19,
+    "name": "asynclear",
+    "select_reason": "采用Rust异步模型实现非阻塞内核调度，设计哲学与当前同步批处理内核截然不同，可对比同步/异步两种技术路线的架构差异与权衡。"
+  }
+]
+```

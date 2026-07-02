@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于ArceOS unikernel框架构建Linux兼容宏内核，通过补丁层优雅扩展上游功能",
+    "实现约269个Linux系统调用，支持多架构，可运行大量LTP测试和busybox userspace",
+    "提供完整的伪文件系统，包括/proc、/sys、/dev、tmpfs、tracefs及带崩溃恢复的JournalFS",
+    "创新采用scope_local资源隔离与统一FileLike trait多态文件抽象，提高模块化与类型安全",
+    "成熟的futex实现，支持私有/共享、bitset、requeue、robust list及futex_waitv，跨进程共享设计巧妙"
+  ]
+}

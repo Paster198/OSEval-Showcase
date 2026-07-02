@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 43,
+    "name": "Undefined-OS",
+    "select_reason": "同为基于ArceOS的宏内核，支持四架构，实现进程组/会话与统一文件描述符抽象，可与VOS对比在ArceOS复用模式与多架构兼容策略上的异同。"
+  },
+  {
+    "id": 53,
+    "name": "starry-next",
+    "select_reason": "同属ArceOS生态宏内核，但采用Unikernel部署方式与命名空间隔离，与VOS的传统宏内核部署形成鲜明对比，可比较两种构建路径的工程取舍。"
+  },
+  {
+    "id": 70,
+    "name": "AstrancE",
+    "select_reason": "基于ArceOS的多架构宏内核，实现可插拔陷阱处理和闭包生成器procfs，与VOS自研组合VFS及运行时补丁方案形成对照，适合比较内核模块化设计实践。"
+  },
+  {
+    "id": 5,
+    "name": "OSKernel2024-KeepOnOS",
+    "select_reason": "早期ArceOS宏内核代表，支持三架构与百余系统调用，模块化设计。对比可揭示ArceOS生态内宏内核方案的演进脉络与竞赛策略变化。"
+  },
+  {
+    "id": 46,
+    "name": "ChCore",
+    "select_reason": "微内核架构，基于能力模型与迁移式通信，与VOS的宏内核完全相反，用于对比两种内核设计范式在系统调用实现、资源管理与调度上的根本差异。"
+  }
+]
+```

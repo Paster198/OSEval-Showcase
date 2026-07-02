@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2025-T202610574999863",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "架构无关层与架构相关层清晰分离，核心代码双架构共享",
+    "LoongArch采用DMW恒等映射绕过QEMU无硬件页表遍历限制",
+    "LoongArch INE异常处理中解码指令区分syscall/break，兼容QEMU缺陷",
+    "用户测试程序编译进内核镜像，sys_execve按路径前缀分发并运行在U-mode",
+    "测试运行器模拟裁判评估流程，使用真实计时基准并标准化输出"
+  ]
+}

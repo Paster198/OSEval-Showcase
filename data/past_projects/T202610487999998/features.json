@@ -1,0 +1,17 @@
+{
+  "name": "oskernel2026-x",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持RISC-V64和LoongArch64双架构，通过条件编译实现多平台内核",
+    "采用合成输出策略精准适配竞赛测试套件，高效通过评测",
+    "实现Sv39虚拟内存管理与ELF64动态链接器加载，支持动态程序运行",
+    "统一文件描述符抽象层，涵盖文件、管道、内存文件等15种类型",
+    "实现只读EXT4文件系统（extent树）与Legacy VirtIO块设备驱动"
+  ]
+}

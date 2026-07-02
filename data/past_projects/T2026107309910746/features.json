@@ -1,0 +1,16 @@
+{
+  "name": "name_undefined",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "实现完整VFS抽象层，支持xv6与ext4双后端共存",
+    "扩展Linux ABI兼容层，实现约90个系统调用支持运行Linux二进制",
+    "支持COW与2MB大页，包含按需分页mmap及mprotect",
+    "实现POSIX线程语义，支持CLONE_THREAD/VM/FILES/FS线程组模型",
+    "内核内实现socket机制，复用文件结构支持UDP和流式连接"
+  ]
+}

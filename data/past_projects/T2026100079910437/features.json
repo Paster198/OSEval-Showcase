@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "x86_64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "创新的vSched2用户态调度框架，将调度逻辑通过VDSO移至用户态",
+    "覆盖约206个Linux系统调用，支持运行复杂用户程序",
+    "基于ArceOS框架，支持RISC-V/x86_64/AArch64/LoongArch多架构",
+    "完整的VFS抽象、独立MemoryFs与动态procfs实现",
+    "定制化VDSO构建工具链，自动化生成调度器共享库"
+  ]
+}

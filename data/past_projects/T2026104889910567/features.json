@@ -1,0 +1,16 @@
+{
+  "name": "NoobKernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "内嵌ELF用户程序至内核镜像，简化启动流程",
+    "VirtIO块设备驱动同时兼容Modern与Legacy模式",
+    "实现动态链接ELF加载与解释器路径自动重映射",
+    "引入trapframe完整性校验，用于检测内存损坏",
+    "per-CPU Kmalloc分配器设计，提升多核缓存局部性"
+  ]
+}

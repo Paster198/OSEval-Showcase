@@ -1,0 +1,17 @@
+{
+  "name": "GoodOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "精细HAL trait体系实现RISC-V与LoongArch双架构零成本抽象，代码路径干净分离",
+    "COW引用计数与位图双轨制物理页帧分配器，fork时共享页面、写时断裂逻辑完整",
+    "LoongArch DMW直接内存窗口优化，内核通过高地址直接访问物理内存，消除进程页表冗余映射",
+    "PT_INTERP fallback映射表使内核自适应musl与glibc两种libc的动态链接器路径差异",
+    "EXT4文件系统含页缓存与LRU淘汰，针对LoongArch顺序I/O的last-page cache快速路径"
+  ]
+}

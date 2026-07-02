@@ -1,0 +1,17 @@
+{
+  "name": "Ferriswheel OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构独立实现，RISC-V与LoongArch两套内核共享设计理念，展示跨架构可移植性",
+    "通过KernelDevOp trait将lwext4 C库与Rust VirtIO块设备驱动无缝桥接，复用成熟ext4实现",
+    "实现较完整的Linux ABI兼容，支持musl和glibc动态链接ELF加载，含auxv/TLS等辅助向量构造",
+    "进程级同步原语管理，将mutex/semaphore/condvar列表内置于PCB中，简化进程退出时资源回收",
+    "务实设计策略，大量系统调用采用桩函数返回0以满足LTP测试框架需求，以最少代码最大化兼容性"
+  ]
+}

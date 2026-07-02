@@ -1,0 +1,17 @@
+{
+  "name": "OSKernel2026",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过PlatformOps trait与条件编译统一RISC-V和LoongArch双架构抽象",
+    "VFS多层架构支持ramfs/只读ext4/写时覆盖层，实现叠加写入",
+    "实现150+ Linux系统调用，涵盖进程、信号、内存、文件与网络",
+    "基于引用计数的物理帧分配与COW机制，支持fork时共享内存页",
+    "编译期自测框架通过环境变量选择测试模块，无需外部测试依赖"
+  ]
+}

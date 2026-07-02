@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于ArceOS单内核框架构建Linux兼容宏内核，复用HAL/驱动/文件系统等基础设施实现多进程支持",
+    "统一FileLike trait实现普通文件、管道、socket、epoll、eventfd等多态文件类型的零开销类型擦除管理",
+    "通过enum_dispatch实现Linear/Cow/Shared/File四种映射后端的零开销多态，统一支持mmap多种语义",
+    "回调驱动的SimpleFs伪文件系统框架，通过DirMaker惰性构建动态目录实现/proc等按需内容生成",
+    "进程级与线程级双层信号管理器设计，结合快速路径标志实现高性能信号检查与POSIX语义兼容"
+  ]
+}

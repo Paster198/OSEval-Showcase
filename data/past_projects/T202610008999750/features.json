@@ -1,0 +1,19 @@
+{
+  "name": "Starry",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "x86_64",
+    "aarch64",
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于ArceOS组件框架的宏内核，子系统作为独立crate解耦开发",
+    "类型擦除扩展机制实现进程/线程数据解耦，遵循开放封闭原则",
+    "BusyBox applet自动映射与递归shebang解析，兼容无符号链接环境",
+    "编译时条件追踪，通过环境变量按需启用子系统调试日志",
+    "统一处理四种架构差异并支持全离线构建"
+  ]
+}

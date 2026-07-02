@@ -1,0 +1,17 @@
+{
+  "name": "MeteorOS-X",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双调度器融合设计，同时支持协程式内核任务和进程调度",
+    "TrapFrame 置于内核栈顶，简化内存管理并提升上下文切换效率",
+    "基于 trait 接口编译期依赖反转，实现 HAL 与高层模块解耦",
+    "构建完整 VFS 层，支持 ext4、FAT32、ramfs 和挂载命名空间",
+    "ext4 实现独立块缓存层，采用 LRU 淘汰与回写策略"
+  ]
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "燕山大学-模仿游戏-T202510216995249-4014",
+    "name": "starry-next",
+    "select_reason": "同为基于ArceOS的宏内核，采用Unikernel方式部署宏内核功能，利用AxNamespace实现进程隔离，独立页表信号跳板，与当前StarryOS设计高度同源，可对比架构演进与特性增量。"
+  },
+  {
+    "id": "海南大学-狗剩-T202510589995148-2209",
+    "name": "StarryOS",
+    "select_reason": "同名项目，均为ArceOS生态的Rust宏内核，支持四架构，实现COW、VFS、SystemV IPC及信号，重点比较分片Futex表与多核优化策略。"
+  },
+  {
+    "id": "南开大学-萌新-T202410055992606-3389",
+    "name": "OSKernel2024-KeepOnOS",
+    "select_reason": "早期基于ArceOS的宏内核标杆，组件化架构完整支持三架构、百余系统调用，可对比ArceOS宏内核基础框架的演进与当前StarryOS的扩展深度。"
+  },
+  {
+    "id": "清华大学-undefined-T202510003995291-2331",
+    "name": "Undefined-OS",
+    "select_reason": "同样是ArceOS生态的2025年项目，实现四架构、进程组与会话层次模型、动态伪文件系统框架及系统调用追踪宏，可对比进程模型和伪文件系统的实现差异。"
+  },
+  {
+    "id": "杭州电子科技大学-StarryX-T202510336995486-3037",
+    "name": "StarryX",
+    "select_reason": "同为Star系列ArceOS宏内核，提供清晰分层与可复用模块设计，实现完整SysV IPC与信号，可比较不同团队在ArceOS基座上实现交叉设计理念的异同。"
+  }
+]

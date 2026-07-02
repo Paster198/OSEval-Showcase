@@ -1,0 +1,17 @@
+{
+  "name": "CoreCraft",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构统一抽象，通过trait清晰隔离RISC-V与LoongArch差异",
+    "策略-执行分离的页面故障处理，正确实现COW与延迟分配",
+    "多后端VFS体系，统一集成ext4/devfs/procfs/tmpfs等",
+    "信号子系统完备，支持实时信号队列、信号跳板和强制投递",
+    "深度集成LTP测试，嵌入式测试运行时实现自动化回归"
+  ]
+}

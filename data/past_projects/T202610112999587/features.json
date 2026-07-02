@@ -1,0 +1,17 @@
+{
+  "name": "MyGO!!!!! OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "loongarch64",
+    "riscv64"
+  ],
+  "highlights": [
+    "完整实现 Linux 6.6 EEVDF 调度器，支持 Fair/RT/Deadline/Idle 四种调度类别",
+    "Task 扩展槽机制实现类型安全的跨子系统数据共享，避免进程控制块膨胀",
+    "从零手写 ext4 和 FAT12/16/32 文件系统驱动，支持 extent 树与 LFN 长文件名",
+    "完善 VFS 层提供分片 Dentry/Inode 缓存、挂载命名空间、epoll/eventfd 等接口",
+    "双架构支持 LoongArch64 和 RISC-V64，展示架构无关分层与注入式设计"
+  ]
+}

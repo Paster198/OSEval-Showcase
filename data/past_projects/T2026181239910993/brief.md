@@ -1,0 +1,3 @@
+Kairix OS (Unicus) 是一个采用 Rust 实现的宏内核操作系统，面向 RISC-V 64 和 LoongArch 64 等架构。内核通过硬件抽象层 polyhal 统一多平台差异，并在 riscv64 上完成完整的 QEMU virt 平台启动与运行验证。项目以 Linux ABI 兼容为设计目标，提供 150 余项系统调用、POSIX 进程模型、完整的信号处理、futex 及 Landlock 沙箱等机制，能够运行为 musl 或 glibc 编译的用户态程序。
+
+Kairix OS 在内存管理方面表现出色，除页帧分配、写时复制和惰性分配外，还实现了内核同页合并（KSM）、页面回收与文件后端交换等高级特性。文件系统通过统一的 VFS 抽象同时集成 ext4、FAT32、tmpfs、devfs、procfs 和 sysfs，并基于 lwext4 C 库为 ext4 提供读写、扩展属性与 fallocate 支持。内核从零构建了自包含的 TCP/IP 协议栈，涵盖以太网、ARP、IP 分片重组、ICMP、TCP 状态机及 UDP 传输，配合 Socket 层可支持 TCP/UDP/原始套接字。此外，fanotify 权限事件和 Landlock ABI v6 兼容实现进一步增强了内核的安全与可观察性。整体设计结构清晰、功能覆盖广泛，在竞赛级 OS 内核中展现出较高的成熟度和工程质量。

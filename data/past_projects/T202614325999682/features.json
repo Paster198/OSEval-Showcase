@@ -1,0 +1,17 @@
+{
+  "name": "Sustcore",
+  "kernel_type": "hybrid",
+  "ecosystem": "无",
+  "language": "C++",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "实现完整的capability安全模型，支持细粒度权限传递与COW集成",
+    "三层内存分配器（Buddy+SLUB+GFP）与懒分配、COW深度结合",
+    "从零实现ext4文件系统读写，包含LRU页缓存和多类型文件系统",
+    "利用C++20/23 Concepts、Result等特性构建类型安全的双架构内核",
+    "基于Promise/Future的异步IPC模型，支持同步/异步及RPC模式"
+  ]
+}

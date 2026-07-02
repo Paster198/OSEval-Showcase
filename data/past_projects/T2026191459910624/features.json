@@ -1,0 +1,19 @@
+{
+  "name": "Starry_fix",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于ArceOS组件化框架构建Linux兼容宏内核",
+    "scope_local机制实现线程局部资源的灵活共享与隔离",
+    "FileLike trait统一文件抽象与稀疏数组FD表设计",
+    "VmPtr/VmMutPtr提供零开销安全的用户态内存访问",
+    "信号子系统独立为starry_signal crate，实现完整siginfo"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Starry Next",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "在ArceOS Unikernel基础上实现多进程宏内核，达到高Linux ABI兼容性",
+    "内核内嵌动态链接器和libc，启动即运行动态链接用户程序",
+    "精准匹配musl libc线程和TLS布局，支持未修改Linux程序运行",
+    "自包含竞赛评测框架，含多级看门狗、输出解析和在线内存诊断",
+    "细粒度内存压力管理与多级回收策略，保障长时间测试稳定性"
+  ]
+}

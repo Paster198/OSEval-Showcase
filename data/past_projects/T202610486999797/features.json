@@ -1,0 +1,17 @@
+{
+  "name": "AuroraKernel",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过9个架构契约头文件实现RISC-V和LoongArch64双架构并行支持",
+    "完整文件系统栈：FAT32读写、EXT4只读、VFS抽象层、pipe/procfs/memfile",
+    "约90+系统调用支持，可运行musl libc测试套件及部分LTP用例",
+    "进阶内存管理：mmap延迟分配、CLONE_VM共享、引用计数页面共享",
+    "采用static inline条件编译实现零函数调用开销的架构抽象层"
+  ]
+}

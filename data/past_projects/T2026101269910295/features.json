@@ -1,0 +1,17 @@
+{
+  "name": "oskernel2026-tmtos",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "全面扩展至120+系统调用，涵盖文件、信号、定时器、网络等Linux generic ABI",
+    "集成lwext4实现EXT4完整读写支持，并通过sleeplock保护文件系统临界区",
+    "支持RISC-V与LoongArch双架构，LoongArch最小内核复用lwext4驱动",
+    "多级测试运行器与watchdog机制确保basic/busybox/LTP等七大测试组真实执行",
+    "ELF加载器支持PIE与PT_INTERP动态链接器，实现4MB可执行文件缓存优化"
+  ]
+}

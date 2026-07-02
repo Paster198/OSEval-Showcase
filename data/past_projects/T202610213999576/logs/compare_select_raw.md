@@ -1,0 +1,29 @@
+```json
+[
+   {
+      "id": 68,
+      "name": "NPUcore-Aspera",
+      "select_reason": "同为独立Rust宏内核，支持RISC-V与LoongArch双架构，实现ext4+FAT32双文件系统、COW、信号及OOM处理，技术路线高度相似，适合进行架构抽象、文件系统深度及内存管理策略的细致对比。"
+   },
+   {
+      "id": 72,
+      "name": "Chronix",
+      "select_reason": "同为Rust独立开发的宏内核，支持riscv64与loongarch64双架构，但全面采用异步模型实现调度与IO，与QuasarOS的同步抢占式设计形成鲜明对比，可深入分析不同并发模型对系统复杂度与性能的影响。"
+   },
+   {
+      "id": 57,
+      "name": "StarryX",
+      "select_reason": "基于ArceOS组件化框架构建的Rust宏内核，同样支持多架构与完整信号/IPC，其模块化、分层设计与QuasarOS的独立开发模式构成对比，可评估框架复用与自主实现的各自优势。"
+   },
+   {
+      "id": 54,
+      "name": "SC7",
+      "select_reason": "以C语言和XV6基座实现的双架构宏内核，同样具备ext4文件系统与Futex等特性，与QuasarOS的Rust独立实现形成语言及生态的双重对照，有助于分析开发效率、安全性与内核结构差异。"
+   },
+   {
+      "id": 36,
+      "name": "ByteOS",
+      "select_reason": "同为Rust无生态宏内核，支持riscv64、x86_64、aarch64、loongarch64四架构，采用异步协作式调度并兼容百余POSIX调用，其更广泛的架构覆盖与异步模型为QuasarOS的双架构同步设计提供了扩展性参照。"
+   }
+]
+```

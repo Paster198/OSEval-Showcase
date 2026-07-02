@@ -1,0 +1,19 @@
+{
+  "name": "Starry",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于ArceOS组件基座，通过TaskExt与scope_local机制实现Unix宏内核语义",
+    "两级ELF缓存策略，Text段跨进程物理页共享，加速高频exec场景",
+    "实现187个系统调用，深度适配LTP测试套件，覆盖75% POSIX核心功能",
+    "COW优化fork、tmpfs预测性回收与地址空间复制失败重试机制",
+    "完整支持riscv64/loongarch64/aarch64/x86_64四架构，架构差异处理清晰"
+  ]
+}

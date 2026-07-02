@@ -1,0 +1,16 @@
+{
+  "name": "Aurora",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "全自主实现ext4文件系统，含extent树寻址、文件创建与写入",
+    "手写RISC-V机器码用户态测试程序，自包含覆盖16+系统调用路径",
+    "基于PTE_COW标志位与帧引用计数实现完整的Copy-on-Write fork",
+    "全内核采用无堆分配设计，所有数据结构使用预分配静态数组",
+    "模块化VFS架构支持ext4/FAT32/memfs/devfs多后端挂载与统一访问"
+  ]
+}

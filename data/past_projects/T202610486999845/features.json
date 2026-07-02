@@ -1,0 +1,17 @@
+{
+  "name": "alRED OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于静态帧池的 eager fork 快照机制实现多级嵌套分叉",
+    "内存 Overlay VFS 在只读 EXT4 上提供透明写文件能力",
+    "大规模 Linux ABI 兼容层覆盖 282 个系统调用",
+    "协作式线程调度与 futex 同步在单核环境下支持 pthread 语义",
+    "RISC-V 与 LoongArch 双架构复用核心代码库"
+  ]
+}

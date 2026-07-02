@@ -1,0 +1,17 @@
+{
+  "name": "Ya2yOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "同时支持RISC-V64和LoongArch64双架构，架构差异隔离清晰",
+    "约295个系统调用覆盖文件、网络、进程等，实现深度Linux ABI兼容",
+    "完整实现robust futex与PI互斥锁，支持优先级继承和OWNER_DIED处理",
+    "支持Linux新挂载API（fsopen/fsmount等），适配现代容器运行时基础接口",
+    "fork时正确处理MAP_SHARED区域预分配物理帧，确保共享语义一致性"
+  ]
+}

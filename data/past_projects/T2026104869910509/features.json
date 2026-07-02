@@ -1,0 +1,17 @@
+{
+  "name": "LetsgOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "完全异步内核，基于Rust async/await实现协作式系统调用",
+    "双架构统一抽象，共享95%以上代码支持RISC-V64和LoongArch64",
+    "实现193个系统调用，覆盖epoll、io_uring、fanotify等现代Linux特性",
+    "类型化VMA结合函数指针缺页处理，兼顾模块化与执行效率",
+    "内建十余种特殊文件系统，包括signalfd、timerfd、memfd、BPF等"
+  ]
+}

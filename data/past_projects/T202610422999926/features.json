@@ -1,0 +1,17 @@
+{
+  "name": "WaterOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "三层分离架构支持Sv39与LoongArch64双平台页表统一抽象",
+    "惰性帧分配器与COW写时复制兼顾内存效率与进程隔离",
+    "跨架构编译期系统调用ABI适配，RISC-V与LA64透明切换",
+    "LRU页缓存采用三级锁顺序设计，避免并发死锁",
+    "实现130+ Linux兼容系统调用，可运行Busybox与LTP等复杂负载"
+  ]
+}

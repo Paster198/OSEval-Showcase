@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 57,
+    "name": "StarryX",
+    "select_reason": "当前项目LoongArch主线基于StarryX，两者共享ArceOS组件化框架和分层xapi/xcore架构，对比可反映对基座的扩展、适配及系统调用实现差异。"
+  },
+  {
+    "id": 53,
+    "name": "starry-next",
+    "select_reason": "同样基于ArceOS生态但采用Unikernel部署方式运行宏内核功能，与当前项目的独立内核部署方式形成架构设计差异，便于评估模块化粒度。"
+  },
+  {
+    "id": 56,
+    "name": "NoAxiom-OS",
+    "select_reason": "同为Rust无栈协程异步调度、双架构支持（riscv64/loongarch64）的自研宏内核，与当前RISC-V主线的异步模型和跨架构设计高度可比。"
+  },
+  {
+    "id": 36,
+    "name": "ByteOS",
+    "select_reason": "基于Rust异步机制的协作式多架构宏内核，实现VFS、COW等特性，且异步调度思想与当前项目一致，能对比系统调用覆盖度和成熟度。"
+  },
+  {
+    "id": 66,
+    "name": "Explosion OS",
+    "select_reason": "从零纯Rust实现EXT4文件系统与双架构硬件抽象，与当前项目通过lwext4 C绑定集成ext4的路线完全不同，可比较文件系统实现的优劣。"
+  }
+]
+```

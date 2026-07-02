@@ -1,0 +1,17 @@
+{
+  "name": "OS_mod",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构泛型地址空间：通过PageTable trait实现Sv39/LaPt统一的COW与需求分页",
+    "LoongArch TLB Refill双模式：汇编内线性窗口与三级页表遍历动态切换",
+    "内核写入COW保护：确保内核memcpy不破坏fork后共享页面的正确性",
+    "Feature-gated渐进演进：快照路径与现代VM共存，编译时安全切换",
+    "宿主机可测试纯逻辑层：页表/信号/COW等386项单元测试无QEMU通过"
+  ]
+}

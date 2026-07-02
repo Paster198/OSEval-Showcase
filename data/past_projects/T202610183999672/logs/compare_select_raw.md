@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 64,
+    "name": "NPUcore-BLOSSOM",
+    "select_reason": "同为NPUcore系列，均采用Rust，支持RISC-V与LoongArch双架构、ext4/FAT32双文件系统、zRAM/Swap及多级OOM。对比可揭示同源项目在架构细化与技术创新上的异同。"
+  },
+  {
+    "id": 56,
+    "name": "NoAxiom-OS",
+    "select_reason": "同为Rust宏内核且支持双架构，但采用无栈协程异步调度，集成五种文件系统与异步驱动。对比可展示同步与异步宏内核在设计范式与并发模型上的根本差异。"
+  },
+  {
+    "id": 54,
+    "name": "SC7",
+    "select_reason": "基于Xv6的C语言宏内核，同样实现RISC-V/LoongArch双架构、ext4文件系统及完整VFS。通过对比可评估Rust安全抽象与C语言传统实现在不同架构兼容性与工程复杂度上的优劣。"
+  },
+  {
+    "id": 46,
+    "name": "ChCore",
+    "select_reason": "微内核架构，采用能力模型与迁移式通信，实现高兼容性标准接口。与MangoCore宏内核对比，可深入分析内核结构、资源管理与系统调用兼容性实现的不同哲学。"
+  },
+  {
+    "id": 52,
+    "name": "Eonix",
+    "select_reason": "同为Rust宏内核，支持x86_64/RISC-V/LoongArch三架构，采用异步调度、RCU及无锁结构。MangoCore的锁式同步与Eonix的异步无锁设计形成鲜明技术路线对立，适合评估性能与安全权衡。"
+  }
+]
+```

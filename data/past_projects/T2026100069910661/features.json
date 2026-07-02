@@ -1,0 +1,16 @@
+{
+  "name": "OSKernel2025-X",
+  "kernel_type": "microkernel",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "不到200行代码实现RISC-V S模式引导及SBI输出",
+    "通过ecall与OpenSBI实现字符输出，遵循SBI规范",
+    "注释中规划了完整的环境模型架构，含进程、内存、文件系统等",
+    "基于GNU Make的构建系统，支持一键编译与QEMU模拟运行",
+    "链接脚本导出内核符号并预留2MiB内存布局，便于内存管理"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "OsKernel_ECC",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "ext4 只读基础层与内存 overlay 结合，实现可写文件系统",
+    "内核内置测试编排框架，直接解析并执行 LTP 等测试脚本",
+    "支持时间命名空间（CLONE_NEWTIME）实现容器兼容性",
+    "自动适配 glibc/musl 的动态链接器路径解析",
+    "SV39 页表按需分页与 mmap 文件映射机制"
+  ]
+}

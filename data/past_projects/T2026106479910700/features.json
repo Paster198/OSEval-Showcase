@@ -1,0 +1,17 @@
+{
+  "name": "yungekc",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "HAL→HSAI→Kernel三层架构实现RISC-V与LoongArch双ISA完整支持",
+    "ext4文件系统完整实现，涵盖Extent树、HTree目录索引与JBD2日志",
+    "144个系统调用遵循Linux ABI，覆盖进程、文件、内存、信号、同步等子系统",
+    "Buddy System与Slab双层内存分配器，结合VMA懒分配与缺页按需映射",
+    "线程级信号处理与futex_waitv多等待同步机制，支持健壮列表与线程取消"
+  ]
+}

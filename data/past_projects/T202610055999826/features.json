@@ -1,0 +1,17 @@
+{
+  "name": "LemonCore",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "通过Rust trait实现RISC-V与LoongArch双架构统一页表抽象",
+    "LoongArch软件TLB Refill处理程序，深入利用架构特性",
+    "调度器独立栈设计，调度上下文不依赖任何任务栈",
+    "编译时预加载应用ELF到VFS页缓存，统一加载路径",
+    "流式ELF加载，从EXT4磁盘直接解析段而不全量缓冲"
+  ]
+}

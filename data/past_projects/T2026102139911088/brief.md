@@ -1,0 +1,3 @@
+HITOS 是一个面向 Linux 兼容的宏内核，采用 Rust 语言编写，支持 RISC-V 64 和 LoongArch 64 双架构。项目以通过 Linux Test Project (LTP) 兼容性测试为目标，实现了约 250 余个系统调用，能够运行 busybox/glibc 用户空间，其系统调用覆盖广度在同类 Rust 内核中较为突出。
+
+核心特点包括：实现 EEVDF 与 RT 两级调度器，支持 SCHED_FIFO/SCHED_RR/SCHED_OTHER 等策略；完整的多核支持（RISC-V 最多 4 HART，含 IPI 与 TLB shootdown）；深度实现 Linux 信号处理（SA_SIGINFO、SA_ONSTACK、SA_RESTART 等）；支持 PID、挂载、网络、UTS 等多类命名空间以及 cgroup v2、capability、资源限制等隔离机制。文件系统层面，在自研 ext4 读库基础上构建了 VFS 层，并提供 proc、cgroup 等伪文件系统；网络栈基于 smoltcp 实现 TCP/UDP、Unix socket、netlink，并集成了完整的 WireGuard VPN 支持。项目采用 LTP 驱动的工程化开发方法，配合丰富的冒烟测试与诊断工具，在 Rust 宏内核项目中展现了较高的工程完成度。

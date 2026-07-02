@@ -1,0 +1,16 @@
+{
+  "name": "BirdOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6-riscv",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "动态优先级调度器基于等待与CPU时间自动平衡分配，防止饥饿",
+    "Copy-on-Write Fork配合引用计数，减少进程复制时的内存开销",
+    "三级混合索引将文件最大尺寸扩展至约67MB，突破xv6限制",
+    "哈希桶加时间戳LRU的缓冲区缓存，降低多核并发I/O锁竞争",
+    "每CPU独立页面分配器及跨CPU窃取，提升物理内存分配并行度"
+  ]
+}

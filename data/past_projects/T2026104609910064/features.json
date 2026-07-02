@@ -1,0 +1,16 @@
+{
+  "name": "OSKernel2026",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "支持 RISC-V64 与 LoongArch64 双架构，通过条件编译统一接口",
+    "复用 PTE 第 9 位实现 CoW 标记，统一 RISC-V 与 LoongArch 缺页处理",
+    "集成银行家算法进行死锁检测，在 mutex 与 semaphore 锁请求中预判安全性",
+    "通过 lwext4 的 Rust FFI 绑定实现 ext4 文件系统支持，超越传统 FAT32"
+  ]
+}

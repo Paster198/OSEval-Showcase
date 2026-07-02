@@ -1,0 +1,17 @@
+{
+  "name": "Eureka OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "统一的HAL trait设计支持RISC-V与LoongArch双架构",
+    "基于Future的协作式调度与简化PELT负载均衡",
+    "基于lwext4的EXT4完整实现，含页缓存与读预取",
+    "覆盖200+系统调用，支持信号、IPC、eBPF解释器等",
+    "实现mount/net/ipc/time四种命名空间基础支持"
+  ]
+}

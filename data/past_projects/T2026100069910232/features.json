@@ -1,0 +1,19 @@
+{
+  "name": "NOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "基于Rust所有权与异步模型实现高并发与内存安全的宏内核",
+    "实现完整的COW、共享映射及带页面驱逐监听的文件映射机制",
+    "提供高度兼容Linux的200余个系统调用及完整的POSIX信号机制",
+    "集成包含行规程与作业控制的完整TTY与PTY终端子系统",
+    "采用LRU缓存加速ELF加载并优化COW批量引用计数减少锁竞争"
+  ]
+}

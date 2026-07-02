@@ -1,0 +1,27 @@
+[
+  {
+    "id": "西安电子科技大学-广告位招租-T202510701995284-398",
+    "name": "NPUcore-Aspera",
+    "select_reason": "与GCore高度镜像的技术栈：双架构(含LoongArch)、自研LAFlex页表、Zram+Swap+OOM三级内存回收、Ext4与FAT32双文件系统、Frame状态机CoW，是直接对标的同期竞赛作品，可深入对比架构设计与实现权衡。"
+  },
+  {
+    "id": "中山大学-KernalCraft-T202510558995240-2536",
+    "name": "Explosion OS",
+    "select_reason": "与GCore同为Rust自研，从零实现完整EXT4，以特质与条件编译抽象多架构，侧重对比EXT4实现深度（是否含extent、多级索引等）以及双架构抽象方式差异。"
+  },
+  {
+    "id": "北京科技大学-SubsToKernel-T202510008995695-2720",
+    "name": "SubsToKernel",
+    "select_reason": "基于rCore生态但实现双架构、COW、延迟分配、银行家算法、动态链接与完整Futex，代表在成熟基座上深度扩展的路线，可与GCore全自研路线进行核心竞争力对比。"
+  },
+  {
+    "id": "武汉大学-OSakura-T202510486995252-114",
+    "name": "OSakura",
+    "select_reason": "C语言实现，明确支持Extent特性的ext4文件系统，与GCore在文件系统深层次实现上具有交叉可比性，同时反映不同语言生态下解决同一复杂问题的工程差异。"
+  },
+  {
+    "id": "杭州电子科技大学-NoAxiom-T202510336995214-148",
+    "name": "NoAxiom-OS",
+    "select_reason": "采用与GCore完全不同的异步无栈协程调度架构，同样支持双架构并实现五种文件系统，提供鲜明的技术路线对比，可揭示异步模型在内核资源管理与性能上的不同表现。"
+  }
+]

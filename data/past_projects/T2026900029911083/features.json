@@ -1,0 +1,17 @@
+{
+  "name": "OSuperBeauty",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "RISC-V",
+    "LoongArch"
+  ],
+  "highlights": [
+    "双架构统一内核，通过条件编译同时支持RISC-V与LoongArch",
+    "集成lwext4库实现完整的ext4文件系统读写支持",
+    "mmap采用惰性分配策略，缺页时按需建立映射并读取文件",
+    "完善的POSIX信号机制，包含信号跳板页和上下文恢复",
+    "实现Futex同步原语，为pthread等用户态线程库提供基础"
+  ]
+}

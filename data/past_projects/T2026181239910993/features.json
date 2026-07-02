@@ -1,0 +1,19 @@
+{
+  "name": "Kairix OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "polyhal多架构HAL层支持四种CPU架构，实现零开销抽象",
+    "自包含TCP/IP协议栈从零实现以太网到传输层完整功能",
+    "实现KSM内核同页合并及页面回收与交换分区机制",
+    "支持Landlock沙箱ABI v6，提供文件和网络访问控制",
+    "150+Linux兼容系统调用，可运行musl/glibc编译程序"
+  ]
+}

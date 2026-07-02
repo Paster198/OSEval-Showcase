@@ -1,0 +1,17 @@
+{
+  "name": "Remilia OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构统一内核设计，架构无关代码占比约84%",
+    "自研CFS-like公平调度器，支持futex优先级继承",
+    "零依赖物理帧分配器与Buddy+Slab内存管理架构",
+    "多路径启动信息解析(DTB/ACPI/fw_cfg)，编译期内嵌initramfs",
+    "内核内测试框架与三层测试体系(单元/端到端/官方测例)"
+  ]
+}

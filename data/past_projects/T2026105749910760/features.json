@@ -1,0 +1,17 @@
+{
+  "name": "LastWhisper",
+  "kernel_type": "monolithic",
+  "ecosystem": "xv6",
+  "language": "C",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "进程-线程双层模型，支持clone多线程，分离进程与线程调度状态",
+    "集成 lwext4 库实现 EXT4 文件系统，支持 Extent 树与日志",
+    "完整 POSIX 信号框架，含 rt_sigframe 与 sigreturn 机制",
+    "基于哈希表的 Futex 实现，支持超时等待",
+    "支持 RISC-V 与 LoongArch 双架构"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "xv6",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "Linux兼容系统调用层，支持33个Linux syscall，按需双路调度",
+    "按需调页与惰性内存分配，透明处理页面错误",
+    "EXT4只读文件系统驱动，独立virtio驱动与自动总线探测",
+    "丰富测试套件，含usertests和Python自动化测试框架"
+  ]
+}

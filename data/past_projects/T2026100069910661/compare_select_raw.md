@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 9,
+    "name": "xv6-riscv",
+    "select_reason": "同为MIT教学操作系统向RISC-V QEMU virt平台的移植；对比可评估当前项目移植路径的完整度与技术决策。"
+  },
+  {
+    "id": 1,
+    "name": "SystemNQB",
+    "select_reason": "同属xv6生态，展示从基础内核启动到实现Linux兼容系统调用和FAT32的扩展路径，可作为当前项目未来发展的直接参照。"
+  },
+  {
+    "id": 8,
+    "name": "xv6-sifive",
+    "select_reason": "同为xv6生态，具备多核SMP、双页表、可插拔存储后端等特性；对比可揭示当前项目在并发与内存管理上的可能演进方向。"
+  },
+  {
+    "id": 46,
+    "name": "ChCore",
+    "select_reason": "微内核设计，与当前项目注释中规划的独立文件系统服务进程理念相呼应；用以比较宏内核与微内核的架构取舍。"
+  },
+  {
+    "id": 3,
+    "name": "wCore OS",
+    "select_reason": "基于Rust的rCore教学内核，实现SV39、VFS与FAT32；与C语言项目形成语言特性与内存安全性的技术路线对比。"
+  }
+]
+```

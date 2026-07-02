@@ -1,0 +1,19 @@
+{
+  "name": "Starry-Next",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "x86_64",
+    "riscv64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于ArceOS unikernel框架扩展为宏内核，架构分层清晰",
+    "命名空间感知的资源管理实现进程间FD等资源隔离与共享",
+    "支持x86_64、RISC-V64、AArch64、LoongArch64四架构",
+    "通过linkme分布式切片机制实现跨模块trap handler注册",
+    "全部依赖vendored确保离线环境下构建完全可复现"
+  ]
+}

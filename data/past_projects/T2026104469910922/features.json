@@ -1,0 +1,16 @@
+{
+  "name": "FrostVista OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C",
+  "architectures": [
+    "riscv64"
+  ],
+  "highlights": [
+    "从零实现EXT4只读文件系统读取器，无需外部库支持",
+    "完整Sv39虚拟内存管理，含写时复制、mmap和惰性分配",
+    "同时支持裸机和OpenSBI双启动模式，启动流程简洁高效",
+    "兼容Linux RISC-V ABI，实现38个关键系统调用",
+    "通过早期模式标志实现低地址到高半核地址空间平滑过渡"
+  ]
+}

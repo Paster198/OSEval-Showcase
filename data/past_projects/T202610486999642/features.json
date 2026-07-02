@@ -1,0 +1,17 @@
+{
+  "name": "WHUSP",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构统一陷阱与系统调用表，上层代码完全共享",
+    "VFS抽象覆盖8类文件系统，内置脏页缓存与预读优化",
+    "块设备I/O双路径设计，非阻塞条件变量与同步回退兼顾性能与安全",
+    "稀疏tmpfs借助重复模式压缩全零区，显著节约内存",
+    "手工构造vDSO ELF，实现免系统调用的用户态快速时钟访问"
+  ]
+}

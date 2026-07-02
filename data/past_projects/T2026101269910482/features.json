@@ -1,0 +1,17 @@
+{
+  "name": "SockCore",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构共享内核层设计，约80%代码在RISC-V64与LoongArch64之间复用",
+    "LoongArch软件TLB重填处理，支持完整三级页表遍历与成对条目填充",
+    "基于汇编setjmp/longjmp的用户程序错误恢复，保障测试连续执行",
+    "EXT4只读驱动支持extent树遍历，可读取标准mkfs.ext4生成的镜像",
+    "编译时环境变量驱动测试配置，灵活切换真实执行与兼容回退策略"
+  ]
+}

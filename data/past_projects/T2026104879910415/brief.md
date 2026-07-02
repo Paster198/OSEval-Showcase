@@ -1,0 +1,3 @@
+VOS 是一个面向全国大学生操作系统设计赛“内核实现”赛道的 Linux 兼容宏内核，基于 ArceOS 框架以外部应用模式构建，在约 2.5 周内从零实现了约 43,600 行核心代码，覆盖 220 个 Linux 系统调用（约占 RISC-V64 Linux syscall 的 73%）。项目支持 RISC-V 64 和 LoongArch 64 双架构，兼容 glibc 和 musl 双运行时，可运行 busybox、libcbench、LTP、iperf 等多个官方测试组，并在 LTP 实测中取得超过 4000 个 case 通过的成果。
+
+VOS 的核心技术亮点包括：以组合式虚拟文件系统将只读 ext4、可写 ramfs、devfs、procfs 和 sysfs 叠加为统一根文件系统视图；在 ELF 装载阶段对官方 musl libc 的只读代码段实施运行时二进制热补丁，从而在不修改评测程序的前提下修复 libc ABI 差异；基于协作式调度的进程/线程模型实现了 fork/clone/execve/exit 完整生命周期，以及信号投递、futex、epoll 等关键同步与 I/O 多路复用机制。工程上，项目采用全离线构建与内置 LTP 白名单策略，在竞赛时间约束下最大化评测得分，其最窄闭环设计与测试驱动的开发方法论为同类竞赛项目提供了实践参考。

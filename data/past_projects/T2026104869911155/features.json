@@ -1,0 +1,17 @@
+{
+  "name": "OSoldierBoy",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "零外部依赖，约3万行纯自包含Rust代码实现完整单体内核",
+    "SyscallResult枚举驱动异步调度，阻塞操作统一解耦与唤醒",
+    "一体化FileCatalog融合EXT4、/proc等路径，15种FdEntry统一管理",
+    "基于Rc<RefCell<>>的COW地址空间设计，高效支持fork/clone共享",
+    "直接实现静态PIE重定位，无需动态链接器即可加载位置无关可执行文件"
+  ]
+}

@@ -1,0 +1,3 @@
+ScintillaOS 是一个以 rCore 教学内核为基础、向实用化方向大幅扩展的 RISC-V 操作系统内核。项目使用 Rust 语言编写，运行于 S-mode，通过 OpenSBI 引导，并保留对 LoongArch、AArch64 等架构的支持。
+
+内核实现了约 110 个 Linux ABI 系统调用，覆盖文件、进程、内存、信号、网络和 IPC 等核心类别，可运行为 musl libc 编译的 busybox、iperf3 及 LTP 测试用例。内存管理支持 SV39 页表、mmap/munmap/mprotect、写时复制和按需分页；进程管理具备 fork/clone/exec/线程组及完整的 POSIX 信号处理机制。文件系统子系统的突出亮点是精细的 VFS 层，基于双路径 Dentry 缓存和挂载点感知的路径解析，实现了多文件系统挂载与进程级根目录/工作目录支持，并通过 lwext4 C 库的 Rust FFI 绑定提供 ext4 读写能力，辅以 procfs、管道和标准输入输出。网络栈基于 smoltcp 和 VirtIO 网卡，提供了完整的 TCP/UDP 套接字 API、DHCP 自动配置和本地回环通信，并实现了 System V 共享内存。项目工程化水平较高，依赖离线审计、内置详尽的调试基础设施，并针对多个外部测试集进行了适配，展示了从教学内核向实用系统扎实演进的成果。

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "华中科技大学-RustTrustHuster-T202410487992457-1800",
+    "name": "TrustOS",
+    "select_reason": "同基于rCore，均通过lwext4封装ext4，实现百余POSIX系统调用、信号帧、futex与共享内存，功能重叠度高但仅支持riscv64，可对比双架构扩展与信号嵌套等细节差异。"
+  },
+  {
+    "id": "南开大学-如有名字队-nonix",
+    "name": "Nonix OS",
+    "select_reason": "同基于rCore并支持riscv64/loongarch64双架构，使用lwext4实现ext4，但系统调用仅73个，可比较双架构硬件抽象层设计与系统调用扩展策略。"
+  },
+  {
+    "id": "中山大学-KernalCraft-T202510558995240-2536",
+    "name": "Explosion OS",
+    "select_reason": "同基于rCore且支持双架构，但从零自研ext4文件系统与轻量网络栈，而非封装C库，可对比文件系统实现路径与网络子系统设计差异。"
+  },
+  {
+    "id": "武汉大学-智核速启队-T202510486995194-334",
+    "name": "SC7",
+    "select_reason": "基于XV6的C语言宏内核，同样支持riscv64与loongarch64、实现ext4、信号、futex、共享内存等，基座与语言不同，可对比不同生态下实现相似Linux兼容性的架构差异。"
+  },
+  {
+    "id": "燕山大学-模仿游戏-T202510216995249-4014",
+    "name": "starry-next",
+    "select_reason": "基于ArceOS组件化框架的Unikernel宏内核，支持四架构，利用独立页表信号跳板、共享内存与futex且代码量较小，可对比组件化与整体式rCore在双架构支持上的设计取舍。"
+  }
+]

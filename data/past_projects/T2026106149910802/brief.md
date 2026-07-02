@@ -1,0 +1,3 @@
+UESTC OS Kernel 2026 是一个基于 Rust 语言开发的双架构宏内核，以 RISC-V 64 和 LoongArch 64 为主力架构，同时向 x86_64 和 AArch64 进行部分移植。项目在 RustOsWhu 上游基础上进行大量二次开发，实现了完整的进程管理、分层的虚拟文件系统、丰富的内存管理策略以及独立的 TCP/IP 网络协议栈，整体代码约 40,500 行。
+
+核心特点包括：基于 crate_interface 宏实现架构无关的零开销抽象解耦；支持 33 种 POSIX 信号及信号队列、sigaction、Futex 等现代 Linux 程序所需的进程间通信机制；内存管理提供伙伴堆分配器、栈式页帧分配器、写时复制（COW）、懒分配与共享内存，覆盖 mmap、mprotect、mremap 等典型系统调用；VFS 层通过 Dentry/Inode/File/SuperBlock 四层抽象同时挂载 ext4、devfs、procfs 和 tmpfs，ext4 实现采用独立的 ext4_rs 引擎与 VFS 适配层分离的双层结构；已实现 130 余个系统调用，涵盖进程、内存、文件、信号、定时器、epoll、eventfd、signalfd 等关键接口。网络部分内建 ARP、TCP、UDP 协议栈，具备完整的连接状态机与序列号管理，是目前面向 RISC-V 与 LoongArch 双架构领域较为完整的教学与实验型内核实现。

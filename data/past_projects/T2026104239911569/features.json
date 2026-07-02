@@ -1,0 +1,17 @@
+{
+  "name": "RmikuOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "创新的自适应alpha调度器，纯整数算法实现连续可调的调度策略空间",
+    "双架构VirtIO传输抽象，同时支持MMIO和PCI块设备驱动",
+    "完整的VFS框架，支持ext4、tmpfs、FAT三种文件系统统一挂载",
+    "进程-线程两级模型与40个系统调用，涵盖fork/exec/mmap/管道等",
+    "丰富的用户态测试与调度实验框架，含55+测试程序及分析脚本"
+  ]
+}

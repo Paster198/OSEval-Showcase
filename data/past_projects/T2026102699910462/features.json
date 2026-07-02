@@ -1,0 +1,17 @@
+{
+  "name": "SudoOS-Plus",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "跨RISC-V和LoongArch双架构共用内核核心逻辑",
+    "编译期锁排序与运行时lockdep双重死锁防护",
+    "内核内嵌用户态汇编测试实现零依赖自动化验证",
+    "RetirementBatch保障TLB刷新与页面释放无竞态",
+    "Buddy/Slab/Heap三级分配器构建完整物理内存管理"
+  ]
+}

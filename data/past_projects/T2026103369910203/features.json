@@ -1,0 +1,17 @@
+{
+  "name": "NighthawkOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "全异步内核架构，系统调用与I/O异步化，自研工作窃取调度器",
+    "深度Linux ABI兼容，实现110+系统调用及procfs/devfs/sysfs",
+    "双架构抽象层，同时支持RISC-V和LoongArch，可移植性强",
+    "VFS层设计完善，支持ext4/FAT32/tmpfs，集成epoll/io_uring等高级I/O",
+    "完善的信号系统与异步任务模型融合，支持实时信号与sigreturn机制"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "RyOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "纯Rust自研ext4文件系统，含extent树、WAL日志和HTree目录索引",
+    "自研完整TCP/IP协议栈，实现11状态机、拥塞控制及零窗口探测",
+    "多核work-stealing调度器结合vruntime加权公平与实时优先级",
+    "RISC-V与LoongArch双架构HAL抽象，内核核心零架构条件编译",
+    "飞行记录仪、心跳观测、lockdep死锁检测和pstore崩溃持久化诊断体系"
+  ]
+}

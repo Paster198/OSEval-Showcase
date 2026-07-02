@@ -1,0 +1,17 @@
+{
+  "name": "F7LY",
+  "kernel_type": "monolithic",
+  "ecosystem": "无",
+  "language": "C++",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "双架构C++23宏内核共享70%+通用代码",
+    "自研Maple Tree风格VMA索引实现O(logN)查找",
+    "移植lwext4支持ext4日志/extent/HTree特性",
+    "集成Open-NPStack协议栈实现BSD Socket兼容",
+    "支持260+系统调用及signal/futex/termios等"
+  ]
+}

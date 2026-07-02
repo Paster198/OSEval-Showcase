@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "aarch64",
+    "x86_64"
+  ],
+  "highlights": [
+    "将 ArceOS unikernel 改造为 Linux 兼容宏内核，实现组件化构建与完整 ABI 支持",
+    "基于 enum_dispatch 的零开销多态内存映射后端，支持 CoW/共享/文件映射",
+    "统一的 FileLike trait 抽象，让文件、套接字、管道、epoll 等统一管理",
+    "完整的 epoll 实现，支持边缘触发、水平触发和 oneshot 语义",
+    "利用 scope_local 实现按 CLONE_FILES 灵活共享的线程局部文件描述符表"
+  ]
+}

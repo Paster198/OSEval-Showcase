@@ -1,0 +1,19 @@
+{
+  "name": "UESTC OS Kernel 2026",
+  "kernel_type": "monolithic",
+  "ecosystem": "RustOsWhu",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于crate_interface的arch-os零开销解耦机制，实现架构可移植",
+    "完整POSIX信号子系统，支持33种信号、队列、掩码与sigreturn蹦床",
+    "ext4引擎与VFS适配层分离的双层架构，便于文件系统升级维护",
+    "实现130+系统调用，覆盖进程、内存、文件、信号与网络等主要接口",
+    "同时支持RISC-V 64、LoongArch 64等四架构的统一硬件抽象层"
+  ]
+}

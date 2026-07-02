@@ -1,0 +1,19 @@
+{
+  "name": "StarryOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64",
+    "x86_64",
+    "aarch64"
+  ],
+  "highlights": [
+    "基于ArceOS unikernel基础设施构建完整Linux ABI兼容层，实现unikernel向上生长为通用OS的创新架构",
+    "实现364个Linux系统调用，覆盖进程、内存、文件、网络、IPC、信号、定时器等几乎所有主要子系统",
+    "支持5种Linux命名空间、19种特殊文件类型及完整进程生命周期，Linux兼容完整度极高",
+    "系统调用快速路径优化与enum_dispatch多态后端设计，针对lmbench和cyclictest进行精细性能调优",
+    "同时深度支持RISC-V64和LoongArch64两种架构，具备完善的Docker构建环境和LTP回归测试体系"
+  ]
+}

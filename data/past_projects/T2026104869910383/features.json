@@ -1,0 +1,17 @@
+{
+  "name": "XJC-OS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "基于ArceOS组件化框架构建完整宏内核，实现268个系统调用",
+    "专用编译型LTP Runner解决测试嵌套退出问题，提升评分准确性",
+    "支持RISC-V64与LoongArch64双架构，独立配置文件实现并行构建",
+    "实现Futex、epoll、信号、SysV IPC等Linux核心子系统",
+    "用户态内存安全访问框架，结合缺页处理实现按需分页"
+  ]
+}

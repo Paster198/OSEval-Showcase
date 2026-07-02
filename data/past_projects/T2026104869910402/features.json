@@ -1,0 +1,17 @@
+{
+  "name": "StellaOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "rCore",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "两阶段缺页处理：锁内判类型、锁外加载文件页，避免RefCell重入与锁内I/O阻塞",
+    "深度ext4文件系统支持：完整读写、页缓存、dentry cache、COW fork及多文件系统并存",
+    "RISC-V64与LoongArch64双架构覆盖：基于polyhal跨架构硬件抽象层实现统一内核",
+    "完整POSIX信号子系统：支持64信号、实时信号队列、sigaltstack及进程级共享pending",
+    "精密的futex同步机制：WAIT/WAKE/REQUEUE/CMP_REQUEUE全实现，关中断原子窗口防信号丢失"
+  ]
+}

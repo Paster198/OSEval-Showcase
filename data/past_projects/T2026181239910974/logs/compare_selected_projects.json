@@ -1,0 +1,27 @@
+[
+  {
+    "id": "西北工业大学-NPUcore-BLOSSOM-oskernel2025-npucore-blossom",
+    "name": "NPUcore-BLOSSOM",
+    "select_reason": "两者均为Rust无基座宏内核，同时支持riscv64与loongarch64双架构并实现ext4与FAT32双文件系统，技术栈高度相似，适合横向对比内存管理与文件系统实现细节。"
+  },
+  {
+    "id": "同济大学-sudo_pacman_Syu-T202510247995532-2817",
+    "name": "Eonix",
+    "select_reason": "同为Rust多架构宏内核，Eonix采用全异步调度与RCU无锁设计，与Somber的同步FIFO模型形成鲜明对比，可深入分析不同并发模型对性能与复杂度的影响。"
+  },
+  {
+    "id": "海南大学-狗剩-T202510589995148-2209",
+    "name": "StarryOS",
+    "select_reason": "StarryOS基于ArceOS组件化框架构建多架构宏内核，对比Somber的无基座独立实现，可探讨框架复用、模块化开发对内核工程效率与可移植性的影响。"
+  },
+  {
+    "id": "上海交通大学-ChCore-T202410248992613-106",
+    "name": "ChCore",
+    "select_reason": "ChCore采用微内核与能力模型，与Somber宏内核架构截然不同，适合从内核结构层面对比系统调用兼容性、资源隔离与IPC设计理念。"
+  },
+  {
+    "id": "吉林大学-reXvapor-T202510183995907-273",
+    "name": "Re-XVapor",
+    "select_reason": "Re-XVapor基于xv6的C实现，同样支持riscv64与loongarch64并集成ext4，与Somber的Rust无基座方案形成语言与生态对比，可分析安全性和开发效率差异。"
+  }
+]

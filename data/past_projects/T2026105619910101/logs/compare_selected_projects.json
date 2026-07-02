@@ -1,0 +1,27 @@
+[
+  {
+    "id": "海南大学-狗剩-T202510589995148-2209",
+    "name": "StarryOS",
+    "select_reason": "同名项目，同样基于ArceOS生态构建多架构宏内核，均实现COW、SystemV IPC、信号处理与VFS。直接比较可分析系统调用覆盖深度、分片Futex表等优化差异，揭示同生态下技术路线的分化与创新点。"
+  },
+  {
+    "id": "南开大学-萌新-T202410055992606-3389",
+    "name": "OSKernel2024-KeepOnOS",
+    "select_reason": "同为ArceOS基座的宏内核，支持多架构与百余系统调用，强调模块化与内存安全。对比可考察StarryOS在信号、特殊fd、TTY等子系统的扩展深度，以及架构抽象层级差异。"
+  },
+  {
+    "id": "燕山大学-模仿游戏-T202510216995249-4014",
+    "name": "starry-next",
+    "select_reason": "同样基于ArceOS组件化框架，以Unikernel方式运行宏内核，实现命名空间与信号跳板。比较可突出StarryOS对伪文件系统、终端子系统、IPC实现的丰富度，以及进程隔离策略差异。"
+  },
+  {
+    "id": "杭州电子科技大学-StarryX-T202510336995486-3037",
+    "name": "StarryX",
+    "select_reason": "同为ArceOS宏内核，三层分离架构与SystemV IPC、LRU页缓存是共性。通过对比可评估StarryOS在CoW实现、特殊文件描述符（epoll/timerfd/signalfd）等方面的相对完备性。"
+  },
+  {
+    "id": "清华大学-undefined-T202510003995291-2331",
+    "name": "Undefined-OS",
+    "select_reason": "同为ArceOS多架构宏内核，均实现了进程组/会话管理与伪文件系统。比较可在系统调用追踪、伪fs框架灵活性方面提供对照，检验StarryOS的FileLike抽象与伪fs扩展能力。"
+  }
+]

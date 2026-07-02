@@ -1,0 +1,19 @@
+{
+  "name": "OurKernel2026",
+  "kernel_type": "monolithic",
+  "ecosystem": "ArceOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "x86_64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "三层 API 架构与类型安全 UserPtr 防止非法用户内存访问",
+    "零外部依赖的进程层级纯数据模型，支持完全 POSIX 进程层级",
+    "声明式 DynamicDirBuilder 快速构建 devfs/procfs 等伪文件系统",
+    "完整 POSIX 信号处理：实时信号、备用栈、trampoline 返回",
+    "多架构（RISC-V/x86/AArch64/LoongArch）与 proc-macro 自动系统调用追踪"
+  ]
+}

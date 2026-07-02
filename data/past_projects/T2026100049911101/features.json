@@ -1,0 +1,19 @@
+{
+  "name": "NCAIOS",
+  "kernel_type": "monolithic",
+  "ecosystem": "ByteOS",
+  "language": "Rust",
+  "architectures": [
+    "riscv64",
+    "x86_64",
+    "aarch64",
+    "loongarch64"
+  ],
+  "highlights": [
+    "全异步内核架构：基于 Rust async/await 实现非阻塞系统调用，文件 I/O 与网络等阻塞操作通过 Future 返回 Pending 并重新入队",
+    "linkme 编译期驱动自动注册：驱动通过分布式切片在编译期注入全局列表，添加新驱动仅需在 Cargo.toml 增加依赖",
+    "FDT 设备树自动匹配：基于 Flattened Device Tree 的 compatible 属性自动发现并加载对应设备驱动",
+    "COW fork 的 Arc 引用计数设计：利用 Arc<FrameTracker> 共享物理页，页错误时通过 strong_count 判断是否需要复制，实现简洁",
+    "双 ext4 后端策略：同时提供纯 Rust 库和 C 绑定两套 ext4 实现，通过编译期 cfg 按需切换"
+  ]
+}

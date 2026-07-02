@@ -1,0 +1,29 @@
+```json
+[
+  {
+    "id": 53,
+    "name": "starry-next",
+    "select_reason": "与当前StarryOS亮点几乎一致（Unikernel部署、AxNamespace、独立页表信号跳板），推测为同系列或前序版本，适合直接对比演进与实现细节差异。"
+  },
+  {
+    "id": 69,
+    "name": "StarryOS",
+    "select_reason": "同名同生态的ArceOS宏内核，由不同团队实现，具有独特的分片Futex表设计，可比较独立开发思路下的架构异同。"
+  },
+  {
+    "id": 57,
+    "name": "StarryX",
+    "select_reason": "同为ArceOS宏内核，强调清晰的三层分离与模块复用，集成LRU页缓存与VMA按需加载，适合对比模块化设计与内存管理策略。"
+  },
+  {
+    "id": 43,
+    "name": "Undefined-OS",
+    "select_reason": "同样基于ArceOS支持四架构，具有完整的进程组/会话模型和动态构建伪文件系统框架，可对比进程层次与伪FS实现。"
+  },
+  {
+    "id": 5,
+    "name": "OSKernel2024-KeepOnOS",
+    "select_reason": "最早基于ArceOS的宏内核尝试，作为基线对比，可展现从早期到当前在系统调用覆盖度、架构演进方面的进步。"
+  }
+]
+```
